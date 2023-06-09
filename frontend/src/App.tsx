@@ -1,5 +1,4 @@
-import Subpage from "./pages/Subpage";
-
+import Subpage from './pages/Subpage.tsx';
 
 function App() {
   return (

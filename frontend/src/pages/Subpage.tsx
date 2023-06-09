@@ -1,8 +1,8 @@
-import ActionBar from '../components/ActionBar';
-import BoardView from '../components/BoardView/BoardView';
+import ActionBar from '../components/ActionBar.tsx';
+import BoardView from '../components/BoardView/BoardView.tsx';
 
 function Subpage() {
-    return (
+  return (
       <div className='subpage'>
         <div className="subpage__header">
           {/* TODO */}
@@ -17,7 +17,7 @@ function Subpage() {
             Bullet list view
             Check list view
          */}
-        
+
         <div className="subpage__last-edit">
             <p>Last edited x hours ago by @user</p>
         </div>
@@ -29,8 +29,7 @@ function Subpage() {
         </div>
 
       </div>
-    );
-  }
-  
-  export default Subpage;
-  
+  );
+}
+
+export default Subpage;
