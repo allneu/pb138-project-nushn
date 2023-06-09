@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 img {
-    width: 24px;
-    height: 24px;
+    @apply w-6 h-6;
+}
+
+h1 {
+    @apply font-bold text-base text-lg;
+}
+
+h2 {
+    @apply font-bold text-base;
+}
+
+h3 {
+    @apply font-semibold text-base;
 }
