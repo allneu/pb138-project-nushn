@@ -1,0 +1,22 @@
+image: node:latest
+
+stages:
+  - linting
+
+lint-test-job-FE:
+  stage: linting
+  tags:
+    - shared-fi 
+  script:
+    - cd frontend
+    - npm ci --cache /npm/npm-cache --no-audit --prefer-offline
+    - npx eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx src/**
+
+lint-test-job-BE:
+  stage: linting
+  tags:
+    - shared-fi 
+  script:
+    - cd backend
+    - npm ci --cache /npm/npm-cache --no-audit --prefer-offline
+    - npx eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx src/**
