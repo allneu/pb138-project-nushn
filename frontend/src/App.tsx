@@ -1,6 +1,10 @@
+import Subpage from "./pages/Subpage";
+
+
 function App() {
   return (
     <>
+      <Subpage />
     </>
   );
 }
