@@ -31,6 +31,7 @@ entity Label {
     ---
     * subpageId: <<FK>>
     * name: string
+    * order_in_subpage: <<FK>>
     deletedAt: timestamp
     * createdAt: timestamp
 }
@@ -83,21 +84,21 @@ entity SubpageEdit {
     * originalContent: string
 }
 
-entity Comment {
-    * id: <<uuid>>
-    ---
-    * taskId: <<FK>>
-    * commenterId: <<FK>>
-    * createdAt: timestamp
-    deletedAt: timestamp
-    editedAt: timestamp   
-}
+' Can add comments later
+' 
+' entity Comment {
+'     * id: <<uuid>>
+'     ---
+'     * taskId: <<FK>>
+'     * commenterId: <<FK>>
+'     * createdAt: timestamp
+'     deletedAt: timestamp
+'     editedAt: timestamp   
+' }
 
 User }|..o{ Task : has
 Subpage ||..o{ Label : has
 Label ||..o{ Task : has
-Task ||..o{ Comment : has
-User ||..o{ Comment : comments
 Task ||..o{ TaskEdit
 User ||..o{ TaskEdit
 
