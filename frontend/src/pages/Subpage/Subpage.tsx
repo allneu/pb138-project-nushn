@@ -1,26 +1,40 @@
+import { useState } from 'react';
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
+import ListView from '../../components/ListView/ListView.tsx';
 
 import './Subpage.css';
 
 function Subpage() {
+  // Initial view is 'checklist', other options are 'board' and 'bulletlist'
+  const [view, setView] = useState('checklist');
+
+  const handleViewChange = (newView: string) => {
+    setView(newView);
+  };
+
+  let viewComponent;
+
+  if (view === 'board') {
+    viewComponent = <BoardView />;
+  } else if (view === 'bulletlist') {
+    viewComponent = <ListView type="bullet" />;
+  } else if (view === 'checklist') {
+    viewComponent = <ListView type="check" />;
+  } else {
+    viewComponent = <></>;
+  }
+
   return (
       <div className='subpage'>
         <div className="subpage__header">
-          {/* TODO - change to the subpage image */}
-            <img src="../../assets/icons/done.svg" alt="Subpage image"/>
+            <img src="../../assets/icons/check-todo.svg" alt="Subpage image"/>
             <h1>Subpage #1</h1>
         </div>
 
-        <ActionBar />
+        <ActionBar onViewChange={handleViewChange}/>
 
-        <div className="subpage__tasks-view">
-          <BoardView/>
-          {/*
-              Bullet list view
-              Check list view
-          */}
-        </div>
+        <div className="subpage__tasks-view">{viewComponent}</div>
 
         <div className='subpage__footer'>
           <div className="footer__last-edit">

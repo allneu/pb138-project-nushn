@@ -1,14 +1,24 @@
 import { useState } from 'react';
+import { LabelType, TaskType } from '../../models';
+
 import Task from '../Task/Task.tsx';
+import NewTask from '../Task/NewTask.tsx';
+
 import './BoardView.css';
 
-function LabelTasks() {
+type LabelTasksProps = {
+  label: LabelType;
+};
+
+function LabelTasks({ label } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
+  const todoIcon = '../../../public/assets/icons/check-todo.svg';
+  const doneIcon = '../../../public/assets/icons/check-done.svg';
 
   return (
       <div className='label-tasks'>
         <div className="label">
-            <h2 className="label__name">label</h2>
+            <h2 className="label__name">{label.name}</h2>
             <div className="label__line"/>
 
             { showTasks
@@ -23,13 +33,12 @@ function LabelTasks() {
 
         <div>
           { showTasks
-            ? <>
-                <Task name='This is the Task #1' done={false} />
-                <Task name='This is the Task #2' done={true} />
-                <Task name='Add new Task'/>
-              </>
+            ? label.tasks.map((task: TaskType) => (
+                    <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
+            ))
             : <></>
           }
+          <NewTask />
         </div>
       </div>
   );

@@ -1,18 +1,10 @@
 @media (max-width: 640px) {
     .task {
-        @apply flex flex-row items-start py-2 px-6 gap-3;
+        @apply flex flex-row items-start py-3 px-6 gap-4;
     }
 
-    .task__icon.done {
-            @apply flex-none border border-gray-500 rounded;
-    }
-
-    .task__icon.todo {
-        @apply flex-none h-6 w-6 border border-black rounded;
-    }
-
-    .task__icon.new {
-        @apply flex-none;
+    .task__icon {
+        @apply flex-none rounded;
     }
 
     .task__name.done {
@@ -26,6 +18,4 @@
     .task__name.new {
         @apply flex-grow text-gray-500;
     }
-
-
 }

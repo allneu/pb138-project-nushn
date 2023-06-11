@@ -1,26 +1,17 @@
+import { TaskType } from '../../models';
 import './Task.css';
 
 type TaskProps = {
-  name: string;
-  done?: boolean;
+  task: TaskType;
+  todoIcon: string;
+  doneIcon: string;
 };
 
-function Task({ name, done }: TaskProps) {
-  let taskIcon;
-  let taskStyle;
-
-  if (done) {
-    taskIcon = (<img className="task__icon done" src="../../assets/icons/done.svg" alt="Checklist task icon" />);
-    taskStyle = 'task__name done';
-  } else {
-    taskIcon = (<div className="task__icon todo"></div>);
-    taskStyle = 'task__name todo';
-  }
-
+function Task({ task, todoIcon, doneIcon } : TaskProps) {
   return (
       <div className="task">
-        {taskIcon}
-        <h3 className={taskStyle}>{name}</h3>
+        <img className="task__icon" src={task.status ? doneIcon : todoIcon} alt="Task icon" />
+        <h3 className={task.status ? 'task__name done' : 'task__name todo'}>{task.name}</h3>
         <img className="flex-none" src="../../assets/icons/edit.svg" alt="Edit task icon"/>
       </div>
   );
