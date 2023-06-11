@@ -14,7 +14,7 @@ function Subpage() {
 
         <ActionBar />
 
-        <div className="subpage__task-view">
+        <div className="subpage__tasks-view">
           <BoardView/>
           {/*
               Bullet list view
