@@ -3,34 +3,23 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.user.create({
-    data: {
-      name: 'Poun',
-      email: 'poni@yakut.io',
-      posts: {
-        create: { title: 'this World' },
-      },
-      profile: {
-        create: { bio: 'I ate turtles' },
-      },
-    },
-  });
-
-  const allUsers = await prisma.user.findMany({
-    include: {
-      posts: true,
-      profile: true,
-    },
-  });
-  console.dir(allUsers, { depth: null });
+  // await prisma.user.create({
+  //   data: {
+  //     userName: 'Jakub',
+  //     email: 'aa@bobis.com',
+  //     hashedPassword: 'dasd',
+  //     salt: 'dasd',
+  //     editedAt: 's',
+  //     avatar: 's',
+  //   },
+  // });
 }
 
 main()
   .then(async () => {
     await prisma.$disconnect();
   })
-  .catch(async (e) => {
-    console.error(e);
+  .catch(async () => {
     await prisma.$disconnect();
     process.exit(1);
   });
