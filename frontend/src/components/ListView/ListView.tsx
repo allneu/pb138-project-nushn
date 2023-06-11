@@ -1,6 +1,8 @@
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
 
+import './ListView.css';
+
 // TODO - GET tasks from backend
 import tasks from '../../../public/tasks.json';
 

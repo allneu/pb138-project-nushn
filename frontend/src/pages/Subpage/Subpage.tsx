@@ -5,7 +5,11 @@ import ListView from '../../components/ListView/ListView.tsx';
 
 import './Subpage.css';
 
-function Subpage() {
+type SubpageProps = {
+  toggleMenu: () => void;
+};
+
+function Subpage({ toggleMenu }: SubpageProps) {
   // Initial view is 'checklist', other options are 'board' and 'bulletlist'
   const [view, setView] = useState('checklist');
 
@@ -42,7 +46,7 @@ function Subpage() {
           </div>
 
           <div className="footer__nav-icons">
-              <img src="../../assets/icons/menu.svg" alt="Subpage menu icon"/>
+              <img src="../../assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
               <img src="../../assets/icons/add.svg" alt="Add new task icon"/>
               <img src="./../assets/icons/account.svg" alt="User account icon"/>
           </div>

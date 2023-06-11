@@ -7,13 +7,13 @@ img {
 }
 
 h1 {
-    @apply font-bold text-base text-lg;
+    @apply font-bold text-base text-lg self-center;
 }
 
 h2 {
-    @apply font-bold text-base;
+    @apply font-bold text-base self-center;
 }
 
 h3 {
-    @apply font-semibold text-base;
+    @apply font-semibold text-base self-center;
 }
