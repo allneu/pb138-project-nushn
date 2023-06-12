@@ -3,6 +3,8 @@ import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
 import { functionalityNotImplemented } from '../common/notimplemented';
 
+// result code should be 201
+
 // validation schema
 const passwordSchema = z.string().refine((password) => {
   const hasLowerCase = /[a-z]/.test(password);
@@ -20,9 +22,14 @@ const bodySchema = z.object({
 }).strict();
 
 // res.body type
+export interface ResultBody {
+  id: string,
+  username: string,
+  email: string,
+}
 
 // function
-const create = async (req: Request, res: Response) => {
+export const create = async (req: Request, res: Response) => {
   try {
     bodySchema.parse(req.body);
     return await functionalityNotImplemented(req, res);
@@ -30,5 +37,3 @@ const create = async (req: Request, res: Response) => {
     return handleErrors(e, res);
   }
 };
-
-export default create;
