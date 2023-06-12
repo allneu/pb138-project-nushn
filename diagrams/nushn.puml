@@ -59,29 +59,28 @@ entity Task {
     deletedAt: timestamp
 }
 
-entity TaskEdit {
-    * id: <<uuid>>
-    ---
-    * editorId: <<FK>>
-    * taskId: <<FK>>
-    editedAt: timestamp
-    * originalContent: string
-}
-entity LabelEdit {
-    * id: <<uuid>>
-    ---
-    * editorId: <<FK>>
-    * labelId: <<FK>>
-    editedAt: timestamp
-    * originalContent: string
-}
+' entity TaskEdit {
+'     * id: <<uuid>>
+'     ---
+'     * editorId: <<FK>>
+'     * taskId: <<FK>>
+'     editedAt: timestamp
+'     * originalContent: string
+' }
+' entity LabelEdit {
+'     * id: <<uuid>>
+'     ---
+'     * editorId: <<FK>>
+'     * labelId: <<FK>>
+'     editedAt: timestamp
+'     * originalContent: string
+' }
 entity SubpageEdit {
     * id: <<uuid>>
     ---
     * editorId: <<FK>>
     * subpageId: <<FK>>
     editedAt: timestamp
-    * originalContent: string
 }
 
 ' Can add comments later
@@ -99,11 +98,6 @@ entity SubpageEdit {
 User }|..o{ Task : has
 Subpage ||..o{ Label : has
 Label ||..o{ Task : has
-Task ||..o{ TaskEdit
-User ||..o{ TaskEdit
-
-Label ||..o{ LabelEdit
-User ||..o{ LabelEdit
 
 Subpage ||..o{ SubpageEdit
 User ||..o{ SubpageEdit
