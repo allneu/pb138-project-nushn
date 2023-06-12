@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import CommonController from '../controllers/common';
+import UserController from '../controllers/user';
 
 const userRouter = Router();
 
@@ -18,7 +19,7 @@ userRouter.get(userRouteSpecific, CommonController.endpointNotImplemented);
 
 // Create User
 // POST /user
-userRouter.post(userRouteGeneric, CommonController.endpointNotImplemented);
+userRouter.post(userRouteGeneric, UserController.create);
 
 // Update User
 // PATCH /user/{userId}
