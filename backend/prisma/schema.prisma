@@ -22,8 +22,6 @@ model User {
   avatar         String
   roles          Role[]
   subPageEdits   SubPageEdit[]
-  labelEdits     LabelEdit[]
-  taskEdits      TaskEdit[]
   tasks          Task[]
 }
 
@@ -49,39 +47,27 @@ model SubPage {
 }
 
 model SubPageEdit {
-  id              String   @id @default(uuid())
-  editor          User     @relation(fields: [editorId], references: [id])
-  editorId        String
-  editedAt        DateTime
-  originalContent String
-  subPage         SubPage  @relation(fields: [subPageId], references: [id])
-  subPageId       String
+  id        String   @id @default(uuid())
+  editor    User     @relation(fields: [editorId], references: [id])
+  editorId  String
+  editedAt  DateTime
+  subPage   SubPage  @relation(fields: [subPageId], references: [id])
+  subPageId String
 }
 
 model Label {
-  id               String      @id @default(uuid())
+  id               String    @id @default(uuid())
   name             String
   order_in_subpage Int
-  createdAt        DateTime    @default(now())
+  createdAt        DateTime  @default(now())
   deletedAt        DateTime?
   subPageId        String
-  subPage          SubPage     @relation(fields: [subPageId], references: [id])
+  subPage          SubPage   @relation(fields: [subPageId], references: [id])
   tasks            Task[]
-  labelEdits       LabelEdit[]
-}
-
-model LabelEdit {
-  id              String   @id @default(uuid())
-  editor          User     @relation(fields: [editorId], references: [id])
-  editorId        String
-  editedAt        DateTime
-  originalContent String
-  label           Label    @relation(fields: [labelId], references: [id])
-  labelId         String
 }
 
 model Task {
-  id             String     @id @default(uuid())
+  id             String    @id @default(uuid())
   taskName       String
   status         Boolean
   dueDate        DateTime
@@ -91,20 +77,9 @@ model Task {
   createdAt      DateTime
   deletedAt      DateTime?
   creatorId      String
-  creator        User       @relation(fields: [creatorId], references: [id])
-  label          Label?     @relation(fields: [labelId], references: [id])
+  creator        User      @relation(fields: [creatorId], references: [id])
+  label          Label?    @relation(fields: [labelId], references: [id])
   labelId        String?
-  taskEdits      TaskEdit[]
-}
-
-model TaskEdit {
-  id              String   @id @default(uuid())
-  editor          User     @relation(fields: [editorId], references: [id])
-  editorId        String
-  editedAt        DateTime
-  originalContent String
-  Task            Task?    @relation(fields: [taskId], references: [id])
-  taskId          String?
 }
 
 enum RoleType {

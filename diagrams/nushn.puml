@@ -59,22 +59,6 @@ entity Task {
     deletedAt: timestamp
 }
 
-' entity TaskEdit {
-'     * id: <<uuid>>
-'     ---
-'     * editorId: <<FK>>
-'     * taskId: <<FK>>
-'     editedAt: timestamp
-'     * originalContent: string
-' }
-' entity LabelEdit {
-'     * id: <<uuid>>
-'     ---
-'     * editorId: <<FK>>
-'     * labelId: <<FK>>
-'     editedAt: timestamp
-'     * originalContent: string
-' }
 entity SubpageEdit {
     * id: <<uuid>>
     ---
