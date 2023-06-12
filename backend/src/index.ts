@@ -32,6 +32,7 @@ app.use((_req, res) => {
 });
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(
     `[${new Date().toISOString()}] RESTful API for Nush is listening on port ${port}`,
   );
