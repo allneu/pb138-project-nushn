@@ -1,6 +1,15 @@
 @media (max-width: 640px) {
     .menu {
-        @apply fixed flex flex-col w-screen h-screen bg-white;
+        @apply fixed flex flex-col w-screen h-screen bg-white duration-500;
+        @apply top-0
+    }
+
+    .show {
+        @apply left-0;
+    }
+
+    .hide {
+        @apply -left-full;
     }
 
     .menu__header {

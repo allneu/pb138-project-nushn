@@ -14,7 +14,7 @@ type MenuProps = {
 function Menu({ isOpen, toggleMenu }: MenuProps) {
   const { subpageId } = useParams();
   return (
-        <div className={`menu ${isOpen ? '' : 'hidden'}`}>
+        <div className={`menu ${isOpen ? 'show' : 'hide'}`}>
             <div className="menu__header">
                 <img src="/assets/icons/nushn-logo.png" alt="Nushn logo"/>
                 <h1>Nushn</h1>
