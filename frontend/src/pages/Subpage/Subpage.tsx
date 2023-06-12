@@ -1,15 +1,28 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
 
 import './Subpage.css';
 
-type SubpageProps = {
-  toggleMenu: () => void;
-};
+// TODO - load the subpage from backend by its ID
+import subpages from '../../../public/subpages.json';
+import Menu from '../../components/Menu/Menu.tsx';
 
-function Subpage({ toggleMenu }: SubpageProps) {
+function Subpage() {
+  const { subpageId } = useParams();
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // TODO - load the subpage from backend by its ID
+  const subpage = subpages.find((page) => page.id === subpageId);
+
   // Initial view is 'checklist', other options are 'board' and 'bulletlist'
   const [view, setView] = useState('checklist');
 
@@ -31,9 +44,10 @@ function Subpage({ toggleMenu }: SubpageProps) {
 
   return (
       <div className='subpage'>
+        <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <div className="subpage__header">
-            <img src="../../assets/icons/check-todo.svg" alt="Subpage image"/>
-            <h1>Subpage #1</h1>
+            <img src={subpage?.icon} alt="Subpage image"/>
+            <h1>{subpage?.name}</h1>
         </div>
 
         <ActionBar onViewChange={handleViewChange}/>
@@ -46,9 +60,9 @@ function Subpage({ toggleMenu }: SubpageProps) {
           </div>
 
           <div className="footer__nav-icons">
-              <img src="../../assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
-              <img src="../../assets/icons/add.svg" alt="Add new task icon"/>
-              <img src="./../assets/icons/account.svg" alt="User account icon"/>
+              <img src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
+              <img src="/assets/icons/add.svg" alt="Add new task icon"/>
+              <img src="/assets/icons/account.svg" alt="User account icon"/>
           </div>
         </div>
 

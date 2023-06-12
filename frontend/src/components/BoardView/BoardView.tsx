@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import LabelTasks from './LabelTasks.tsx';
 import './BoardView.css';
 
@@ -5,6 +6,8 @@ import './BoardView.css';
 import labels from '../../../public/labeledTasks.json';
 
 function BoardView() {
+  // Get the subpage ID from the URL and load the labels from backend including tasks in label order
+  // const { subpageId } = useParams();
   return (
       <>
         {labels.map((label) => (

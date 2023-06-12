@@ -38,7 +38,7 @@ function LabelTasks({ label } : LabelTasksProps) {
             ))
             : <></>
           }
-          <NewTask />
+          { showTasks ? <NewTask /> : <></>}
         </div>
       </div>
   );

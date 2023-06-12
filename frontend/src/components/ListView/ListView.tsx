@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
 
@@ -7,6 +8,9 @@ import './ListView.css';
 import tasks from '../../../public/tasks.json';
 
 function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
+  // TODO - Get the subpage ID from the URL and load the tasks from backend in the subpage order
+  // const { subpageId } = useParams();
+
   let todoIcon : string;
   let doneIcon : string;
 
