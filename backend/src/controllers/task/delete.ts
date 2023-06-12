@@ -7,14 +7,15 @@ import { functionalityNotImplemented } from '../common/notimplemented';
 
 // validation schema
 const paramsSchema = z.object({
-  userId: z.string().uuid(),
+  taskId: z.string().uuid(),
+  pageId: z.string().uuid(),
 }).strict();
 
 // res.body type
 // {}
 
 // function
-const deleteUser = async (req: Request, res: Response) => {
+const deleteTask = async (req: Request, res: Response) => {
   try {
     paramsSchema.parse(req.params);
     return await functionalityNotImplemented(req, res);
@@ -23,4 +24,4 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export default deleteUser;
+export default deleteTask;

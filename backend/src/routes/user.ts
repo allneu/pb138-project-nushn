@@ -11,11 +11,11 @@ const userRouteSpecific = `${userRouteGeneric}/:userId`;
 
 // Get all Users
 // GET /user
-userRouter.get(userRouteGeneric, CommonController.endpointNotImplemented);
+userRouter.get(userRouteGeneric, UserController.getOne);
 
 // Get User
 // GET /user/{userId}
-userRouter.get(userRouteSpecific, CommonController.endpointNotImplemented);
+userRouter.get(userRouteSpecific, UserController.getMultiple);
 
 // Create User
 // POST /user
@@ -23,11 +23,11 @@ userRouter.post(userRouteGeneric, UserController.create);
 
 // Update User
 // PATCH /user/{userId}
-userRouter.patch(userRouteSpecific, CommonController.endpointNotImplemented);
+userRouter.patch(userRouteSpecific, UserController.update);
 
 // Delete User
 // DELETE /user/{userId}
-userRouter.delete(userRouteSpecific, CommonController.endpointNotImplemented);
+userRouter.delete(userRouteSpecific, UserController.deleteUser);
 
 // Log in User
 // POST /user/login

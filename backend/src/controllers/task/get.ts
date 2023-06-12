@@ -3,30 +3,39 @@ import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
 import { functionalityNotImplemented } from '../common/notimplemented';
 
-// TODO:
-// add get by params - username
-// add pagination
-
 // validation schema
-const paramsSchema = z.object({
-  userId: z.string().uuid(),
+const paramsSchemaOne = z.object({
+  taskId: z.string().uuid(),
+  pageId: z.string().uuid(),
+}).strict();
+
+const paramsSchemaMultiple = z.object({
+  pageId: z.string().uuid(),
 }).strict();
 
 // res.body type
-export interface User { // = getOneBody
+export interface Task { // = getOneBody
   id: string,
-  username: string,
-  email: string,
+  taskName: string,
+  dueDate: Date,
+  content: string,
+  creator: {
+    id: string,
+    username: string,
+  },
+  labelId: string,
+  orderInList: number,
+  orderInLabel: number,
 }
 
 export interface GetMultipleBody {
-  users: User[],
+  tasks: Task[],
 }
 
 // functions
 export const getOne = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
+    paramsSchemaOne.parse(req.params);
     return await functionalityNotImplemented(req, res);
   } catch (e) {
     return handleErrors(e, res);
@@ -35,6 +44,7 @@ export const getOne = async (req: Request, res: Response) => {
 
 export const getMultiple = async (req: Request, res: Response) => {
   try {
+    paramsSchemaMultiple.parse(req.params);
     return await functionalityNotImplemented(req, res);
   } catch (e) {
     return handleErrors(e, res);
