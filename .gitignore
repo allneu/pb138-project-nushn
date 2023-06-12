@@ -42,3 +42,6 @@ yarn.lock
 
 # ignore .env files
 **/.env
+
+**/migrations
+**/docker-data
