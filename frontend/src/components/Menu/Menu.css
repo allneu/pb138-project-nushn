@@ -1,0 +1,51 @@
+@media (max-width: 640px) {
+    .menu {
+        @apply fixed flex flex-col w-screen h-screen bg-white duration-500;
+        @apply top-0
+    }
+
+    .show {
+        @apply left-0;
+    }
+
+    .hide {
+        @apply -left-full;
+    }
+
+    .menu__header {
+        @apply flex px-6 py-6 gap-6;
+    }
+    
+    .menu__header img {
+        @apply w-10 h-10;
+    }
+
+    .menu__header h1 {
+        @apply flex-grow text-xl;
+    }
+
+    .menu__subpages {
+        @apply overflow-y-auto;
+    }
+
+    .menu__subpage {
+        @apply flex px-8 py-6 gap-8 border-b border-gray-500;
+    }
+
+    .menu__subpage h2 {
+        @apply flex-grow text-gray-500;
+    }
+
+    .current {
+        @apply border-black;
+    }
+
+    .current h2 {
+        @apply text-black;
+    }
+    
+    .new {
+        @apply justify-center gap-2;
+    }
+    
+}

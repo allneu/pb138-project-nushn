@@ -1,0 +1,9 @@
+@media (max-width: 640px) {
+    .action-bar {
+        @apply flex justify-between items-center px-6 py-4;
+    }
+
+    .action-bar__view-icons {
+        @apply flex flex-row gap-4;
+    }
+}

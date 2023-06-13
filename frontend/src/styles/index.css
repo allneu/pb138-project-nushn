@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+img {
+    @apply w-6 h-6;
+}
+
+h1 {
+    @apply font-bold text-base text-lg self-center;
+}
+
+h2 {
+    @apply font-bold text-base self-center;
+}
+
+h3 {
+    @apply font-semibold text-base self-center;
+}
