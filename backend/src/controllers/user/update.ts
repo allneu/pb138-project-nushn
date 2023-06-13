@@ -32,10 +32,10 @@ const bodySchema = z.object({
   );
 
 // res.body type
-export interface ResultBody {
+export interface ResultBody { // return only id and updated data
   id: string,
-  username: string,
-  email: string,
+  username?: string,
+  email?: string,
 }
 
 // function

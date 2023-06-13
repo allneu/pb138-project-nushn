@@ -4,7 +4,7 @@ import handleErrors from '../common/handleErrors';
 import { functionalityNotImplemented } from '../common/notimplemented';
 
 // TODO:
-// add get by params - username
+// add get by params - username?
 // add pagination
 
 // validation schema
