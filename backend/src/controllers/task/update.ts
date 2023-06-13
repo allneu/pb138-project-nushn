@@ -8,7 +8,7 @@ import { functionalityNotImplemented } from '../common/notimplemented';
 // validation schema
 const paramsSchema = z.object({
   taskId: z.string().uuid(),
-  pageId: z.string().uuid(),
+  subpageId: z.string().uuid(),
 }).strict();
 
 const bodySchema = z.object({
@@ -38,18 +38,14 @@ const bodySchema = z.object({
   );
 
 // res.body type
-export interface ResultBody {
+export interface ResultBody { // return only id and updated data
   id: string,
-  taskName: string,
-  dueDate: Date,
-  content: string,
-  creator: {
-    id: string,
-    username: string,
-  },
-  labelId: string,
-  orderInList: number,
-  orderInLabel: number,
+  taskName?: string,
+  dueDate?: Date,
+  content?: string,
+  labelId?: string,
+  orderInList?: number,
+  orderInLabel?: number,
 }
 
 // function

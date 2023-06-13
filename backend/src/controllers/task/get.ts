@@ -10,7 +10,7 @@ const paramsSchemaOne = z.object({
 }).strict();
 
 const paramsSchemaMultiple = z.object({
-  pageId: z.string().uuid(),
+  subpageId: z.string().uuid(),
 }).strict();
 
 // res.body type
