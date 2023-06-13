@@ -12,13 +12,13 @@ const paramsSchema = z.object({
 }).strict();
 
 const bodySchema = z.object({
-  oldTaskName: z.string().nonempty().min(3).optional(),
+  oldTaskName: z.string().min(3).optional(),
   oldDueDate: z.date().optional(),
   oldContent: z.string().optional(),
   oldLabelId: z.string().uuid().optional(),
   oldOrderInList: z.number().nonnegative().optional(),
   oldOrderInLabel: z.number().nonnegative().optional(),
-  newTaskName: z.string().nonempty().min(3).optional(),
+  newTaskName: z.string().min(3).optional(),
   newDueDate: z.date().optional(),
   newContent: z.string().optional(),
   newLabelId: z.string().uuid().optional(),

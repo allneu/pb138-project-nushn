@@ -8,7 +8,7 @@ import { functionalityNotImplemented } from '../common/notimplemented';
 // validation schema
 const paramsSchema = z.object({
   taskId: z.string().uuid(),
-  pageId: z.string().uuid(),
+  subpageId: z.string().uuid(),
 }).strict();
 
 // res.body type

@@ -7,7 +7,7 @@ import { functionalityNotImplemented } from '../common/notimplemented';
 
 // validation schema
 const bodySchema = z.object({
-  taskName: z.string().nonempty().min(3),
+  taskName: z.string().min(3),
   dueDate: z.date(),
   content: z.string(),
   creatorId: z.string().uuid().nonempty(),
@@ -15,7 +15,7 @@ const bodySchema = z.object({
 }).strict();
 
 const paramsSchema = z.object({
-  pageId: z.string().uuid(),
+  subpageId: z.string().uuid(),
 }).strict();
 
 // res.body type
@@ -31,6 +31,7 @@ export interface ResultBody {
   labelId: string,
   orderInList: number,
   orderInLabel: number,
+  createdAt: Date,
 }
 
 // function

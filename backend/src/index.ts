@@ -4,7 +4,6 @@ import { env } from 'process';
 import cors from 'cors';
 import userRouter from './routes/user';
 import subpageRouter from './routes/subpage';
-import commentRouter from './routes/comment';
 import labelRouter from './routes/label';
 import taskRouter from './routes/task';
 
@@ -18,7 +17,7 @@ app.use(cors());
 // parse URL encoded strings
 app.use(express.urlencoded({ extended: true }));
 
-app.use(userRouter, subpageRouter, commentRouter, labelRouter, taskRouter);
+app.use(userRouter, subpageRouter, labelRouter, taskRouter);
 
 // No route was taken - 404 - Resource (API endpoint) not found.
 app.use((_req, res) => {

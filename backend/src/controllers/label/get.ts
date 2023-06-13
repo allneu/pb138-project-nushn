@@ -3,8 +3,6 @@ import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
 import { functionalityNotImplemented } from '../common/notimplemented';
 
-// TODO: add param to choise result data
-
 // validation schema
 const paramsSchema = z.object({
   subpageId: z.string().uuid(),
