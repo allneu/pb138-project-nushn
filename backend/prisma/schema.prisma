@@ -26,11 +26,12 @@ model User {
 }
 
 model Role {
-  id       String    @id @default(uuid())
-  roleType RoleType
-  user     User      @relation(fields: [userId], references: [id])
-  userId   String
-  subpages SubPage[]
+  id        String   @id @default(uuid())
+  roleType  RoleType
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  subpage   SubPage  @relation(fields: [subpageId], references: [id])
+  subpageId String
 }
 
 model SubPage {
@@ -40,10 +41,9 @@ model SubPage {
   icon         String
   createdAt    DateTime      @default(now())
   deletedAt    DateTime?
-  creator      Role          @relation(fields: [creatorId], references: [id])
-  creatorId    String
   labels       Label[]
   subPageEdits SubPageEdit[]
+  roles        Role[]
 }
 
 model SubPageEdit {
@@ -56,30 +56,31 @@ model SubPageEdit {
 }
 
 model Label {
-  id               String    @id @default(uuid())
-  name             String
-  order_in_subpage Int
-  createdAt        DateTime  @default(now())
-  deletedAt        DateTime?
-  subPageId        String
-  subPage          SubPage   @relation(fields: [subPageId], references: [id])
-  tasks            Task[]
+  id             String    @id @default(uuid())
+  name           String
+  orderInSubpage Int
+  createdAt      DateTime  @default(now())
+  deletedAt      DateTime?
+  subPageId      String
+  subPage        SubPage   @relation(fields: [subPageId], references: [id])
+  tasks          Task[]
 }
 
 model Task {
-  id             String    @id @default(uuid())
-  taskName       String
-  status         Boolean
-  dueDate        DateTime
-  order_in_list  Int
-  order_in_label Int
-  content        String
-  createdAt      DateTime
-  deletedAt      DateTime?
-  creatorId      String
-  creator        User      @relation(fields: [creatorId], references: [id])
-  label          Label?    @relation(fields: [labelId], references: [id])
-  labelId        String?
+  id           String    @id @default(uuid())
+  taskName     String
+  status       Boolean
+  dueDate      DateTime
+  orderInList  Int
+  orderInLabel Int
+  content      String
+  createdAt    DateTime
+  deletedAt    DateTime?
+  creatorId    String
+  creator      User      @relation(fields: [creatorId], references: [id])
+  label        Label     @relation(fields: [labelId], references: [id])
+  labelId      String
+  image        String
 }
 
 enum RoleType {

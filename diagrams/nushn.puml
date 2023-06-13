@@ -18,7 +18,6 @@ entity User {
 entity Subpage {
     *id: <<uuid>>
     ---
-    * creatorId: <<FK>>
     * name: string
     * description: string
     * icon: <<url>>
@@ -31,7 +30,7 @@ entity Label {
     ---
     * subpageId: <<FK>>
     * name: string
-    * order_in_subpage: <<FK>>
+    * orderInSubpage: <<FK>>
     deletedAt: timestamp
     * createdAt: timestamp
 }
@@ -52,11 +51,12 @@ entity Task {
     * dueDate: Date
     * labelId: <<FK>>
     * creatorId: <<FK>>
-    * order_in_list: <<FK>>
-    * order_in_label: <<FK>>
+    * orderInList: <<FK>>
+    * orderInLabel: <<FK>>
     * content: any
     * createdAt: timestamp
     deletedAt: timestamp
+    * image: string
 }
 
 entity SubpageEdit {
@@ -80,12 +80,13 @@ entity SubpageEdit {
 ' }
 
 User }|..o{ Task : has
+User ||..o{ Role : has
 Subpage ||..o{ Label : has
 Label ||..o{ Task : has
 
 Subpage ||..o{ SubpageEdit
 User ||..o{ SubpageEdit
 
-User ||..o{ Role : has
-Role ||..o{ Subpage : has
+Role }|..|| Subpage : has
+' User ||..o{ Subpage : has
 @enduml
