@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import CommonController from '../controllers/common';
+import SubpageController from '../controllers/subpage';
 
 const subpageRouter = Router();
 
@@ -7,36 +7,36 @@ const subpageRouteGeneric = '/user/:userId/subpage';
 const subpageRouteSpecific = `${subpageRouteGeneric}/:subpageId`;
 const subpageRouteRole = `${subpageRouteSpecific}/:role`;
 
-// Read Subpage
-// GET /user/{userid}/subpage/{subpageId}
-subpageRouter.get(subpageRouteSpecific, CommonController.endpointNotImplemented);
+// Get all user Subpages
+// GET /user/{userId}/subpage
+subpageRouter.get(subpageRouteGeneric, SubpageController.getMultiple);
+
+// Get Subpage
+// GET /user/{userId}/subpage/{subpageId}
+subpageRouter.get(subpageRouteSpecific, SubpageController.getOne);
 
 // Create Subpage
 // POST /user/{userId}/subpage
-subpageRouter.post(subpageRouteGeneric, CommonController.endpointNotImplemented);
+subpageRouter.post(subpageRouteGeneric, SubpageController.create);
 
 // Update specific Subpage
 // PATCH /user/{userid}/subpage/{subpageId}
-subpageRouter.patch(subpageRouteSpecific, CommonController.endpointNotImplemented);
+subpageRouter.patch(subpageRouteSpecific, SubpageController.update);
 
 // Delete Subpage
 // DELETE /user/{userid}/subpage/{subpageId}
-subpageRouter.delete(subpageRouteSpecific, CommonController.endpointNotImplemented);
-
-// Read all user Subpages
-// GET /user/{userId}/subpage
-subpageRouter.get(subpageRouteGeneric, CommonController.endpointNotImplemented);
+subpageRouter.delete(subpageRouteSpecific, SubpageController.deleteSubpage);
 
 // Share Subpage = Create Role
 // POST /user/{userid}/subpage/{subpageId}/role
-subpageRouter.post(subpageRouteRole, CommonController.endpointNotImplemented);
+subpageRouter.post(subpageRouteRole, SubpageController.RoleController.create);
 
 // Update Role
 // PATCH /user/{userid}/subpage/{subpageId}/role
-subpageRouter.patch(subpageRouteRole, CommonController.endpointNotImplemented);
+subpageRouter.patch(subpageRouteRole, SubpageController.RoleController.update);
 
 // Delete Role
 // DELETE /user/{userid}/subpage/{subpageId}/role
-subpageRouter.delete(subpageRouteRole, CommonController.endpointNotImplemented);
+subpageRouter.delete(subpageRouteRole, SubpageController.RoleController.deleteRole);
 
 export default subpageRouter;
