@@ -12,8 +12,8 @@ type LabelTasksProps = {
 
 function LabelTasks({ label } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
-  const todoIcon = '../../../public/assets/icons/check-todo.svg';
-  const doneIcon = '../../../public/assets/icons/check-done.svg';
+  const todoIcon = '/assets/icons/check-todo.svg';
+  const doneIcon = '/assets/icons/check-done.svg';
 
   return (
       <div className='label-tasks'>
@@ -22,10 +22,10 @@ function LabelTasks({ label } : LabelTasksProps) {
             <div className="label__line"/>
 
             { showTasks
-              ? <img src="../../assets/icons/collapse-arrow.svg"
+              ? <img src="/assets/icons/collapse-arrow.svg"
                             className="label__show" alt="Collapse tasks arrow icon"
                             onClick={() => setShowTasks(false)}/>
-              : <img src="../../assets/icons/expand-arrow.svg"
+              : <img src="/assets/icons/expand-arrow.svg"
                             className="label__show" alt="Expand tasks arrow icon"
                             onClick={() => setShowTasks(true)}/>
             }

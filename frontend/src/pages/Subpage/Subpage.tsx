@@ -30,7 +30,7 @@ function Subpage() {
     setView(newView);
   };
 
-  let viewComponent;
+  let viewComponent: JSX.Element;
 
   if (view === 'board') {
     viewComponent = <BoardView />;

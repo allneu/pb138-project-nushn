@@ -14,7 +14,7 @@ function BoardView() {
           <LabelTasks key={label.id} label={label} />
         ))}
         <div className='board-view__new-label'>
-          <img src="../../assets/icons/add.svg" alt="Add new label icon"/>
+          <img src="/assets/icons/add.svg" alt="Add new label icon"/>
           <h3>Add new label</h3>
         </div>
       </>
