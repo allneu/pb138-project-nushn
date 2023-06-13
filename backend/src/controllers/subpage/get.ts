@@ -25,26 +25,6 @@ export interface Subpage { // = getOneBody
     id: string,
     username: string,
   },
-  labels: [{
-    id: string,
-    name: string,
-    orderInSubpabe: number,
-    createdAt: Date,
-    tasks: [{
-      id: string,
-      taskName: string,
-      dueDate: Date,
-      content: string,
-      creator: {
-        id: string,
-        username: string,
-      },
-      labelId: string,
-      orderInList: number,
-      orderInLabel: number,
-      createdAt: Date,
-    }]
-  }],
   createdAt: Date,
 }
 

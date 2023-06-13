@@ -1,4 +1,4 @@
-import RoleConttroler from './role';
+import RoleController from './role';
 import { create } from './create';
 import deleteSubpage from './delete';
 import { getMultiple, getOne } from './get';
@@ -10,5 +10,5 @@ export default {
   getOne,
   getMultiple,
   update,
-  RoleConttroler,
+  RoleController,
 };
