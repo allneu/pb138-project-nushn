@@ -12,7 +12,11 @@ import './Subpage.css';
 // TODO - load the subpage from backend by its ID
 import subpages from '../../../public/subpages.json';
 
-function Subpage() {
+type SubpageProps = {
+  isTaskOpen: boolean;
+};
+
+function Subpage({ isTaskOpen }: SubpageProps) {
   const { subpageId } = useParams();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,35 +48,30 @@ function Subpage() {
   }
 
   return (
-      <div className='subpage'>
-        <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+    <div className={`subpage ${isTaskOpen ? 'hide-on-small' : ''}`}>
+      <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
-          <div className="subpage__header">
-              <img src={subpage?.icon} alt="Subpage image"/>
-              <h1>{subpage?.name}</h1>
+        <div className="subpage__header">
+            <img src={subpage?.icon} alt="Subpage image"/>
+            <h1>{subpage?.name}</h1>
+        </div>
+
+        <ActionBar onViewChange={handleViewChange}/>
+
+        <div className="subpage__tasks-view">{viewComponent}</div>
+
+        <div className='subpage__footer'>
+          <div className="footer__last-edit">
+              <p>Last edited x hours ago by @user</p>
           </div>
 
-          <ActionBar onViewChange={handleViewChange}/>
-
-          <div className="subpage__tasks-view">{viewComponent}</div>
-
-          <div className='subpage__footer'>
-            <div className="footer__last-edit">
-                <p>Last edited x hours ago by @user</p>
-            </div>
-
-            <div className="footer__nav-icons">
-                <img src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
-                <img src="/assets/icons/add.svg" alt="Add new task icon"/>
-                <img src="/assets/icons/account.svg" alt="User account icon"/>
-            </div>
+          <div className="footer__nav-icons">
+              <img src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
+              <img src="/assets/icons/add.svg" alt="Add new task icon"/>
+              <img src="/assets/icons/account.svg" alt="User account icon"/>
           </div>
-
-        <Routes>
-          <Route path="/task/:taskId" element={<TaskView />} />
-        </Routes>
-
-      </div>
+        </div>
+    </div>
   );
 }
 
