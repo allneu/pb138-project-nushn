@@ -15,7 +15,10 @@ function MainPage() {
 
   return (
         <div className='main-page'>
-            <Subpage isTaskOpen={isTaskOpen}/>
+            <div className={isTaskOpen ? 'hide-on-small' : ''}>
+                <Subpage/>
+            </div>
+
             <Routes>
                 <Route path="/task/:taskId" element={<TaskView toggleTask={toggleTask}/>} />
             </Routes>

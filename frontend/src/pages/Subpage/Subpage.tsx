@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
-import TaskView from '../TaskView/TaskView.tsx';
 import Menu from '../../components/Menu/Menu.tsx';
 
 import './Subpage.css';
@@ -12,11 +11,7 @@ import './Subpage.css';
 // TODO - load the subpage from backend by its ID
 import subpages from '../../../public/subpages.json';
 
-type SubpageProps = {
-  isTaskOpen: boolean;
-};
-
-function Subpage({ isTaskOpen }: SubpageProps) {
+function Subpage() {
   const { subpageId } = useParams();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,7 +43,7 @@ function Subpage({ isTaskOpen }: SubpageProps) {
   }
 
   return (
-    <div className={`subpage ${isTaskOpen ? 'hide-on-small' : ''}`}>
+    <div className="subpage">
       <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
         <div className="subpage__header">
