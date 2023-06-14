@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import LabelTasks from './LabelTasks.tsx';
 import './BoardView.css';
 

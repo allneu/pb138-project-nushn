@@ -8,7 +8,7 @@ function App() {
       <Routes>
         {/* Delete Navigate later when other pages are done */}
         <Route path="/" element={<Navigate to="/subpage/1"/>} />
-        <Route path="/subpage/:subpageId" element={<Subpage />} />
+        <Route path="/subpage/:subpageId/*" element={<Subpage />} />
       </Routes>
     </div>
   );

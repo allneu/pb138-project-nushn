@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
 
@@ -15,11 +15,11 @@ function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   let doneIcon : string;
 
   if (type === 'check') {
-    todoIcon = '../../../public/assets/icons/check-todo.svg';
-    doneIcon = '../../../public/assets/icons/check-done.svg';
+    todoIcon = '/assets/icons/check-todo.svg';
+    doneIcon = '/assets/icons/check-done.svg';
   } else { // type === 'bullet'
-    todoIcon = '../../../public/assets/icons/bullet-todo.svg';
-    doneIcon = '../../../public/assets/icons/bullet-done.svg';
+    todoIcon = '/assets/icons/bullet-todo.svg';
+    doneIcon = '/assets/icons/bullet-done.svg';
   }
 
   return (
