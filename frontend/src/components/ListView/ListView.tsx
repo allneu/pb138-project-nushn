@@ -15,15 +15,15 @@ function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   let doneIcon : string;
 
   if (type === 'check') {
-    todoIcon = '../../../public/assets/icons/check-todo.svg';
-    doneIcon = '../../../public/assets/icons/check-done.svg';
+    todoIcon = '/assets/icons/check-todo.svg';
+    doneIcon = '/assets/icons/check-done.svg';
   } else { // type === 'bullet'
-    todoIcon = '../../../public/assets/icons/bullet-todo.svg';
-    doneIcon = '../../../public/assets/icons/bullet-done.svg';
+    todoIcon = '/assets/icons/bullet-todo.svg';
+    doneIcon = '/assets/icons/bullet-done.svg';
   }
 
   return (
-      <div className='list'>
+      <div className="flex flex-col gap-1 lg:pt-5">
         {tasks.map((task) => (
           <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
         ))}
