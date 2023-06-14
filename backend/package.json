@@ -7,7 +7,9 @@
     "start": "ts-node src/index.ts",
     "watch": "nodemon src/index.ts",
     "lint": "eslint src --ext ts",
-    "lint:fix": "eslint src --ext ts --fix"
+    "lint:fix": "eslint src --ext ts --fix",
+    "create-db": "cd prisma && docker compose up --detach && npx prisma migrate dev --name init",
+    "seed": "prisma migrate reset --force && ts-node src/seed/seed.ts"
   },
   "author": "",
   "license": "ISC",
