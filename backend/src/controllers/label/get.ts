@@ -13,7 +13,7 @@ export interface ResultBody {
   labels: [{
     id: string,
     name: string,
-    orderInSubpabe: number,
+    orderInSubpage: number,
     createdAt: Date,
     tasks: [{
       id: string,

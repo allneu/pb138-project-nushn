@@ -29,7 +29,7 @@ const bodySchema = z.object({
 export interface ResultBody { // return only id and updated data
   id: string,
   name?: string,
-  orderInSubpabe?: number,
+  orderInSubpage?: number,
 }
 
 // function

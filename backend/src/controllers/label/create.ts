@@ -18,7 +18,7 @@ const paramsSchema = z.object({
 export interface ResultBody {
   id: string,
   name: string,
-  orderInSubpabe: number,
+  orderInSubpage: number,
   createdAt: Date,
 }
 

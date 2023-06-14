@@ -29,7 +29,7 @@ export interface Subpage { // = getOneBody
 }
 
 export interface GetMultipleBody {
-  tasks: Subpage[],
+  subpages: Subpage[],
 }
 
 // functions
