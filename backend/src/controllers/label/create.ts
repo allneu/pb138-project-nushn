@@ -14,13 +14,19 @@ const paramsSchema = z.object({
   subpageId: z.string().uuid().nonempty(),
 }).strict();
 
+// type to create Label
+export type LabelDataCreate = {
+  name: string,
+  subpageId: string
+};
+
 // res.body type
-export interface ResultBody {
+export type LabelResultBody = {
   id: string,
   name: string,
-  orderInSubpage: number,
-  createdAt: Date,
-}
+  // orderInSubpage: number,
+  // createdAt: Date,
+};
 
 // function
 export const create = async (req: Request, res: Response) => {

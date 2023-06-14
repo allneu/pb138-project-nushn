@@ -11,6 +11,11 @@ const paramsSchema = z.object({
   subpageId: z.string().uuid().nonempty(),
 }).strict();
 
+export type LabelDataDelete = {
+  labelId: string,
+  subpageId: string
+};
+
 // res.body type
 // {}
 
