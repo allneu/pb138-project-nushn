@@ -8,7 +8,7 @@ export default {
   ],
   theme: {
     screens: {
-      'lg': '640px',
+      'lg': '768px',
     },
     extend: {
       fontFamily: {

@@ -1,5 +1,6 @@
 .menu {
-    @apply fixed flex flex-col w-3/4 h-[calc(100%-3.75rem)] duration-500 bg-white border-r border-gray-200;
+    @apply fixed lg:static flex flex-col w-3/4 lg:w-60 h-[calc(100%-3.75rem)] lg:h-full bg-white
+        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-scroll duration-500;
 }
 
 .menu--show {
@@ -15,7 +16,7 @@
 }
 
 .logo {
-    @apply flex items-center gap-4;
+    @apply flex items-center gap-4 lg:gap-3;
 }
 
 .logo__icon {
@@ -27,7 +28,7 @@
 }
 
 .subpage-name {
-    @apply flex-grow text-notion text-base lg:text-2xl font-bold;
+    @apply flex-grow text-notion text-base lg:text-sm font-bold;
 }
 
 .menu__subpages {

@@ -43,37 +43,39 @@ function Subpage() {
   }
 
   return (
-      <div className='subpage'>
+      <div className="flex h-screen">
         <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
-        <header className="subpage-header">
-            <div className="name-wrapper">
-                <img className="icon" src={subpage?.icon} alt="Subpage icon"/>
-                <span className="name-wrapper__name">{subpage?.name}</span>
-            </div>
+        <div className="subpage">
+          <header className="subpage-header">
+              <div className="name-wrapper">
+                  <img className="icon" src={subpage?.icon} alt="Subpage icon"/>
+                  <span className="name-wrapper__name">{subpage?.name}</span>
+              </div>
 
-            <span className="subpage-header__description">{subpage?.description}</span>
+              <span className="subpage-header__description">{subpage?.description}</span>
 
-            <ActionBar onViewChange={handleViewChange}/>
-        </header>
+              <ActionBar onViewChange={handleViewChange}/>
+          </header>
 
-        <div className="subpage__separator"/>
+          <div className="subpage__separator"/>
 
-        <main className="subpage__tasks">
-            {viewComponent}
-        </main>
+          <main className="subpage__tasks">
+              {viewComponent}
+          </main>
 
-        <footer className='subpage-footer'>
-            <div className="subpage-footer__last-edit">
-                <span>Last edited x hours ago by @user</span>
-            </div>
-            <div className="subpage-footer__nav-icons">
-                <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
-                <img className="icon" src="/assets/icons/add.svg" alt="Add new task icon"/>
-                <img className="icon" src="/assets/icons/account.svg" alt="User account icon"/>
-            </div>
-        </footer>
+          <footer className='subpage-footer'>
+              <div className="subpage-footer__last-edit">
+                  <span>Last edited x hours ago by @user</span>
+              </div>
+              <div className="subpage-footer__nav-icons">
+                  <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
+                  <img className="icon" src="/assets/icons/add.svg" alt="Add new task icon"/>
+                  <img className="icon" src="/assets/icons/account.svg" alt="User account icon"/>
+              </div>
+          </footer>
       </div>
+    </div>
   );
 }
 
