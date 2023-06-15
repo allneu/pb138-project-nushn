@@ -20,7 +20,7 @@
 }
 
 .logo__icon {
-    @apply w-12 h-12 lg:w-14 lg:h-14;
+    @apply w-12 h-12 lg:w-14 lg:h-14 opacity-70;
 }
 
 .logo__text {

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .icon {
-    @apply w-6 h-6;
+    @apply w-6 h-6 opacity-70;
 }
 
 h1 {
