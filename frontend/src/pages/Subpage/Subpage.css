@@ -1,6 +1,6 @@
 @media (max-width: 640px) {
     .subpage {
-        @apply flex flex-col h-screen;
+        @apply flex flex-col justify-between max-h-[calc(100vh-4rem)];
     }
 
     .subpage__header {
@@ -8,18 +8,10 @@
     }
 
     .subpage__tasks-view {
-        @apply flex-grow overflow-y-auto;
+        @apply flex-grow overflow-auto;
     }
 
-    .subpage__footer {
-        @apply w-full py-4 px-6;
-    }
-
-    .footer__last-edit {
-        @apply items-center px-10 py-6 gap-2 text-sm text-center text-gray-500;
-    }
-
-    .footer__nav-icons {
-        @apply flex justify-between;
+    .subpage__last-edit {
+        @apply items-center py-8 text-sm text-center text-gray-500;
     }
 }
