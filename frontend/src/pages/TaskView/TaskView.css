@@ -1,20 +1,42 @@
 .task-view {
-    @apply px-7 pt-6 gap-4 flex flex-col justify-between;
+    @apply px-9 pt-9 gap-4 flex flex-col justify-between;
 }
 
-.task-conatiner {
+.task-view__header {
+    @apply flex flex-row justify-center items-center gap-3;
+}
+
+.header__title {
+    @apply text-xl text-black font-bold w-1/2;
+    @apply h-fit;
+}
+
+.task-card {
     @apply flex flex-col;
 }
 
-.task-conatiner__details {
-    @apply flex flex-col gap-4;
+.task-card__details {
+    @apply flex flex-col gap-2 pb-2;
 }
 
-.detail {
-    @apply flex flex-row;
+.task-card__detail {
+    @apply flex flex-row justify-between gap-2;
 }
 
-.task-conatiner__content {
-    @apply flex-grow;
+.detail__label {
+    @apply flex flex-row gap-2;
+}
+
+.detail__input, .detail__info {
+    @apply text-right text-gray-500;
+}
+
+.task-card__line {
+    @apply bg-gray-500 my-4 self-center h-px w-full;
+}
+
+.task-card__content {
+    @apply flex-grow text-base;
+    @apply max-h-fit
 }
 
