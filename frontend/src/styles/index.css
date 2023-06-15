@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-img {
+.icon {
     @apply w-6 h-6;
 }
 
 h1 {
-    @apply font-bold text-base text-lg self-center;
+    @apply font-bold text-lg self-center;
 }
 
 h2 {

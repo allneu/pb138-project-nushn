@@ -1,21 +1,15 @@
-@media (max-width: 640px) {
-    .task {
-        @apply flex flex-row items-start py-3 px-6 gap-4;
-    }
+.task {
+    @apply flex px-5 lg:px-2 py-1 lg:py-1.5 gap-4 lg:border-[1px] rounded min-w-[10rem];
+}
 
-    .task__icon {
-        @apply flex-none rounded;
-    }
+.task__name {
+    @apply flex-grow text-notion text-sm font-semibold;
+}
 
-    .task__name.done {
-        @apply flex-grow line-through text-gray-500;
-    }
-
-    .task__name.todo {
-        @apply flex-grow;
-    }
-
-    .task__name.new {
-        @apply flex-grow text-gray-500;
-    }
+.task__name--done {
+    @apply line-through text-gray-500;
+}
+ 
+.task__name--new {
+    @apply text-gray-500;
 }

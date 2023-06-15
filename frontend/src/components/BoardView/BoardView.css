@@ -1,27 +1,27 @@
-@media (max-width: 640px) {
-    .board-view__new-label {
-        @apply flex flex-row justify-center items-center py-11 gap-2 px-6;
-    }
+.columns-wrapper {
+    @apply flex flex-col lg:flex-row flex-grow lg:pt-5 lg:gap-6;
+}
 
-    .label-tasks {
-        @apply px-6;
-    }
+.label-tasks {
+    @apply flex flex-col gap-2 lg:gap-1 lg:p-2 lg:border-[1px] lg:rounded;
+}
 
-    .label {
-        @apply flex flex-row items-start py-2 gap-4;
-    }
+.label {
+    @apply flex items-center py-2.5 lg:py-1 gap-4;
+}
 
-    .label__name, .label__show {
-        @apply flex-none;
-    }
+.label__name {
+    @apply text-notion text-sm font-bold;
+}
 
-    .label__line {
-        @apply bg-black self-center h-px flex-grow;
-    }
+.label__line {
+    @apply bg-black h-px flex-grow lg:hidden;
+}
 
-    
+.label__show {
+    @apply lg:hidden;
+}
 
-
-
-
+.board-view__new-label {
+    @apply flex justify-center items-center lg:items-start pt-4 lg:pt-0 gap-1.5;
 }

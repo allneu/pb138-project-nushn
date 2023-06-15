@@ -16,25 +16,25 @@ function LabelTasks({ label } : LabelTasksProps) {
   const doneIcon = '/assets/icons/check-done.svg';
 
   return (
-      <div className='label-tasks'>
+      <div>
         <div className="label">
-            <h2 className="label__name">{label.name}</h2>
+            <span className="label__name">{label.name}</span>
             <div className="label__line"/>
 
             { showTasks
               ? <img src="/assets/icons/collapse-arrow.svg"
-                            className="label__show" alt="Collapse tasks arrow icon"
+                            className="icon label__show" alt="Collapse tasks arrow icon"
                             onClick={() => setShowTasks(false)}/>
               : <img src="/assets/icons/expand-arrow.svg"
-                            className="label__show" alt="Expand tasks arrow icon"
+                            className="icon label__show" alt="Expand tasks arrow icon"
                             onClick={() => setShowTasks(true)}/>
             }
         </div>
 
-        <div>
+        <div className="label-tasks">
           { showTasks
             ? label.tasks.map((task: TaskType) => (
-                    <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
+                  <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
             ))
             : <></>
           }
