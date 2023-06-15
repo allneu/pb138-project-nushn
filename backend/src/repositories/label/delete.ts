@@ -42,7 +42,6 @@ const deleteLabel = async (
         data: { orderInSubpage: { increment: -1 } },
       });
       console.log(updateAllHigher);
-
       return Result.ok({});
     });
   } catch {

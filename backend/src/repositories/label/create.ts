@@ -26,7 +26,12 @@ const createLabel = async (
           orderInSubpage: highestOrder ? highestOrder.orderInSubpage! + 1 : 0,
         },
       });
-      return Result.ok({ id: newLabel.id, name: newLabel.name });
+      return Result.ok({
+        id: newLabel.id,
+        name: newLabel.name,
+        orderInSubpage: newLabel!.orderInSubpage!,
+        createdAt: newLabel.createdAt,
+      });
     });
   } catch {
     return genericError;

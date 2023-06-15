@@ -25,6 +25,14 @@ const bodySchema = z.object({
     'At least one pair of name, description or icon must be provided.',
   );
 
+export type UpdateLabelData = {
+  labelId: string,
+  subpageId: string,
+  oldName?: string,
+  oldOrderInSubpage?: number,
+  newName?: string,
+  newOrderInSubpage?: number,
+};
 // res.body type
 export interface ResultBody { // return only id and updated data
   id: string,

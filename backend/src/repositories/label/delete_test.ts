@@ -1,9 +1,9 @@
-import createLabel from './create';
+import deleteLabel from './delete';
 
 (async () => {
   try {
-    const cr = await createLabel({ subpageId: '0', name: 'My first label' });
-    console.log(cr);
+    const de = await deleteLabel({ subpageId: '0', labelId: 'a79cfbf0-a46a-4bb5-a3b9-c473c5622506' });
+    console.log(de);
   } catch (error) {
     console.error('An error occurred while creating the label:', error);
     throw new Error('There was some problem with creating the label');

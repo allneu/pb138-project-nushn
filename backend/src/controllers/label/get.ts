@@ -8,8 +8,11 @@ const paramsSchema = z.object({
   subpageId: z.string().uuid(),
 }).strict();
 
+export type LabelGetData = {
+  subpageId: string,
+};
 // res.body type
-export interface ResultBody {
+export type LabelGetResultBody = {
   labels: [{
     id: string,
     name: string,
@@ -30,7 +33,7 @@ export interface ResultBody {
       createdAt: Date,
     }],
   }],
-}
+};
 
 // functions
 export const get = async (req: Request, res: Response) => {
