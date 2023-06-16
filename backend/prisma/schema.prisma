@@ -58,7 +58,7 @@ model SubPageEdit {
 model Label {
   id             String    @id @default(uuid())
   name           String
-  orderInSubpage Int
+  orderInSubpage Int?      @unique
   createdAt      DateTime  @default(now())
   deletedAt      DateTime?
   subPageId      String
@@ -69,18 +69,18 @@ model Label {
 model Task {
   id           String    @id @default(uuid())
   taskName     String
-  status       Boolean
+  done         Boolean   @default(false)
   dueDate      DateTime
-  orderInList  Int
-  orderInLabel Int
+  orderInList  Int?      @unique
+  orderInLabel Int?
   content      String
-  createdAt    DateTime
+  createdAt    DateTime  @default(now())
   deletedAt    DateTime?
   creatorId    String
   creator      User      @relation(fields: [creatorId], references: [id])
   label        Label     @relation(fields: [labelId], references: [id])
   labelId      String
-  image        String
+  image        String?
 }
 
 enum RoleType {
