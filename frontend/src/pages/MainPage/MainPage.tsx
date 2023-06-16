@@ -72,7 +72,7 @@ function MainPage() {
       </div>
 
       <Routes>
-          <Route path="/task/:taskId" element={<TaskView setIsTaskOpen={setIsTaskOpen} setTask={setTask}/>} />
+          <Route path="/task/:taskId" element={<TaskView setIsTaskOpen={setIsTaskOpen} setTask={setTask} toggleMenu={toggleMenu}/>} />
       </Routes>
     </div>
   );

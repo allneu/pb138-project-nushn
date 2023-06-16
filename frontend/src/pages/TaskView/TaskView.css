@@ -1,9 +1,13 @@
 .task-view {
-    @apply px-9 pt-9 gap-4 flex flex-col justify-between;
+    @apply pt-9 gap-4 flex flex-col justify-between;
+}
+
+.task-view__back {
+    @apply px-9;
 }
 
 .task-view__header {
-    @apply pl-16 flex flex-row justify-center items-center gap-3;
+    @apply px-9 pl-16 flex flex-row justify-center items-center gap-3;
 }
 
 .header__title {
@@ -20,11 +24,11 @@
 }
 
 .task-card {
-    @apply flex flex-col;
+    @apply flex flex-col px-9;
 }
 
 .task-card__details {
-    @apply flex flex-col gap-2 pb-2;
+    @apply flex-none flex flex-col gap-2 pb-2;
 }
 
 .task-card__detail {
@@ -50,7 +54,7 @@
 
 .task-card__content {
     @apply flex-grow text-base;
-    @apply overflow-auto max-h-[calc(100vh-25rem)] resize-none;
+    @apply overflow-auto min-h-[calc(100vh-25rem)] max-h-[calc(100vh-25rem)] resize-none;
 }
 
 .select-option {

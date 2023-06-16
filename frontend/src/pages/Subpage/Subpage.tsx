@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
+import Footer from '../../components/Footer/Footer.tsx';
 
 import './Subpage.css';
 
@@ -58,19 +59,8 @@ function Subpage({ toggleMenu }: SubpageProps): JSX.Element {
               {viewComponent}
           </main>
 
-          <footer className='subpage-footer'>
-              <div className="subpage-footer__last-edit">
-                  <span>Last edited x hours ago by @user</span>
-              </div>
-              <div className="subpage-footer__nav-icons">
-                  <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
-                  <Link to='task/newTask'>
-                     <img className='icon' src="/assets/icons/add.svg" alt="Add new task icon"/>
-                  </Link>
-                  <img className="icon" src="/assets/icons/account.svg" alt="User account icon"/>
-              </div>
-          </footer>
-      </div>
+          <Footer showMenu={true} showNewTask={true} showUser={true} toggleMenu={toggleMenu}/>
+        </div>
     </div>
   );
 }

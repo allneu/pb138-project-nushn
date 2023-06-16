@@ -1,5 +1,5 @@
 .hide-on-small {
-    @apply hidden;
+    @apply hidden lg:block;
 }
 
 .main-page {
