@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "id": "772fff42-12ed-4a30-b981-ab0bc73fde73",
-      "userName": "jeremiah.hill",
+      "id": "0",
+      "userName": "seed name",
       "email": "j.hill@scada.org",
       "createdAt": "2023-03-17T13:00:06.000Z",
       "hashedPassword": "9f45cd50672132537264050cd666e6ae5dcc00de78361c2ecdbb6d1847cfe63e",
@@ -54,6 +54,42 @@
       "hashedPassword": "6efe01bb975e362aa0618bdf8bb7a5f923c29ca8524003f94df2cf77600dc911",
       "salt": "hMmuUnnP53ko1oZ2f1RADCdeShBnuHZZCuxvI11rfNCwD807Y8qZJlykrbIGB5EDB7c29b4aPqSZjmXzqfH3siFijmp8bmi8MJUv3MRHDawvopwlKQ96pXTBjq0N1iaP",
       "avatar": "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg"
+    }
+  ],
+  "subpages": [
+    {
+      "id": "0",
+      "name": "seed subpage",
+      "description": "This is the seed subpage",
+      "icon": "dasd",
+      "createdAt": "2023-03-17T12:48:06.000Z",
+      "deletedAt": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "0",
+      "name": "seed label",
+      "orderInSubpage": 0,
+      "createdAt":"2023-03-17T12:48:06.000Z",
+      "deletedAt": null,
+      "subPageId": "0"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "0",
+      "taskName": "seed task",
+      "done": false,
+      "dueDate": "2023-03-17T12:48:06.000Z",
+      "orderInList": 0,
+      "orderInLabel": 0,
+      "content": "seed task",
+      "createdAt":"2023-03-17T12:48:06.000Z",
+      "deletedAt": null,
+      "creatorId": "0",
+      "labelId": "0",
+      "image": null
     }
   ]
 }

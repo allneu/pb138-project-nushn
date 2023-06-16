@@ -18,21 +18,29 @@ const paramsSchema = z.object({
   subpageId: z.string().uuid(),
 }).strict();
 
+export type TaskCreateData = {
+  taskName: string,
+  dueDate: Date,
+  content?: string,
+  creatorId: string,
+  labelId: string,
+  image?: string,
+};
 // res.body type
-export interface ResultBody {
+export type TaskCreateResultBody = {
   id: string,
   taskName: string,
   dueDate: Date,
   content: string,
   creator: {
     id: string,
-    username: string,
+    userName: string,
   },
   labelId: string,
   orderInList: number,
   orderInLabel: number,
   createdAt: Date,
-}
+};
 
 // function
 export const create = async (req: Request, res: Response) => {

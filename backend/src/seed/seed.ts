@@ -14,6 +14,23 @@ const userCreateQueries = data.users.map(
   }),
 );
 
+const labelCreateQueries = data.labels.map(
+  ({ ...label }) => prisma.label.create({
+    data: { ...label },
+  }),
+);
+
+const subPageCreateQueries = data.subpages.map(
+  ({ ...subpage }) => prisma.subPage.create({
+    data: { ...subpage },
+  }),
+);
+
+const taskCreateQueries = data.tasks.map(
+  ({ ...task }) => prisma.task.create({
+    data: { ...task },
+  }),
+);
 // create post queries with nested writes (thanks to the Prisma's awesome API)
 
 const seed = async () => {
@@ -21,6 +38,9 @@ const seed = async () => {
   try {
     await prisma.$transaction([
       ...userCreateQueries,
+      ...subPageCreateQueries,
+      ...labelCreateQueries,
+      ...taskCreateQueries,
     ]);
 
     console.log(`[${new Date(Date.now()).toISOString()}]: Seeding succesful!`);
