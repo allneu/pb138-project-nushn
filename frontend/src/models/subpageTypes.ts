@@ -1,29 +1,25 @@
-export interface SubpageType {
-  id: string,
+export type SubpageCreateType = {
   name: string,
   description: string,
   icon: string,
+};
+
+export type SubpageCreateResultType = SubpageCreateType & {
+  id: string,
   creator: {
     id: string,
     username: string,
   },
   createdAt: Date,
-}
-
-export interface SubpageCreateType {
-  name: string,
-  description: string,
-  icon: string,
-}
-
-export interface SubpageCreateResultType extends SubpageType {
   labels: [{
     id: string,
     name: string,
     orderInSubpabe: number,
     createdAt: Date,
   }],
-}
+};
+
+export type SubpageType = SubpageCreateResultType;
 
 export interface SubpageUpdateType {
   oldName?: string,
@@ -34,9 +30,8 @@ export interface SubpageUpdateType {
   newIcon?: string,
 }
 
-export interface SubpageUpdateResultType {
+export type SubpageUpdateResultType = Partial<SubpageCreateType> & {
   id: string,
-  name?: string,
-  description?: string,
-  icon?: string,
-}
+};
+
+export type SubpageDeleteResultType = object;

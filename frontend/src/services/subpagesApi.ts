@@ -4,6 +4,7 @@ import {
   SubpageCreateResultType,
   SubpageUpdateType,
   SubpageUpdateResultType,
+  SubpageDeleteResultType,
   ResponseSingle,
   ResponseMulti,
 } from '../models';
@@ -17,7 +18,7 @@ Promise<ResponseSingle<SubpageCreateResultType>> => {
 
 export const getSingle = async (userId: string, subpageId: string):
 Promise<ResponseSingle<SubpageType>> => {
-  const response = await axiosInstance.get(`/user/${userId}/channels/${subpageId}`);
+  const response = await axiosInstance.get(`/user/${userId}/subpage/${subpageId}`);
   return response.data;
 };
 
@@ -29,5 +30,11 @@ export const getAll = async (userId: string): Promise<ResponseMulti<SubpageType>
 export const updateSingle = async (userId: string, subpageId: string, body: SubpageUpdateType):
 Promise<ResponseSingle<SubpageUpdateResultType>> => {
   const response = await axiosInstance.patch(`/user/${userId}/subpage/${subpageId}`, body);
+  return response.data;
+};
+
+export const deleteSingle = async (userId: string, subpageId: string):
+Promise<ResponseSingle<SubpageDeleteResultType>> => {
+  const response = await axiosInstance.delete(`/user/${userId}/subpage/${subpageId}`);
   return response.data;
 };
