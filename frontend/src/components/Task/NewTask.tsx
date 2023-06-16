@@ -3,8 +3,8 @@ import './Task.css';
 function NewTask() {
   return (
     <div className="task">
-        <img className="task__icon" src="/assets/icons/add_gray.svg" alt="Checklist task icon" />
-        <h3 className="task__name new">Add new task</h3>
+        <img className="icon rounded" src="/assets/icons/add_gray.svg" alt="Checklist task icon" />
+        <span className="task__name task__name--new">Add new task</span>
     </div>
   );
 }

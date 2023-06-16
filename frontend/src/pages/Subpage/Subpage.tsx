@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
@@ -10,7 +10,11 @@ import './Subpage.css';
 // TODO - load the subpage from backend by its ID
 import subpages from '../../../public/subpages.json';
 
-function Subpage() {
+type SubpageProps = {
+  toggleMenu: () => void;
+};
+
+function Subpage({ toggleMenu }: SubpageProps): JSX.Element {
   const { subpageId } = useParams();
 
   // TODO - load the subpage from backend by its ID
@@ -36,18 +40,37 @@ function Subpage() {
   }
 
   return (
-    <div className="subpage">
-        <div className="subpage__header">
-            <img src={subpage?.icon} alt="Subpage image"/>
-            <h1>{subpage?.name}</h1>
-        </div>
+    <div className="flex h-screen">
+        <div className="subpage">
+          <header className="subpage-header">
+              <div className="name-wrapper">
+                  <img className="icon" src={subpage?.icon} alt="Subpage icon"/>
+                  <span className="name-wrapper__name">{subpage?.name}</span>
+              </div>
+              <span className="subpage-header__description">{subpage?.description}</span>
 
-        <ActionBar onViewChange={handleViewChange}/>
+              <ActionBar onViewChange={handleViewChange}/>
+          </header>
 
-        <div className="subpage__tasks-view">{viewComponent}</div>
-        <div className="subpage__last-edit">
-            <p>Last edited x hours ago by @user</p>
-        </div>
+          <div className="subpage__separator"/>
+
+          <main className="subpage__tasks">
+              {viewComponent}
+          </main>
+
+          <footer className='subpage-footer'>
+              <div className="subpage-footer__last-edit">
+                  <span>Last edited x hours ago by @user</span>
+              </div>
+              <div className="subpage-footer__nav-icons">
+                  <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
+                  <Link to='task/newTask'>
+                     <img className='icon' src="/assets/icons/add.svg" alt="Add new task icon"/>
+                  </Link>
+                  <img className="icon" src="/assets/icons/account.svg" alt="User account icon"/>
+              </div>
+          </footer>
+      </div>
     </div>
   );
 }

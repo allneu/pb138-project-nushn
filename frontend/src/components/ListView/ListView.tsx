@@ -23,7 +23,7 @@ function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   }
 
   return (
-      <div className='list'>
+      <div className="flex flex-col gap-1 lg:pt-5">
         {tasks.map((task) => (
           <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
         ))}

@@ -1,5 +1,0 @@
-@media (max-width: 640px) {
-    .list {
-        @apply px-6;
-    }
-}

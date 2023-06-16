@@ -11,9 +11,9 @@ type TaskProps = {
 function Task({ task, todoIcon, doneIcon } : TaskProps) {
   return (
       <Link to={`task/${task.id}`} className="task">
-        <img className="task__icon" src={task.status ? doneIcon : todoIcon} alt="Task icon" />
-        <h3 className={task.status ? 'task__name done' : 'task__name todo'}>{task.name}</h3>
-        <img className="flex-none" src="/assets/icons/edit.svg" alt="Edit task icon"/>
+        <img className="icon rounded" src={task.status ? doneIcon : todoIcon} alt="Task icon" />
+        <span className={task.status ? 'task__name task__name--done' : 'task__name'}>{task.name}</span>
+        <img className="icon" src="/assets/icons/edit.svg" alt="Edit task icon"/>
       </Link>
   );
 }
