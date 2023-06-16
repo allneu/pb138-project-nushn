@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import LabelRepostiory from '../../repositories/label';
 
 // result code should be 204
 
@@ -20,13 +20,15 @@ export type LabelDataDelete = {
 // {}
 
 // function
-const deleteLabel = async (req: Request, res: Response) => {
+export const deleteLabel = async (req: Request, res: Response) => {
   try {
     paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const args = { ...req.body, ...req.params };
+    return await LabelRepostiory.deleteLabel(args).then((r) => {
+      const result = r.unwrap();
+      res.status(204).send(result);
+    });
   } catch (e) {
     return handleErrors(e, res);
   }
 };
-
-export default deleteLabel;

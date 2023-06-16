@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import LabelRepostiory from '../../repositories/label';
 
 // result code should be 201
 
@@ -33,7 +33,11 @@ export const create = async (req: Request, res: Response) => {
   try {
     bodySchema.parse(req.body);
     paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const args = { ...req.params, ...req.body };
+    return await LabelRepostiory.create(args).then((r) => {
+      const result = r.unwrap();
+      res.status(201).send({ data: result });
+    });
   } catch (e) {
     return handleErrors(e, res);
   }

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import LabelRepostiory from '../../repositories/label';
 
 // validation schema
 const paramsSchema = z.object({
@@ -16,7 +16,7 @@ export type LabelGetResultBody = {
   labels: [{
     id: string,
     name: string,
-    orderInSubpage: number,
+    orderInSubpage?: number | null,
     createdAt: Date,
     tasks: [{
       id: string,
@@ -28,8 +28,8 @@ export type LabelGetResultBody = {
         username: string,
       },
       labelId: string,
-      orderInList: number,
-      orderInLabel: number,
+      orderInList?: number,
+      orderInLabel?: number,
       createdAt: Date,
     }],
   }],
@@ -39,7 +39,11 @@ export type LabelGetResultBody = {
 export const get = async (req: Request, res: Response) => {
   try {
     paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const args = { ...req.body, ...req.params };
+    return await LabelRepostiory.get(args).then((r) => {
+      const result = r.unwrap();
+      res.status(200).send(result);
+    });
   } catch (e) {
     return handleErrors(e, res);
   }

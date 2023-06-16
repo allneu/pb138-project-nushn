@@ -2,10 +2,6 @@ import { Result } from '@badrap/result';
 import { LabelDataDelete } from '../../controllers/label/delete';
 import { checkSubpage, checkLabel } from '../common/common';
 import client from '../client';
-import { genericError } from '../common/types';
-
-// TODO
-// Find out how to change orderInSubPage parameter when deleting task
 
 const deleteLabel = async (
   data: LabelDataDelete,
@@ -31,8 +27,7 @@ const deleteLabel = async (
         where: { id: data.labelId },
         data: { deletedAt, orderInSubpage: null },
       });
-      // TODO test tommorow
-      const updateAllHigher = await tx.label.updateMany({
+      await tx.label.updateMany({
         where: {
           orderInSubpage: {
             not: null,
@@ -41,11 +36,10 @@ const deleteLabel = async (
         },
         data: { orderInSubpage: { increment: -1 } },
       });
-      console.log(updateAllHigher);
       return Result.ok({});
     });
   } catch {
-    return genericError;
+    return Result.err(new Error('There was a problem deleting task'));
   }
 };
 

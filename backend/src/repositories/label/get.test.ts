@@ -1,8 +1,8 @@
-import { getLabelsOfSubpage } from './get';
+import get from './get';
 
 (async () => {
   try {
-    const up = await getLabelsOfSubpage({ subpageId: '0' });
+    const up = await get({ subpageId: '0' });
     const result = up.unwrap();
     const { labels } = result;
     labels.forEach((label) => {

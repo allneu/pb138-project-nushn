@@ -2,9 +2,10 @@ import { Result } from '@badrap/result';
 import { LabelGetData } from '../../controllers/label/get';
 import { checkSubpage } from '../common/common';
 import client from '../client';
-import { genericError } from '../common/types';
 
-export const getLabelsOfSubpage = async (data: LabelGetData) => {
+//TODO fix return type so that each label has list of tasks instead of all tasks
+
+const get = async (data: LabelGetData) => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -28,8 +29,8 @@ export const getLabelsOfSubpage = async (data: LabelGetData) => {
       return Result.ok({ labels, tasks });
     });
   } catch {
-    return genericError;
+    return Result.err(new Error('There was a problem getting labels'));
   }
 };
 
-export default getLabelsOfSubpage;
+export default get;

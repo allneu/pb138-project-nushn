@@ -2,9 +2,8 @@ import { Result } from '@badrap/result';
 import { LabelDataCreate, LabelResultBody } from '../../controllers/label/create';
 import { checkSubpage } from '../common/common';
 import client from '../client';
-import { genericError } from '../common/types';
 
-const createLabel = async (
+const create = async (
   data: LabelDataCreate,
 ): Promise<Result<LabelResultBody>> => {
   try {
@@ -14,6 +13,7 @@ const createLabel = async (
         return Result.err(subPageExists.error);
       }
       const highestOrder = await tx.label.findFirst({
+        where: { orderInSubpage: { not: null } },
         orderBy: {
           orderInSubpage: 'desc',
         },
@@ -33,9 +33,9 @@ const createLabel = async (
         createdAt: newLabel.createdAt,
       });
     });
-  } catch {
-    return genericError;
+  } catch (e) {
+    console.log(e);
+    return Result.err(new Error('There was a problem in label creation'));
   }
 };
-
-export default createLabel;
+export default create;
