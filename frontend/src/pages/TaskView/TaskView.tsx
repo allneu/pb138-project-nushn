@@ -16,7 +16,6 @@ const defaultTaskValues: EditTaskType = {
   name: 'New Task',
   status: false,
   dueDate: '',
-  icon: '',
   labelId: '',
   // TODO - add User ID
   creatorID: '',
@@ -107,7 +106,6 @@ function TaskView({ setIsTaskOpen, setTask, toggleMenu }: TaskViewProps) {
       </Link>
 
       <header className="task-view__header">
-        <img className='icon' src={task.icon} alt="Task icon"/>
         <div className="validated-input">
         <AutosizeInput
               className={`header__title ${errors['name'] ? 'input--invalid' : ''}`}
