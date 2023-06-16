@@ -9,13 +9,15 @@ type FooterProps = {
   toggleMenu: () => void;
 };
 
-function Footer({ showMenu, showNewTask, showUser, toggleMenu }: FooterProps) {
+function Footer({
+  showMenu, showNewTask, showUser, toggleMenu,
+}: FooterProps) {
   return (
     <footer className='footer'>
         <div className="footer__last-edit">
             <span>Last edited x hours ago by @user</span>
         </div>
-        <div className="footer__nav-icons">
+        <div className="footer__nav-icons lg:hidden">
             { showMenu
               ? <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
               : <></>

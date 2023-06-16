@@ -1,5 +1,6 @@
 .task-view {
-    @apply pt-9 gap-4 flex flex-col justify-between;
+    @apply flex-grow lg:flex-none pt-9 gap-4 flex flex-col justify-between;
+    @apply border-l border-gray-200;
 }
 
 .task-view__back {
@@ -12,7 +13,7 @@
 
 .header__title {
     @apply text-xl text-black font-bold;
-    @apply max-h-16 overflow-auto resize-none;
+    @apply max-h-16 overflow-scroll resize-none;
 }
 
 .validated-input {

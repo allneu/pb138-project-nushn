@@ -1,5 +1,5 @@
 .subpage {
-    @apply flex flex-col flex-grow lg:w-[calc(100%-15rem)] whitespace-nowrap;
+    @apply h-screen flex-grow flex flex-col flex-grow whitespace-nowrap;
 }
 
 .subpage-header {

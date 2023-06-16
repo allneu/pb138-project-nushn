@@ -1,9 +1,5 @@
-.hide-on-small {
-    @apply hidden lg:block;
-}
-
 .main-page {
-    @apply h-screen justify-between flex flex-col;
+    @apply h-screen w-screen justify-between flex flex-row;
 }
 
 .main-page__footer {

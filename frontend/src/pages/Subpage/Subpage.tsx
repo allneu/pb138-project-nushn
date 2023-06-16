@@ -41,7 +41,6 @@ function Subpage({ toggleMenu }: SubpageProps): JSX.Element {
   }
 
   return (
-    <div className="flex h-screen">
         <div className="subpage">
           <header className="subpage-header">
               <div className="name-wrapper">
@@ -61,7 +60,6 @@ function Subpage({ toggleMenu }: SubpageProps): JSX.Element {
 
           <Footer showMenu={true} showNewTask={true} showUser={true} toggleMenu={toggleMenu}/>
         </div>
-    </div>
   );
 }
 

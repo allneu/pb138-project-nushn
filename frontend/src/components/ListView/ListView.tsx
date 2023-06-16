@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
 
