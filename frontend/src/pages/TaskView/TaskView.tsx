@@ -100,11 +100,11 @@ function TaskView({ setIsTaskOpen, setTask }: TaskViewProps) {
   return (
     <div className='task-view'>
             <Link to={`/subpage/${subpageId}`}>
-              <img src="/assets/icons/back-arrow.svg" alt="Back icon"/>
+              <img className='icon' src="/assets/icons/back-arrow.svg" alt="Back icon"/>
             </Link>
 
             <div className="task-view__header">
-              <img src={task.icon} alt="Task icon"/>
+              <img className='icon' src={task.icon} alt="Task icon"/>
               <div className="validated-input">
               <AutosizeInput
                     className={`header__title ${errors['name'] ? 'input--invalid' : ''}`}
@@ -120,7 +120,7 @@ function TaskView({ setIsTaskOpen, setTask }: TaskViewProps) {
 
                   <div className='task-card__detail'>
                     <div className="detail__label">
-                      <img src="/assets/icons/clock.svg" alt="Created at icon"/>
+                      <img className="icon" src="/assets/icons/clock.svg" alt="Created at icon"/>
                       <p>Created</p>
                     </div>
                     <p className='detail__info'>{task.createdAt
@@ -130,7 +130,7 @@ function TaskView({ setIsTaskOpen, setTask }: TaskViewProps) {
 
                   <div className='task-card__detail'>
                     <div className="detail__label">
-                      <img src="/assets/icons/hourglass.svg" alt="Deadline icon"/>
+                      <img className='icon' src="/assets/icons/hourglass.svg" alt="Deadline icon"/>
                       <p>Deadline</p>
                     </div>
                     <div className="validated-input">
@@ -148,7 +148,7 @@ function TaskView({ setIsTaskOpen, setTask }: TaskViewProps) {
 
                   <div className='task-card__detail'>
                     <div className="detail__label">
-                      <img src="/assets/icons/label.svg" alt="Label icon"/>
+                      <img className='icon' src="/assets/icons/label.svg" alt="Label icon"/>
                       <p>Label</p>
                     </div>
                     <div className="validated-input">
@@ -172,7 +172,7 @@ function TaskView({ setIsTaskOpen, setTask }: TaskViewProps) {
 
                 <div className='task-card__detail'>
                   <div className="detail__label">
-                    <img src={`/assets/icons/${task.status ? 'check-done.svg' : 'check-todo.svg'}`} alt="Status icon"/>
+                    <img className='icon' src={`/assets/icons/${task.status ? 'check-done.svg' : 'check-todo.svg'}`} alt="Status icon"/>
                     <p>Status</p>
                   </div>
                   <select className='detail__input'
