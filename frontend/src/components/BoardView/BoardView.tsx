@@ -8,6 +8,7 @@ function BoardView() {
   // Get the subpage ID from the URL and load the labels from backend including tasks in label order
   // const { subpageId } = useParams();
   return (
+    <div className="">
       <div className="columns-wrapper">
         {labels.map((label) => (
           <LabelTasks key={label.id} label={label} />
@@ -17,6 +18,7 @@ function BoardView() {
           <span className="text-sm font-semibold">Add new label</span>
         </div>
       </div>
+    </div>
   );
 }
 

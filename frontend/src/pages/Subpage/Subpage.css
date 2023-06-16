@@ -1,5 +1,5 @@
 .subpage {
-    @apply h-screen flex-grow flex flex-col flex-grow whitespace-nowrap;
+    @apply h-screen flex-grow flex flex-col whitespace-nowrap;
 }
 
 .subpage-header {
@@ -24,4 +24,5 @@
 
 .subpage__tasks {
     @apply px-6 lg:px-16 flex-grow overflow-x-scroll overflow-y-scroll;
+    @apply lg:overflow-y-hidden;
 }

@@ -66,6 +66,8 @@ function TaskView({ setIsTaskOpen, setTask, toggleMenu }: TaskViewProps) {
         dueDate: getTask.dueDate.toISOString().substring(0, 10),
       } : defaultTaskValues;
       setTaskLocal(editableTask);
+    } else {
+      setTaskLocal(defaultTaskValues);
     }
   }, [taskId]);
 

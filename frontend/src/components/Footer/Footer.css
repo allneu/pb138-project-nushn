@@ -1,5 +1,5 @@
 .footer {
-    @apply  flex flex-col px-6 pb-4;
+    @apply  flex flex-col px-6 pb-1;
 }
 
 .footer__last-edit {

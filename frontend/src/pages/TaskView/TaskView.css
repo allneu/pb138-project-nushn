@@ -55,7 +55,7 @@
 
 .task-card__content {
     @apply flex-grow text-base;
-    @apply overflow-auto min-h-[calc(100vh-25rem)] max-h-[calc(100vh-25rem)] resize-none;
+    @apply overflow-y-scroll min-h-[calc(100vh-25rem)] max-h-[calc(100vh-25rem)] resize-none;
 }
 
 .select-option {
