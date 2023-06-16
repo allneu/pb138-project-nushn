@@ -3,12 +3,20 @@
 }
 
 .task-view__header {
-    @apply flex flex-row justify-center items-center gap-3;
+    @apply pl-16 flex flex-row justify-center items-center gap-3;
 }
 
 .header__title {
-    @apply text-xl text-black font-bold w-1/2;
-    @apply h-fit;
+    @apply text-xl text-black font-bold;
+    @apply max-h-16 overflow-auto resize-none;
+}
+
+.validated-input {
+    @apply flex flex-col gap-1;
+}
+
+.error {
+    @apply text-red-500 text-sm self-end;
 }
 
 .task-card {
@@ -31,12 +39,24 @@
     @apply text-right text-gray-500;
 }
 
+.input--invalid {
+    @apply border border-red-500 rounded-md;
+    @apply focus:ring-red-500 rounded-md focus-visible:ring;
+}
+
 .task-card__line {
     @apply bg-gray-500 my-4 self-center h-px w-full;
 }
 
 .task-card__content {
     @apply flex-grow text-base;
-    @apply max-h-fit
+    @apply overflow-auto max-h-[calc(100vh-22rem)] resize-none;
 }
 
+.select-option {
+    @apply text-xs;
+}
+
+.placeholder {
+    @apply text-gray-500 font-semibold;
+}
