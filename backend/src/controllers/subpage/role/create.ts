@@ -1,34 +1,28 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../../common/handleErrors';
-import { functionalityNotImplemented } from '../../common/notimplemented';
+import { roleCreateSchema } from '../../../models/roleModels';
+import { userIdSubpageIdSchema } from '../../../models';
+import SubpageRepos from '../../../repositories/subpage';
+import { handleErrResp, handleOkResp } from '../../common';
 
 // result code should be 201
 
-// validation schema
-const bodySchema = z.object({
-  role: z.enum(['owner', 'visitor']),
-}).strict();
+// validation schema == { roleCreateSchema, userIdSubpageIdSchema }
 
-const paramsSchema = z.object({
-  userId: z.string().uuid().nonempty(),
-  subpageId: z.string().uuid().nonempty(),
-}).strict();
-
-// res.body type
-export interface ResultBody {
-  userId: string,
-  subpageId: string,
-  role: string, // role enum
-}
+// res.body type == RoleType
 
 // function
-export const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response) => {
   try {
-    bodySchema.parse(req.body);
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const data = roleCreateSchema.parse(req.body);
+    const params = userIdSubpageIdSchema.parse(req.params);
+    const response = await SubpageRepos.RoleRepo.create(data, params);
+    return response.isOk
+      ? handleOkResp(201, response.value, res, `Created new role for user with id: ${params.userId}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
 };
+
+export default create;

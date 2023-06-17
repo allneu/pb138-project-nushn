@@ -1,6 +1,5 @@
-import { endpointNotImplemented, functionalityNotImplemented } from './notimplemented';
+import handleErrors from './handleErrors';
 
-export default {
-  endpointNotImplemented,
-  functionalityNotImplemented,
-};
+export * from './notimplemented';
+export { handleErrors };
+export * from './handleResponse';

@@ -84,6 +84,6 @@ model Task {
 }
 
 enum RoleType {
-  USER
-  ADMIN
+  OWNER
+  EDITOR
 }
