@@ -27,21 +27,31 @@ export const subpageUpdateSchema = z.object({
 
 export type SubpageUpdateType = z.infer<typeof subpageUpdateSchema>;
 
+export interface Subpage2 {
+  id: string,
+  name: string,
+  description: string,
+  icon: string,
+  labels: {
+    id: string,
+    name: string,
+    orderInSubpage: number,
+    createdAt: Date,
+  }[],
+  createdAt: Date,
+}
+
 export interface Subpage {
   id: string,
   name: string,
   description: string,
   icon: string,
-  creator: {
-    id: string,
-    username: string,
-  },
-  labels: [{
+  labels: {
     id: string,
     name: string,
-    orderInSubpabe: number,
+    orderInSubpage: number,
     createdAt: Date,
-  }],
+  }[],
   createdAt: Date,
 }
 
