@@ -7,7 +7,7 @@ import './LogInPage.css';
 import { Link } from 'react-router-dom';
 
 const schema = z.object({
-  username: z.string().nonempty({ message: 'Username is required' }),
+  username: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
   password: z.string().nonempty({ message: 'Password is required' }),
 });
 
@@ -51,15 +51,15 @@ function LogInPage() {
         <label className="show-password">
           <input
             type="checkbox"
+            className='h-8'
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
-            className="shadow"
           />
           <span className="ml-2 text-sm">Show password</span>
         </label>
         <button type="submit">Log In</button>
 
-        <p className="form__register">Don't have an account? <Link to={'/register'} className="register__link">Sign up.</Link></p>
+        <p className="form__to-register">Don't have an account? <Link to={'/register'} className="to-register__link">Sign up.</Link></p>
       </form>
     </div>
   );

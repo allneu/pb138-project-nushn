@@ -1,12 +1,12 @@
-.login {
+.login, .register {
     @apply flex flex-col items-center justify-center h-screen w-screen;
 }
 
-.login__header {
+.login__header, .register__header {
     @apply flex flex-row gap-4 py-4;
 }
 
-.login__header img {
+.login__header img, .register__header img {
     @apply w-16 h-16;
 }
 
@@ -14,7 +14,7 @@
     @apply text-3xl font-bold text-center min-h-fit overflow-clip;
 }
 
-.login__form {
+.login__form, .register__form {
     @apply p-4 rounded w-1/2 h-1/3 lg:w-1/3 max-w-lg min-w-fit;
 }
 
@@ -30,14 +30,14 @@
     @apply flex items-center;
 }
 
-.login__form button {
+.login__form button, .register__form button {
     @apply block w-full bg-black text-white rounded p-2 mt-4;
 }
 
-.form__register {
+.form__to-register, .form__to-login {
     @apply text-center text-xs mt-4 text-gray-500;
 }
 
-.register__link {
+.to-register__link, .to-login__link {
     @apply text-black font-semibold cursor-pointer border rounded border-gray-300 px-1 py-0.5;
 }

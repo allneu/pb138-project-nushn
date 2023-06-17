@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import MainPage from './pages/MainPage/MainPage.tsx';
 import LogInPage from './pages/LogInPage/LogInPage.tsx';
+import RegisterPage from './pages/RegisterPage/RegisterPage.tsx';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         {/* Delete Navigate later when other pages are done */}
         <Route path="/" element={<Navigate to="/login"/>} />
         <Route path="/login" element={<LogInPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/subpage/:subpageId/*" element={<MainPage />} />
       </Routes>
     </>
