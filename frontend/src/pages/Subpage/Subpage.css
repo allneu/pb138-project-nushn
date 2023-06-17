@@ -24,5 +24,4 @@
 
 .subpage__tasks {
     @apply px-6 lg:px-16 flex-grow overflow-x-scroll overflow-y-scroll;
-    @apply lg:overflow-y-hidden;
 }
