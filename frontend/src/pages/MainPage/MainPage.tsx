@@ -68,7 +68,7 @@ function MainPage() {
     <div className='main-page'>
       <Menu isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
-      <div className={isTaskOpen ? 'hidden lg:block flex-grow' : 'flex h-screen flex-grow'}>
+      <div className={isTaskOpen ? 'hidden lg:block flex h-screen flex-grow' : 'flex h-screen flex-grow'}>
           <Subpage toggleMenu={toggleMenu}/>
       </div>
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import './Footer.css';
 
@@ -12,6 +12,7 @@ type FooterProps = {
 function Footer({
   showMenu, showNewTask, showUser, toggleMenu,
 }: FooterProps) {
+  const { subpageId } = useParams();
   return (
     <footer className='footer'>
         <div className="footer__last-edit">
@@ -24,7 +25,7 @@ function Footer({
 
             }
             { showNewTask
-              ? <Link to='task/newTask'>
+              ? <Link to={`/subpage/${subpageId}/task/newTask`}>
                     <img className='icon' src="/assets/icons/add.svg" alt="Add new task icon"/>
                   </Link>
               : <></>
