@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 
 import './AuthPages.css';
 import { Link } from 'react-router-dom';
+import IconSelector from '../../components/IconSelector/IconSelector.tsx';
 
 const passwordSchema = z.string()
   .refine((value) => value.length >= 8, { message: 'Password must be at least 8 characters long' })
@@ -19,6 +21,7 @@ const schema = z.object({
 });
 
 function RegisterPage() {
+  const [selectedIcon, setSelectedIcon] = useState('/assets/icons/account.svg');
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
@@ -39,14 +42,19 @@ function RegisterPage() {
       </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
-        <div className='validated-input'>
-          <input
-            type="text"
-            placeholder="@username"
-            className={`form__input ${errors['username'] ? 'border-red-500' : 'border-gray-300'}`}
-            {...register('username')}
-          />
-          {errors['username'] && <p className="text-red-500 text-xs">{errors['username'].message}</p>}
+        <div className='validated-input flex flex-row gap-3 items-center'>
+          <div className='border border-gray-300 rounded-md p-2 self-center'>
+            <IconSelector selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon}/>
+          </div>
+          <div className='flex-grow'>
+            <input
+              type="text"
+              placeholder="@username"
+              className={`form__input ${errors['username'] ? 'border-red-500' : 'border-gray-300'}`}
+              {...register('username')}
+            />
+            {errors['username'] && <p className="text-red-500 text-xs">{errors['username'].message}</p>}
+          </div>
         </div>
 
         <div className='validated-input'>

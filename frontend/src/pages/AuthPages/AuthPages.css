@@ -23,11 +23,11 @@
 }
 
 .form__input {
-    @apply block w-full p-2 border rounded focus:ring-2 focus:ring-black;
+    @apply block w-full p-2 border rounded focus:ring-2 focus:ring-black flex-grow;
 }
 
 .validated-input {
-    @apply flex flex-col mb-2;
+    @apply flex flex-col mb-2 flex-grow;
 }
 
 .show-password {
