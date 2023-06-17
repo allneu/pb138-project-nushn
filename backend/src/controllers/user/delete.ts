@@ -13,6 +13,10 @@ const paramsSchema = z.object({
 // res.body type
 // {}
 
+export type UserDeleteData = {
+  userId: string,
+};
+
 // function
 const deleteUser = async (req: Request, res: Response) => {
   try {

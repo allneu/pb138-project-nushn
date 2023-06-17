@@ -31,12 +31,20 @@ const bodySchema = z.object({
     'At least one of username, email, or password must be provided.',
   );
 
+export type UserUpdateData = {
+  userId: string,
+  userName?: string,
+  email?: string,
+  password?: string,
+  avatar?: string,
+};
+
 // res.body type
-export interface ResultBody { // return only id and updated data
+export type ResultBody = { // return only id and updated data
   id: string,
   username?: string,
   email?: string,
-}
+};
 
 // function
 export const update = async (req: Request, res: Response) => {

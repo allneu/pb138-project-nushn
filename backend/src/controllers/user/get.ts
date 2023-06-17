@@ -12,16 +12,20 @@ const paramsSchema = z.object({
   userId: z.string().uuid(),
 }).strict();
 
-// res.body type
-export interface User { // = getOneBody
-  id: string,
-  username: string,
-  email: string,
-}
+export type UserGetData = {
+  userId: string,
+};
 
-export interface GetMultipleBody {
+// res.body type
+export type User = { // = getOneBody
+  id: string,
+  userName: string,
+  email: string,
+};
+
+export type GetMultipleBody = {
   users: User[],
-}
+};
 
 // functions
 export const getOne = async (req: Request, res: Response) => {

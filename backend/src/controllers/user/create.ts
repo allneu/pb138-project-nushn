@@ -21,6 +21,13 @@ const bodySchema = z.object({
   password: passwordSchema,
 }).strict();
 
+export type UserDataCreate = {
+  userName: string,
+  email: string,
+  password: string,
+  avatar?: string,
+};
+
 // res.body type
 export interface ResultBody {
   id: string,
