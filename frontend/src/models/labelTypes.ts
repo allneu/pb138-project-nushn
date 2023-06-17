@@ -1,9 +1,30 @@
 import { TaskType } from './taskTypes';
 
-export interface LabelType {
-  id: string,
+export type LabelCreateType = {
   name: string,
-  subpageID: string,
-  createdAt: string,
+};
+
+export type LabelCreateResultType = LabelCreateType & {
+  id: string,
+  orderInSubpage: number,
+  createdAt: Date,
+};
+
+export type LabelType = LabelCreateResultType & {
   tasks: TaskType[],
-}
+};
+
+export type LabelUpdateType = {
+  oldName: string,
+  oldOrderInSubpage: number,
+  newName: string,
+  newOrderInSubpage: number,
+};
+
+export type LabelUpdateResultType = {
+  id: string,
+  name?: string,
+  orderInSubpage?: number,
+};
+
+export type LabelDeleteResultType = object;
