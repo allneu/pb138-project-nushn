@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import '../LogInPage/LogInPage.css';
+import './LogInRegisterPages.css';
 import { Link } from 'react-router-dom';
 
 const passwordSchema = z.string()
