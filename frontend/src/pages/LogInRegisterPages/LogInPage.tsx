@@ -7,7 +7,7 @@ import './LogInRegisterPages.css';
 import { Link } from 'react-router-dom';
 
 const schema = z.object({
-  username: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
+  email: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
   password: z.string().nonempty({ message: 'Password is required' }),
 });
 
@@ -32,17 +32,17 @@ function LogInPage() {
         <div className='validated-input'>
           <input
             type="text"
-            placeholder="User"
-            className={`form__input ${errors['username'] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
-            {...register('username')}
+            placeholder="email"
+            className={`form__input ${errors['email'] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+            {...register('email')}
           />
-          {errors['username'] && <p className="text-red-500 text-xs">{errors['username'].message}</p>}
+          {errors['email'] && <p className="text-red-500 text-xs">{errors['email'].message}</p>}
         </div>
 
         <div className='validated-input'>
           <input
             type={showPassword ? 'text' : 'password'}
-            placeholder="Password"
+            placeholder="password"
             className={`form__input ${errors['password'] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
             {...register('password')}
           />

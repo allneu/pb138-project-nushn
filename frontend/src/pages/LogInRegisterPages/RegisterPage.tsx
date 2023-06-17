@@ -38,7 +38,7 @@ function RegisterPage() {
         <div className='validated-input'>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="@username"
             className={`form__input ${errors['username'] ? 'border-red-500' : 'border-gray-300'}`}
             {...register('username')}
           />
@@ -48,7 +48,7 @@ function RegisterPage() {
         <div className='validated-input'>
           <input
             type="text"
-            placeholder="Email"
+            placeholder="email"
             className={`form__input ${errors['email'] ? 'border-red-500' : 'border-gray-300'}`}
             {...register('email')}
           />
@@ -58,7 +58,7 @@ function RegisterPage() {
         <div className='validated-input'>
           <input
             type="text"
-            placeholder="Password"
+            placeholder="password"
             className={`form__input ${errors['password'] ? 'border-red-500' : 'border-gray-300'}`}
             {...register('password')}
           />
