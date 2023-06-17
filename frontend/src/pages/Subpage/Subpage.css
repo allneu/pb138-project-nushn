@@ -1,5 +1,5 @@
 .subpage {
-    @apply flex flex-col flex-grow lg:w-[calc(100%-15rem)] whitespace-nowrap;
+    @apply h-screen flex-grow flex flex-col whitespace-nowrap;
 }
 
 .subpage-header {
@@ -24,16 +24,4 @@
 
 .subpage__tasks {
     @apply px-6 lg:px-16 flex-grow overflow-x-scroll overflow-y-scroll;
-}
-
-.subpage-footer {
-    @apply flex flex-col px-6 pb-4;
-}
-
-.subpage-footer__last-edit {
-    @apply text-notion text-xs font-semibold text-center text-opacity-70 py-5;
-}
-
-.subpage-footer__nav-icons {
-    @apply flex justify-between lg:hidden;
 }

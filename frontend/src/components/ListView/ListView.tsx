@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
 
@@ -23,7 +22,7 @@ function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   }
 
   return (
-      <div className="flex flex-col gap-1 lg:pt-5">
+      <div className="flex flex-col gap-1 lg:pt-5 overflow-y-auto">
         {tasks.map((task) => (
           <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
         ))}

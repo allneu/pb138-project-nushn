@@ -1,0 +1,67 @@
+.task-view {
+    @apply flex-grow lg:flex-none pt-9 gap-4 flex flex-col justify-between;
+    @apply border-l border-gray-200;
+}
+
+.task-view__back {
+    @apply px-9;
+}
+
+.task-view__header {
+    @apply px-9 pl-16 flex flex-row justify-center items-center gap-3;
+}
+
+.header__title {
+    @apply text-xl text-black font-bold text-center;
+    @apply max-h-16 overflow-scroll resize-none;
+}
+
+.validated-input {
+    @apply flex flex-col gap-1;
+}
+
+.error {
+    @apply text-red-500 text-sm self-end;
+}
+
+.task-card {
+    @apply flex flex-col px-9;
+}
+
+.task-card__details {
+    @apply flex-none flex flex-col gap-2 pb-2;
+}
+
+.task-card__detail {
+    @apply flex flex-row justify-between gap-2;
+}
+
+.detail__label {
+    @apply flex flex-row gap-2;
+}
+
+.detail__input, .detail__info {
+    @apply text-right text-gray-500;
+}
+
+.input--invalid {
+    @apply border border-red-500 rounded-md;
+    @apply focus:ring-red-500 rounded-md focus-visible:ring;
+}
+
+.task-card__line {
+    @apply bg-gray-500 my-4 self-center h-px w-full;
+}
+
+.task-card__content {
+    @apply flex-grow text-base;
+    @apply overflow-y-scroll min-h-[calc(100vh-25rem)] max-h-[calc(100vh-25rem)] resize-none;
+}
+
+.select-option {
+    @apply text-xs;
+}
+
+.placeholder {
+    @apply text-gray-500 font-semibold;
+}
