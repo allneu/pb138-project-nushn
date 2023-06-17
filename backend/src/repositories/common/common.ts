@@ -9,7 +9,7 @@ export const checkSubpage = async (
   tx: PrismaTransactionHandle,
 ) => {
   try {
-    const subPage = await tx.subPage.findFirstOrThrow({
+    const subPage = await tx.subPage.findFirst({
       where: { id },
     });
     if (subPage === null) {
@@ -28,12 +28,31 @@ export const checkLabel = async (
   tx: PrismaTransactionHandle,
 ) => {
   try {
-    const label = await tx.label.findFirstOrThrow({
+    const label = await tx.label.findFirst({
       where: { id },
     });
     if (label === null) {
       return Result.err(new Error('The specified label does not exist!'));
     } if (label.deletedAt !== null) {
+      return Result.err(new Error('The specified label has already been deleted!'));
+    }
+    return Result.ok({});
+  } catch {
+    return genericError;
+  }
+};
+
+export const checkTask = async (
+  id: string,
+  tx: PrismaTransactionHandle,
+) => {
+  try {
+    const task = await tx.task.findFirst({
+      where: { id },
+    });
+    if (task === null) {
+      return Result.err(new Error('The specified label does not exist!'));
+    } if (task.deletedAt !== null) {
       return Result.err(new Error('The specified label has already been deleted!'));
     }
     return Result.ok({});

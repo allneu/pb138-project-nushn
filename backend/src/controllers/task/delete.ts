@@ -11,6 +11,12 @@ const paramsSchema = z.object({
   subpageId: z.string().uuid(),
 }).strict();
 
+export type TaskDeleteData = {
+  taskId: string,
+  labelId: string,
+  subpageId: string,
+};
+
 // res.body type
 // {}
 
