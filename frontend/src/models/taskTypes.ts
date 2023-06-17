@@ -12,6 +12,7 @@ export type TaskCreateResultType = Omit<TaskCreateType, 'creatorId'> & {
     id: string,
     username: string,
   },
+  done: boolean,
   orderInList: number,
   orderInLabel: number,
   createdAt: Date,
