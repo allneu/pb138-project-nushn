@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import './LogInRegisterPages.css';
+import './AuthPages.css';
 import { Link } from 'react-router-dom';
 
 const passwordSchema = z.string()
@@ -29,9 +29,13 @@ function RegisterPage() {
 
   return (
     <div className="register">
-      <header className="register__header">
+      <div className="logo__section">
         <img src="/assets/icons/nushn-logo.svg" alt="Nushn icon" className="icon" />
-        <h1 className='header__title'>Welcome to Nushn</h1>
+        <h1 className='logo__title'>Nushn</h1>
+      </div>
+
+      <header className="login__header">
+        <h1 className='header__title'>Sign up</h1>
       </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
@@ -65,7 +69,7 @@ function RegisterPage() {
           {errors['password'] && <p className="text-red-500 text-xs">{errors['password'].message}</p>}
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit">Sign up</button>
 
         <p className="form__to-login">Already have an account? <Link to={'/login'} className="to-login__link">Log in.</Link></p>
       </form>

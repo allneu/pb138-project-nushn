@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import './LogInRegisterPages.css';
+import './AuthPages.css';
 import { Link } from 'react-router-dom';
 
 const schema = z.object({
@@ -23,9 +23,13 @@ function LogInPage() {
 
   return (
     <div className="login">
-      <header className="login__header">
+      <div className="logo__section">
         <img src="/assets/icons/nushn-logo.svg" alt="Nushn icon" className="icon" />
-        <h1 className='header__title'>Welcome to Nushn</h1>
+        <h1 className='logo__title'>Nushn</h1>
+      </div>
+
+      <header className="login__header">
+        <h1 className='header__title'>Log in</h1>
       </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="login__form">
@@ -55,11 +59,11 @@ function LogInPage() {
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
           />
-          <span className="ml-2 text-sm">Show password</span>
+          <span className="ml-2 text-sm text-gray-500">Show password</span>
         </label>
         <button type="submit">Log In</button>
 
-        <p className="form__to-register">Don't have an account? <Link to={'/register'} className="to-register__link">Sign up.</Link></p>
+        <p className="form__to-register">Don't have an account? <Link to={'/signup'} className="to-register__link">Sign up.</Link></p>
       </form>
     </div>
   );
