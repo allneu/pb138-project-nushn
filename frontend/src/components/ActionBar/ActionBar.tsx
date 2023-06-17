@@ -1,7 +1,8 @@
+import ViewType from '../../pages/Subpage/viewType';
 import './ActionBar.css';
 
 type ActionBarProps = {
-  onViewChange: (newView: string) => void;
+  onViewChange: (newView: ViewType) => void;
 };
 
 function ActionBar({ onViewChange }: ActionBarProps) {

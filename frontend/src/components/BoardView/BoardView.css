@@ -1,6 +1,5 @@
 .columns-wrapper {
     @apply flex flex-col lg:flex-row flex-grow lg:pt-5 lg:gap-6;
-    @apply lg:max-w-[300px];
 }
 
 .label-tasks {

@@ -7,8 +7,8 @@ import './Menu.css';
 import subpages from '../../../public/subpages.json';
 
 type MenuProps = {
-  isOpen: boolean;
-  toggleMenu: () => void;
+  isOpen: boolean,
+  toggleMenu: () => void,
 };
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {

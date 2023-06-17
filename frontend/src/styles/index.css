@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --footer-height: 3.5rem;
+    --lg-menu-width: 15rem;
+}
+
 .icon {
     @apply w-6 h-6;
 }

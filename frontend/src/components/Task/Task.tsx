@@ -12,7 +12,7 @@ function Task({ task, todoIcon, doneIcon } : TaskProps) {
   return (
       <Link to={`task/${task.id}`} className="task">
         <img className="icon rounded" src={task.done ? doneIcon : todoIcon} alt="Task icon" />
-        <span className={task.done ? 'task__name task__name--done' : 'task__name'}>{task.taskName}</span>
+        <span className={task.done ? 'task__name task__name--done' : 'task__name'}>{task.name}</span>
         <img className="icon" src="/assets/icons/edit.svg" alt="Edit task icon"/>
       </Link>
   );

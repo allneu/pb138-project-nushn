@@ -1,6 +1,6 @@
 .menu {
-    @apply fixed lg:static flex flex-col w-3/4 lg:w-60 h-[calc(100%-3rem)] lg:h-full bg-white
-        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-scroll duration-500 lg:min-w-[200px];
+    @apply fixed lg:static flex flex-col w-3/4 lg:w-60 lg:min-w-[15rem] h-[calc(100%-3rem)] lg:h-full bg-white
+        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-scroll duration-500;
 }
 
 .menu--show {
@@ -12,8 +12,7 @@
 }
 
 .menu-header {
-    @apply flex justify-between items-center p-5 pb-3 lg:p-[3.2rem];
-    @apply border-b border-gray-500;
+    @apply px-5 pt-5 pb-1.5;
 }
 
 .logo {

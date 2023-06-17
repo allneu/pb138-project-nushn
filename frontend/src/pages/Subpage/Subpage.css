@@ -1,5 +1,5 @@
 .subpage {
-    @apply h-screen flex-grow flex flex-col whitespace-nowrap;
+    @apply flex flex-col whitespace-nowrap h-[calc(100%-var(--footer-height))] lg:h-full lg:w-[calc(100%-var(--lg-menu-width))];
 }
 
 .subpage-header {
@@ -24,4 +24,8 @@
 
 .subpage__tasks {
     @apply px-6 lg:px-16 flex-grow overflow-x-scroll overflow-y-scroll;
+}
+
+.subpage__last-edit {
+    @apply text-notion text-xs font-semibold text-center text-opacity-70 py-5;
 }
