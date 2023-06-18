@@ -1,14 +1,10 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import { userIdSchema } from '../../models/urlParamsSchema';
+import UserRepos from '../../repositories/user';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // result code should be 204
-
-// validation schema
-const paramsSchema = z.object({
-  userId: z.string().uuid(),
-}).strict();
 
 // res.body type
 // {}
@@ -16,8 +12,11 @@ const paramsSchema = z.object({
 // function
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = userIdSchema.parse(req.params);
+    const response = await UserRepos.deleteUser(params);
+    return response.isOk
+      ? handleOkResp(204, response.value, res, `Deleted user with id: ${params.userId}.`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }

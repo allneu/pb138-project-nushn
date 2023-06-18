@@ -42,6 +42,44 @@ export const checkLabel = async (
   }
 };
 
+export const checkTask = async (
+  id: string,
+  tx: PrismaTransactionHandle,
+) => {
+  try {
+    const task = await tx.task.findFirst({
+      where: { id },
+    });
+    if (task === null) {
+      return Result.err(new Error('The specified task does not exist!'));
+    } if (task.deletedAt !== null) {
+      return Result.err(new Error('The specified task has already been deleted!'));
+    }
+    return Result.ok({});
+  } catch {
+    return genericError;
+  }
+};
+
+export const checkUser = async (
+  id: string,
+  tx: PrismaTransactionHandle,
+) => {
+  try {
+    const user = await tx.user.findFirst({
+      where: { id },
+    });
+    if (user === null) {
+      return Result.err(new Error('The specified user does not exist!'));
+    } if (user.deletedAt !== null) {
+      return Result.err(new Error('The specified user has already been deleted!'));
+    }
+    return Result.ok({});
+  } catch {
+    return genericError;
+  }
+};
+
 export const moveIndexes = async (
   labelId: string,
   oldIndex: number,
