@@ -28,7 +28,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                     <Link to={`/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
                         <i className={subpage.icon} />
-                        <span className="subpage-name">{subpage.name}</span>
+                        <span className="name">{subpage.name}</span>
                         {/* TODO - show only when subpage is shared */}
                         <i className={`grey ${icons.shared}`}/>
                     </Link>
@@ -37,7 +37,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
 
             <Link to="/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
                 <i className={icons['add-new']} />
-                <span className="subpage-name">New subpage</span>
+                <span className="name">New subpage</span>
             </Link>
         </nav>
   );
