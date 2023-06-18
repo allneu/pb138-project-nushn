@@ -5,6 +5,7 @@ import {
 } from '../../models';
 import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const controlLastData = async (
   data: SubpageUpdateType,
@@ -64,6 +65,7 @@ const update = async (
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
         await controlLastData(data, params, tx);
         const subpage = await updateSubpage(data, params, tx);
+        subpageEditCreate(params, new Date(), tx);
         return subpage;
       }),
     );
