@@ -21,7 +21,7 @@ const create = async (
             labels: { select: labelSelect },
           },
         });
-        const role = await roleCreate({ role: 'OWNER' }, { ...params, subpageId: subpage.id }, tx);
+        const role = await roleCreate({ role: 'OWNER', userId: params.userId }, { ...params, subpageId: subpage.id }, tx);
         if (role.user.deletedAt !== null) {
           throw userWasDeletedError;
         }

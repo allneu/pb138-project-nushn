@@ -4,6 +4,7 @@ import {
   RoleCreateType,
   UserIdSubpageIdType,
   subpageWasDeletedError,
+  userHasNotPermissionError,
   userWasDeletedError,
 } from '../../../models';
 import client from '../../client';
@@ -17,6 +18,9 @@ const create = async (
   try {
     return Result.ok(
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
+        if (await tx.role.findFirst({ where: { ...params } }) === null) {
+          throw userHasNotPermissionError;
+        }
         const { user, subpage, ...role } = await roleCreate(data, params, tx);
         if (user.deletedAt !== null) {
           throw userWasDeletedError;
@@ -30,4 +34,5 @@ const create = async (
     return Result.err(e as Error);
   }
 };
+
 export default create;
