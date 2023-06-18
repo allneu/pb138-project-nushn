@@ -11,8 +11,9 @@
     @apply flex items-center py-2.5 lg:py-1 gap-4;
 }
 
-.label__name {
+.label-name {
     @apply text-notion text-sm font-bold;
+    @apply max-h-16 overflow-scroll focus:outline-none;
 }
 
 .label__line {

@@ -15,14 +15,6 @@
     @apply max-h-16 overflow-auto resize-none focus:outline-none;
 }
 
-.input-with-errors {
-    @apply flex flex-col gap-1;
-}
-
-.validation-error {
-    @apply text-red-800 text-sm font-normal;
-}
-
 .task-view__info {
     @apply flex flex-col gap-2.5;
 }

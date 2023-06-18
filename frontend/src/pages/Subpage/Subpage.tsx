@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import AutosizeInput from 'react-textarea-autosize';
 
 import ViewType from './viewType';
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
+
+import { subpageFormSchema, SubpageFormDataType } from './subpageSchema';
+// replace with subpage object from backend
+import defaultSubpageValues from './defaultSubpageValues';
 
 import './Subpage.css';
 import subpages from '../../../public/subpages.json';
@@ -19,6 +26,19 @@ function Subpage() {
     setView(newView);
   };
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SubpageFormDataType>({
+    values: defaultSubpageValues,
+    resolver: zodResolver(subpageFormSchema),
+  });
+
+  const onSubmit = (data: SubpageFormDataType) => {
+    console.log(data);
+  };
+
   let viewComponent: JSX.Element;
   if (view === 'board') {
     viewComponent = <BoardView />;
@@ -31,12 +51,31 @@ function Subpage() {
   return (
     <>
         <div className="subpage">
-            <header className="subpage-header">
+            <header className="subpage-form">
                 <div className="name-wrapper">
+<<<<<<< frontend/src/pages/Subpage/Subpage.tsx
+                    <i className={subpage?.icon}/>
+                    <div className="input-with-errors">
+                        <AutosizeInput
+                            className="subpage-name"
+                            placeholder='Subpage name'
+                            {...register('name', { onBlur: handleSubmit(onSubmit) })}
+                        />
+                        {errors.name && <span className="validation-error">{errors.name.message}</span>}
+                    </div>
+=======
                     <i className={subpage?.icon}/>
                     <span className="name-wrapper__name">{subpage?.name}</span>
+>>>>>>> frontend/src/pages/Subpage/Subpage.tsx
                 </div>
-                <span className="subpage-header__description">{subpage?.description}</span>
+                <div className="input-with-errors">
+                        <AutosizeInput
+                            className="subpage-description"
+                            placeholder='Subpage description'
+                            {...register('description', { onBlur: handleSubmit(onSubmit) })}
+                        />
+                        {errors.description && <span className="validation-error">{errors.description.message}</span>}
+                    </div>
                 <ActionBar onViewChange={handleViewChange}/>
             </header>
 
