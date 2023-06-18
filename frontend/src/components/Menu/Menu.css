@@ -32,7 +32,7 @@
 }
 
 .menu__subpages {
-    @apply flex flex-col overflow-y-auto;
+    @apply flex flex-col overflow-y-auto flex-grow;
 }
 
 .menu__subpage {

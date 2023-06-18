@@ -19,11 +19,12 @@ function LabelTasks({ label } : LabelTasksProps) {
         <div className="label">
             <span className="label__name">{label.name}</span>
             <div className="label__line"/>
-
-            { showTasks
-              ? <i className={`icon label__show ${icons['collapse-arrow']}`} onClick={() => setShowTasks(false)}/>
-              : <i className={`icon label__show ${icons['expand-arrow']}`} onClick={() => setShowTasks(true)}/>
-            }
+            <div className="label__show">
+              { showTasks
+                ? <i className={icons['collapse-arrow']} onClick={() => setShowTasks(false)}/>
+                : <i className={icons['expand-arrow']} onClick={() => setShowTasks(true)}/>
+              }
+            </div>
         </div>
 
         <div className="label-tasks">
