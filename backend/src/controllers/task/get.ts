@@ -6,31 +6,40 @@ import { functionalityNotImplemented } from '../common/notimplemented';
 // validation schema
 const paramsSchemaOne = z.object({
   taskId: z.string().uuid(),
-  pageId: z.string().uuid(),
+  subPageId: z.string().uuid(),
 }).strict();
 
 const paramsSchemaMultiple = z.object({
   subpageId: z.string().uuid(),
 }).strict();
 
+export type TaskGetData = {
+  taskId: string,
+  subpageId: string,
+};
+
+export type TaskGetMultipleBody = {
+  subpageId:string,
+};
+
 // res.body type
-export interface Task { // = getOneBody
+export type TaskReturn = { // = getOneBody
   id: string,
   taskName: string,
   dueDate: Date,
   content: string,
   creator: {
     id: string,
-    username: string,
+    userName: string,
   },
   labelId: string,
-  orderInList: number,
-  orderInLabel: number,
-}
+  orderInList?: number,
+  orderInLabel?: number,
+};
 
-export interface GetMultipleBody {
-  tasks: Task[],
-}
+export type TaskGetMultipleResult = {
+  tasks: TaskReturn[],
+};
 
 // functions
 export const getOne = async (req: Request, res: Response) => {

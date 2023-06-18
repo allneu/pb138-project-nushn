@@ -1,24 +1,19 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import { taskIdSubpageIdSchema } from '../../repositories/models/urlParamsSchema';
+import TaskRepo from '../../repositories/task';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // result code should be 204
-
-// validation schema
-const paramsSchema = z.object({
-  taskId: z.string().uuid(),
-  subpageId: z.string().uuid(),
-}).strict();
-
-// res.body type
-// {}
 
 // function
 const deleteTask = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = taskIdSubpageIdSchema.parse(req.params);
+    const response = await TaskRepo.deleteTask(params);
+    return response.isOk
+      ? handleOkResp(204, response.value, res, `Deleted task with id ${params.taskId}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
