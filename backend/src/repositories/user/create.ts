@@ -13,14 +13,14 @@ Promise<Result<UserCreateResult>> => {
       const hashedPassword = await bcryptjs.hash(data.password, salt);
       const newUser: User = await tx.user.create({
         data: {
-          userName: data.username,
+          username: data.username,
           email: data.email,
           hashedPassword,
           salt: salt.toString(),
           avatar: data.avatar ? data.avatar : '',
         },
       });
-      const returnedUser = { id: newUser.id, username: newUser.userName, email: newUser.email };
+      const returnedUser = { id: newUser.id, username: newUser.username, email: newUser.email };
       return Result.ok(returnedUser);
     });
   } catch (e) {

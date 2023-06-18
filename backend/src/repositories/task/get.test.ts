@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getMultiple, getOne } from './get';
 
 (async () => {
