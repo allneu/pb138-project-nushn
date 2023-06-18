@@ -21,7 +21,6 @@ const create = async (req: Request, res: Response) => {
       ? handleOkResp(201, response.value, res, `Created new role for user with id: ${params.userId}`)
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
-    console.log('catch error');
     return handleErrors(e, res);
   }
 };
