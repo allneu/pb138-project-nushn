@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import {
   Subpage,
-  SubpageCreateType, UserIdType, userWasDeletedError,
+  SubpageCreateType, UserIdType, labelSelect, subpageSelect, userWasDeletedError,
 } from '../../models';
 import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
@@ -17,25 +17,23 @@ const create = async (
         const subpage = await tx.subPage.create({
           data,
           select: {
-            id: true,
-            name: true,
-            description: true,
-            icon: true,
-            labels: {
-              select: {
-                id: true,
-                name: true,
-                orderInSubpage: true,
-                createdAt: true,
-              },
-            },
-            createdAt: true,
+            ...subpageSelect,
+            labels: { select: labelSelect },
           },
         });
         const role = await roleCreate({ role: 'OWNER' }, { ...params, subpageId: subpage.id }, tx);
         if (role.user.deletedAt !== null) {
           throw userWasDeletedError;
         }
+        const label = await tx.label.create({
+          data: {
+            name: 'unlabeled',
+            subPageId: subpage.id,
+            orderInSubpage: 0,
+          },
+          select: labelSelect,
+        });
+        subpage.labels = [...subpage.labels, label];
         return subpage;
       }),
     );

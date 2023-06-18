@@ -32,6 +32,7 @@ model Role {
   userId    String
   subpage   SubPage  @relation(fields: [subpageId], references: [id])
   subpageId String
+  deletedAt DateTime?
 }
 
 model SubPage {
@@ -51,8 +52,8 @@ model SubPageEdit {
   editor    User     @relation(fields: [editorId], references: [id])
   editorId  String
   editedAt  DateTime
-  subPage   SubPage  @relation(fields: [subPageId], references: [id])
-  subPageId String
+  subPage   SubPage  @relation(fields: [subpageId], references: [id])
+  subpageId String
 }
 
 model Label {
