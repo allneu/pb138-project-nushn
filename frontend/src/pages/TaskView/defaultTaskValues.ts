@@ -1,7 +1,7 @@
 const defaultTaskValues = {
-  taskName: 'New Task',
+  taskName: '',
   dueDate: new Date(),
-  content: 'Task description',
+  content: '',
   labelId: '',
 };
 
