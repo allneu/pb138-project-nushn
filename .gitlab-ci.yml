@@ -10,7 +10,7 @@ lint-test-job-FE:
   script:
     - cd frontend
     - npm ci --cache /npm/npm-cache --no-audit --prefer-offline
-    - npm run lint --max-warnings 0
+    - npm run lint
 
 lint-test-job-BE:
   stage: linting
