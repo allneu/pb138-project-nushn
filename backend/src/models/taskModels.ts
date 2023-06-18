@@ -58,12 +58,14 @@ export const taskUpdateSchema = z.object({
     'At least one pair of taskName, dueDate, content, labelId, orderInLabel or orderInList must be provided.',
   );
 
+export type TaskUpdateType = z.infer<typeof taskUpdateSchema>;
+
 export type TaskUpdateResult = { // return only id and updated data
   id: string,
   taskName?: string,
   dueDate?: Date,
   content?: string,
   labelId?: string,
-  orderInList?: number,
-  orderInLabel?: number,
+  orderInList?: number | null,
+  orderInLabel?: number | null,
 };

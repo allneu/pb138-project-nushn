@@ -1,4 +1,4 @@
-import { SubpageIdType, TaskCreateType } from '../../models';
+import { SubpageIdType } from '../../models';
 import { PrismaTransactionHandle } from './types';
 
 const taskSelect = {
@@ -59,7 +59,7 @@ export const getSubpageTasksByLabelId = async (
 };
 
 export const getHighestLabelOrder = async (
-  { labelId }: TaskCreateType,
+  labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
   const res = await tx.task.findFirstOrThrow({
@@ -73,7 +73,7 @@ export const getHighestLabelOrder = async (
 };
 
 export const getHighestListOrder = async (
-  { labelId }: TaskCreateType,
+  labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
   const res = (await getSubpageTasksByLabelId(tx, { labelId }))

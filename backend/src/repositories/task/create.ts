@@ -2,7 +2,7 @@ import { Result } from '@badrap/result';
 import { checkLabel } from '../common/common';
 import client from '../client';
 import { Task, TaskCreateType } from '../../models';
-import { getHighestLabelOrder, getHighestListOrder } from '../common/taks';
+import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
 
 const create = async (
   data: TaskCreateType,
@@ -11,10 +11,10 @@ const create = async (
     return await client.$transaction(async (tx) => {
       const labelExists = await checkLabel(data.labelId, tx);
       if (labelExists.isErr) {
-        return Result.err(labelExists.error);
+        throw labelExists.error;
       }
-      const highestLabelOrder = await getHighestLabelOrder(data, tx);
-      const highestListOrder = await getHighestListOrder(data, tx);
+      const highestLabelOrder = await getHighestLabelOrder(data.labelId, tx);
+      const highestListOrder = await getHighestListOrder(data.labelId, tx);
       const newTask = await tx.task.create({
         data: {
           ...data,
@@ -28,7 +28,7 @@ const create = async (
       return Result.ok(newTask);
     });
   } catch (e) {
-    return Result.err(new Error('There was a problem in label creation'));
+    return Result.err(e as Error);
   }
 };
 export default create;

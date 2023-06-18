@@ -4,6 +4,7 @@ import client from '../client';
 import {
   SubpageIdType, Task, TaskGetMultipleResult, TaskIdSubpageIdType,
 } from '../../models';
+import { getSubpageTasks } from '../common/task';
 
 export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<Task>> => {
   try {
@@ -54,31 +55,7 @@ Promise<Result<TaskGetMultipleResult>> => {
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
       }
-
-      const tasks = (await tx.label.findMany({
-        where: { subPageId: data.subpageId, deletedAt: null },
-        select: {
-          tasks: {
-            where: { deletedAt: null },
-            select: {
-              id: true,
-              taskName: true,
-              dueDate: true,
-              content: true,
-              labelId: true,
-              orderInList: true,
-              orderInLabel: true,
-              createdAt: true,
-              creator: {
-                select: {
-                  id: true,
-                  username: true,
-                },
-              },
-            },
-          },
-        },
-      })).map((label) => label.tasks).flat();
+      const tasks = await getSubpageTasks(tx, data);
       return Result.ok({ tasks });
     });
   } catch {

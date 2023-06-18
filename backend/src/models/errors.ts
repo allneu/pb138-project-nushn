@@ -17,3 +17,7 @@ export const oldDataError = new Error('Sorry. Someone else make update on this d
 export const roleDoesNotExistError = new Error('This role does not exist!');
 
 export const roleWasDeletedError = new Error('This role was deleted!');
+
+export const taskWasDeletedError = new Error('This task was deleted!');
+
+export const serverInternalError = new Error('Sorru, we detected an error!');
