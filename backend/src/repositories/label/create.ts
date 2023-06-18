@@ -1,11 +1,12 @@
 import { Result } from '@badrap/result';
-import { LabelDataCreate, LabelResultBody } from '../../controllers/label/create';
+import { LabelCreateResult, LabelCreateType } from '../../models/labelModels';
+import { SubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage } from '../common/common';
 import client from '../client';
 
 const create = async (
-  data: LabelDataCreate,
-): Promise<Result<LabelResultBody>> => {
+  data: LabelCreateType & SubpageIdType,
+): Promise<Result<LabelCreateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);

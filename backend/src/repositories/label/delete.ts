@@ -1,11 +1,12 @@
 import { Result } from '@badrap/result';
-import { LabelDataDelete } from '../../controllers/label/delete';
+import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage, checkLabel } from '../common/common';
 import client from '../client';
+import { Deleted } from '../../models/common';
 
 const deleteLabel = async (
-  data: LabelDataDelete,
-): Promise<Result<object>> => {
+  data: LabelIdSubpageIdType,
+): Promise<Result<Deleted>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);

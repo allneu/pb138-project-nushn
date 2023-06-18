@@ -1,11 +1,10 @@
 import { Result } from '@badrap/result';
-import { LabelGetData } from '../../controllers/label/get';
+// TODO add LabelResultBody to import and return right value
+import { SubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage } from '../common/common';
 import client from '../client';
 
-//TODO fix return type so that each label has list of tasks instead of all tasks
-
-const get = async (data: LabelGetData) => {
+const get = async (data: SubpageIdType) => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);

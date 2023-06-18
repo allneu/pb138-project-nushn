@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Result } from '@badrap/result';
-import { UpdateLabelData, LabelUpdateResultBody } from '../../controllers/label/update';
+import { LabelUpdateResult, LabelUpdateType } from '../../models/labelModels';
 import { checkSubpage, checkLabel, moveIndexes } from '../common/common';
 import client from '../client';
+import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 
 const update = async (
-  data: UpdateLabelData,
-): Promise<Result<LabelUpdateResultBody>> => {
+  data: LabelUpdateType & LabelIdSubpageIdType,
+): Promise<Result<LabelUpdateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -40,7 +41,7 @@ const update = async (
           select: { id: true, name: true },
         });
         await moveIndexes(data.labelId, oldOrder, newOrder!, tx);
-        const result: LabelUpdateResultBody = {
+        const result: LabelUpdateResult = {
           id: updatedNames.id,
           name: updatedNames.name,
           orderInSubpage: newOrder!,
@@ -60,7 +61,7 @@ const update = async (
           data: { name: newName! },
           select: { id: true, name: true },
         });
-        const result: LabelUpdateResultBody = {
+        const result: LabelUpdateResult = {
           id: updated.id,
           name: updated.name,
         };
@@ -77,7 +78,7 @@ const update = async (
         return Result.err();
       }
       await moveIndexes(data.labelId, oldOrder!, newOrder!, tx);
-      const result: LabelUpdateResultBody = {
+      const result: LabelUpdateResult = {
         id: data.labelId,
         orderInSubpage: newOrder!,
       };
