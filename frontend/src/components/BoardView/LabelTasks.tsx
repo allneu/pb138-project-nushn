@@ -9,6 +9,7 @@ import { LabelType, TaskType } from '../../models';
 
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';
+import icons from '../../../public/assets/icons/projectIcons.json';
 
 import './BoardView.css';
 
@@ -18,8 +19,6 @@ type LabelTasksProps = {
 
 function LabelTasks({ label } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
-  const todoIcon = '/assets/icons/check-todo.svg';
-  const doneIcon = '/assets/icons/check-done.svg';
 
   const {
     register,
@@ -46,21 +45,18 @@ function LabelTasks({ label } : LabelTasksProps) {
                 {errors.name && <span className="validation-error">{errors.name.message}</span>}
             </div>
             <div className="label__line"/>
-
-            { showTasks
-              ? <img src="/assets/icons/collapse-arrow.svg"
-                            className="icon label__show" alt="Collapse tasks arrow icon"
-                            onClick={() => setShowTasks(false)}/>
-              : <img src="/assets/icons/expand-arrow.svg"
-                            className="icon label__show" alt="Expand tasks arrow icon"
-                            onClick={() => setShowTasks(true)}/>
-            }
-        </form>
+            <div className="label__show">
+              { showTasks
+                ? <i className={icons['collapse-arrow']} onClick={() => setShowTasks(false)}/>
+                : <i className={icons['expand-arrow']} onClick={() => setShowTasks(true)}/>
+              }
+            </div>
+        </div>
 
         <div className="label-tasks">
           { showTasks
             ? label.tasks.map((task: TaskType) => (
-                  <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon}/>
+                  <Task key={task.id} task={task} todoIcon={icons['check-todo']} doneIcon={icons['check-done']}/>
             ))
             : <></>
           }

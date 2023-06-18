@@ -16,7 +16,7 @@ export default {
       },
       textColor: {
         "notion": "#37352F",
-      }
+      },
     }
   },
   plugins: [],

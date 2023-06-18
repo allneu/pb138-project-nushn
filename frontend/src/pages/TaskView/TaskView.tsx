@@ -5,6 +5,7 @@ import AutosizeInput from 'react-textarea-autosize';
 
 import { taskFormSchema, TaskFormDataType } from './taskSchema';
 import defaultTaskValues from './defaultTaskValues';
+import icons from '../../../public/assets/icons/projectIcons.json';
 
 import './TaskView.css';
 
@@ -38,10 +39,10 @@ function TaskView() {
     <form className="task-view" onSubmit={handleSubmit(onSubmit)}>
         <nav className="task-view__nav">
             <Link to={`/subpage/${subpageId}`}>
-                <img className='icon' src="/assets/icons/back-arrow.svg" alt="Back icon"/>
+                <i className={icons['back-arrow']}/>
             </Link>
             <button type="submit">
-                <img className='icon' src="/assets/icons/done.svg" alt="Save icon"/>
+                <i className={icons.submit}/>
             </button>
         </nav>
 
@@ -58,7 +59,7 @@ function TaskView() {
             <div className="task-view__info">
                 <div className='detail'>
                     <div className="detail__label">
-                        <img className="w-5 h-5" src="/assets/icons/clock.svg" alt="Created at icon"/>
+                        <i className={`w-5 h-5 ${icons.clock}`} />
                         <span>Created</span>
                     </div>
                     <span>Now</span>
@@ -66,7 +67,7 @@ function TaskView() {
 
                 <div className='detail'>
                     <div className="detail__label">
-                        <img className="w-5 h-5" src="/assets/icons/hourglass.svg" alt="Deadline icon"/>
+                        <i className={`w-5 h-5 ${icons.hourglass}`} />
                         <span>Deadline</span>
                     </div>
                     <div className="input-with-errors">
@@ -79,7 +80,7 @@ function TaskView() {
 
                 <div className='detail'>
                     <div className="detail__label">
-                        <img className="w-5 h-5" src="/assets/icons/label.svg" alt="Label icon"/>
+                        <i className={`w-5 h-5 ${icons.label}`} />
                         <span>Label</span>
                     </div>
                     <div className="input-with-errors">

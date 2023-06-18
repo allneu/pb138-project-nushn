@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { SubpageType } from '../../models';
 
 import './Menu.css';
+import icons from '../../../public/assets/icons/projectIcons.json';
 
 // TODO - GET subpages from backend
 import subpages from '../../../public/subpages.json';
@@ -26,16 +27,17 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 {subpages.map((subpage: SubpageType) => (
                     <Link to={`/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
-                        <img className="icon" src={subpage.icon} alt="Subpage icon"/>
-                        <span className="name">{subpage.name}</span>
-                        <img className="icon" src="/assets/icons/right-arrow.svg" alt="Subpage icon"/>
+                        <i className={subpage.icon} />
+                        <span className="subpage-name">{subpage.name}</span>
+                        {/* TODO - show only when subpage is shared */}
+                        <i className={`grey ${icons.shared}`}/>
                     </Link>
                 ))}
             </div>
 
-            <Link to="/subpage/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
-                <img className="icon" src="/assets/icons/add.svg" alt="Add new subpage icon"/>
-                <span className="name">New subpage</span>
+            <Link to="/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
+                <i className={icons['add-new']} />
+                <span className="subpage-name">New subpage</span>
             </Link>
         </nav>
   );
