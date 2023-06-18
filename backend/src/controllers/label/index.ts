@@ -1,11 +1,11 @@
 import { create } from './create';
-import deleteLabel from './delete';
-import { get } from './get';
-import { update } from './update';
+import deleteUser from '../user/delete';
+import getOne from '../../repositories/user/get';
+import { update } from '../user/update';
 
 export default {
   create,
-  deleteLabel,
-  get,
+  deleteUser,
+  getOne,
   update,
 };
