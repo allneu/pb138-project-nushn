@@ -12,3 +12,16 @@ export const userIdSubpageIdSchema = z.object({
 }).strict();
 
 export type UserIdSubpageIdType = z.infer<typeof userIdSubpageIdSchema>;
+
+export const subpageIdSchema = z.object({
+  subpageId: z.string().uuid().nonempty(),
+}).strict();
+
+export type SubpageIdType = z.infer<typeof subpageIdSchema>;
+
+export const labelIdSubpageIdSchema = z.object({
+  labelId: z.string().uuid().nonempty(),
+  subpageId: z.string().uuid().nonempty(),
+}).strict();
+
+export type LabelIdSubpageIdType = z.infer<typeof labelIdSubpageIdSchema>;

@@ -1,24 +1,23 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import LabelRepo from '../../repositories/label';
+import { labelIdSubpageIdSchema } from '../../models/urlParamsSchema';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // result code should be 204
 
 // validation schema
-const paramsSchema = z.object({
-  labelId: z.string().uuid().nonempty(),
-  subpageId: z.string().uuid().nonempty(),
-}).strict();
-
 // res.body type
 // {}
 
 // function
 const deleteLabel = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = labelIdSubpageIdSchema.parse(req.params);
+    const response = await LabelRepo.deleteLabel(params);
+    return response.isOk
+      ? handleOkResp(204, response.value, res, `Deleted label with id ${params.labelId}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }

@@ -1,44 +1,25 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import LabelRepo from '../../repositories/label';
+import { labelIdSubpageIdSchema } from '../../models/urlParamsSchema';
+import { labelUpdateSchema } from '../../models/labelModels';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // result code should be 201
-
-// validation schema
-const paramsSchema = z.object({
-  labelId: z.string().uuid(),
-  subpageId: z.string().uuid(),
-}).strict();
-
-const bodySchema = z.object({
-  oldName: z.string().min(3).optional(),
-  oldOrderInSubpage: z.number().nonnegative().optional(),
-  newName: z.string().min(3).optional(),
-  newOrderInSubpage: z.number().nonnegative().optional(),
-}).strict()
-  .refine(
-    (data) => (
-      (data.newName !== undefined && data.oldName !== undefined)
-      || (data.newOrderInSubpage !== undefined && data.oldOrderInSubpage !== undefined)
-    ),
-    'At least one pair of name, description or icon must be provided.',
-  );
-
-// res.body type
-export interface ResultBody { // return only id and updated data
-  id: string,
-  name?: string,
-  orderInSubpage?: number,
-}
 
 // function
 export const update = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
-    bodySchema.parse(req.body);
-    return await functionalityNotImplemented(req, res);
+    const params = labelIdSubpageIdSchema.parse(req.params);
+    const data = labelUpdateSchema.parse(req.body);
+    const args = { ...data, ...params };
+    const response = await LabelRepo.update(args);
+    return response.isOk
+      ? handleOkResp(201, response.value, res, `Updated label with id: ${params.labelId}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
 };
+
+export default update;

@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id             String        @id @default(uuid())
-  userName       String        @unique
+  username       String        @unique
   email          String        @unique
   hashedPassword String
   salt           String
@@ -73,7 +73,7 @@ model Task {
   done         Boolean   @default(false)
   dueDate      DateTime
   orderInList  Int?      @unique
-  orderInLabel Int?
+  orderInLabel Int?      @unique
   content      String
   createdAt    DateTime  @default(now())
   deletedAt    DateTime?
