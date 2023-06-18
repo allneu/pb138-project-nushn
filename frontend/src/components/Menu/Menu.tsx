@@ -25,7 +25,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
 
             <div className="menu__subpages">
                 {subpages.map((subpage: SubpageType) => (
-                    <Link to={`/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
+                    <Link to={`subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
                         <i className={subpage.icon} />
                         <span className="name">{subpage.name}</span>

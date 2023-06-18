@@ -15,21 +15,23 @@ const passwordSchema = z.string()
   .refine((value) => /\d/.test(value), { message: 'Password must contain at least one digit' })
   .refine((value) => /\W/.test(value), { message: 'Password must contain at least one special character' });
 
-const schema = z.object({
+const signUpFormSchema = z.object({
   username: z.string().nonempty({ message: 'Username is required' }),
   email: z.string().nonempty({ message: 'Email required' }).email({ message: 'Invalid email address' }),
   password: passwordSchema,
 });
 
+export type SignUpFormDataType = z.infer<typeof signUpFormSchema>;
+
 function RegisterPage() {
   const [selectedIcon, setSelectedIcon] = useState('user secret icon');
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
+  const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormDataType>({
+    resolver: zodResolver(signUpFormSchema),
   });
 
-  const onSubmit = (data) => {
-    navigate('/subpage/1');
+  const onSubmit = (data: SignUpFormDataType) => {
+    navigate('/');
     console.log(data);
   };
 
@@ -47,16 +49,17 @@ function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
         <div className='validated-input flex flex-row gap-3 items-center'>
           <div className='border border-gray-300 rounded-md p-2 self-center'>
-            <IconSelector selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} icons={icons.user}/>
+            <IconSelector selectedIcon={selectedIcon}
+                setSelectedIcon={setSelectedIcon} icons={icons.user}/>
           </div>
           <div className='flex-grow'>
             <input
               type="text"
               placeholder="@username"
-              className={`form__input ${errors['username'] ? 'border-red-500' : 'border-gray-300'}`}
+              className={`form__input ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
               {...register('username')}
             />
-            {errors['username'] && <p className="text-red-500 text-xs">{errors['username'].message}</p>}
+            {errors.username && <p className="text-red-500 text-xs">{errors.username.message}</p>}
           </div>
         </div>
 
@@ -64,20 +67,20 @@ function RegisterPage() {
           <input
             type="text"
             placeholder="email"
-            className={`form__input ${errors['email'] ? 'border-red-500' : 'border-gray-300'}`}
+            className={`form__input ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
             {...register('email')}
           />
-          {errors['email'] && <p className="text-red-500 text-xs">{errors['email'].message}</p>}
+          {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
         </div>
 
         <div className='validated-input'>
           <input
-            type="text"
+            type="password"
             placeholder="password"
-            className={`form__input ${errors['password'] ? 'border-red-500' : 'border-gray-300'}`}
+            className={`form__input ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
             {...register('password')}
           />
-          {errors['password'] && <p className="text-red-500 text-xs">{errors['password'].message}</p>}
+          {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
         </div>
 
         <button type="submit">Sign up</button>

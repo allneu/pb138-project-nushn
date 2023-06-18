@@ -25,7 +25,7 @@ function TaskView() {
   // to-do: onSubmit update/create task
   const onSubmit = (data: TaskFormDataType) => {
     console.log(data);
-    navigate(`/subpage/${subpageId}`);
+    navigate(`/auth/subpage/${subpageId}`);
   };
 
   // dummy labels, to-do: get them from backend
@@ -38,7 +38,7 @@ function TaskView() {
   return (
     <form className="task-view" onSubmit={handleSubmit(onSubmit)}>
         <nav className="task-view__nav">
-            <Link to={`/subpage/${subpageId}`}>
+            <Link to={`/auth/subpage/${subpageId}`}>
                 <i className={icons['back-arrow']}/>
             </Link>
             <button type="submit">
