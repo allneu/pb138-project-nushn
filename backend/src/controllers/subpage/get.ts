@@ -1,42 +1,27 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import { userIdSchema, userIdSubpageIdSchema } from '../../models';
+import SubpageRepos from '../../repositories/subpage';
+import { handleErrResp, handleOkResp } from '../common';
 
 // TODO: add param to choise result data
 
 // validation schema
-const paramsSchemaOne = z.object({
-  userId: z.string().uuid(),
-  subpageId: z.string().uuid(),
-}).strict();
-
-const paramsSchemaMultiple = z.object({
-  userId: z.string().uuid(),
-}).strict();
+// getOne == userIdSubpageIdSchema
+// getMultiple == userIdSchema
 
 // res.body type
-export interface Subpage { // = getOneBody
-  id: string,
-  name: string,
-  description: string,
-  icon: string,
-  creator: {
-    id: string,
-    username: string,
-  },
-  createdAt: Date,
-}
-
-export interface GetMultipleBody {
-  subpages: Subpage[],
-}
+// getOne == Subpage
+// getMultiple == GetMultiple<Subpage>
 
 // functions
 export const getOne = async (req: Request, res: Response) => {
   try {
-    paramsSchemaOne.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = userIdSubpageIdSchema.parse(req.params);
+    const response = await SubpageRepos.getOne(params);
+    return response.isOk
+      ? handleOkResp(200, response.value, res, `Listed subpage with id: ${params.subpageId}.`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
@@ -44,8 +29,11 @@ export const getOne = async (req: Request, res: Response) => {
 
 export const getMultiple = async (req: Request, res: Response) => {
   try {
-    paramsSchemaMultiple.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = userIdSchema.parse(req.params);
+    const response = await SubpageRepos.getMultiple(params);
+    return response.isOk
+      ? handleOkResp(200, response.value, res, `Listed subpages of user with id: ${params.userId}.`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }

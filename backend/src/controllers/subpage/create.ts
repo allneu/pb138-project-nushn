@@ -1,47 +1,27 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import { subpageCreateSchema } from '../../models/subpageModels';
+import { userIdSchema } from '../../models/urlParamsSchema';
+import SubpageRepos from '../../repositories/subpage';
+import { handleErrResp, handleOkResp } from '../common';
 
 // result code should be 201
 
-// validation schema
-const bodySchema = z.object({
-  name: z.string().min(3),
-  description: z.string().nonempty(),
-  icon: z.string().nonempty(),
-}).strict();
+// validation schema = subpageCreateSchema
 
-const paramsSchema = z.object({
-  userId: z.string().uuid().nonempty(),
-}).strict();
+// res.body type = Subpage
 
-// res.body type
-export interface ResultBody {
-  id: string,
-  name: string,
-  description: string,
-  icon: string,
-  creator: {
-    id: string,
-    username: string,
-  },
-  labels: [{
-    id: string,
-    name: string,
-    orderInSubpabe: number,
-    createdAt: Date,
-  }],
-  createdAt: Date,
-}
-
-// function
-export const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response) => {
   try {
-    bodySchema.parse(req.body);
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const data = subpageCreateSchema.parse(req.body);
+    const params = userIdSchema.parse(req.params);
+    const response = await SubpageRepos.create(data, params);
+    return response.isOk
+      ? handleOkResp(201, response.value, res, `Created subpage with id: ${response.value.id}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
 };
+
+export default create;

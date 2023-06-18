@@ -25,7 +25,7 @@ subpageRouter.patch(subpageRouteSpecific, SubpageController.update);
 
 // Delete Subpage
 // DELETE /user/{userid}/subpage/{subpageId}
-subpageRouter.delete(subpageRouteSpecific, SubpageController.deleteSubpage);
+subpageRouter.delete(subpageRouteSpecific, SubpageController.delete);
 
 // Share Subpage = Create Role
 // POST /user/{userid}/subpage/{subpageId}/role
@@ -37,6 +37,6 @@ subpageRouter.patch(subpageRouteRole, SubpageController.RoleController.update);
 
 // Delete Role
 // DELETE /user/{userid}/subpage/{subpageId}/role
-subpageRouter.delete(subpageRouteRole, SubpageController.RoleController.deleteRole);
+subpageRouter.delete(subpageRouteRole, SubpageController.RoleController.delete);
 
 export default subpageRouter;

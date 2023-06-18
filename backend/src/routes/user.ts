@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import CommonController from '../controllers/common';
+import { endpointNotImplemented } from '../controllers/common';
 import UserController from '../controllers/user';
 
 const userRouter = Router();
@@ -31,10 +31,10 @@ userRouter.delete(userRouteSpecific, UserController.deleteUser);
 
 // Log in User
 // POST /user/login
-userRouter.post(userRouteLogIn, CommonController.endpointNotImplemented);
+userRouter.post(userRouteLogIn, endpointNotImplemented);
 
 // Log out User
 // POST /user/logout
-userRouter.post(userRouteLogOut, CommonController.endpointNotImplemented);
+userRouter.post(userRouteLogOut, endpointNotImplemented);
 
 export default userRouter;
