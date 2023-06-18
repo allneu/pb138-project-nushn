@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 
 import './AuthPages.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IconSelector from '../../components/IconSelector/IconSelector.tsx';
 import icons from '../../../public/assets/icons/dialogIcons.json';
 
@@ -23,11 +23,13 @@ const schema = z.object({
 
 function RegisterPage() {
   const [selectedIcon, setSelectedIcon] = useState('user secret icon');
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = (data) => {
+    navigate('/subpage/1');
     console.log(data);
   };
 

@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import './AuthPages.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   email: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
@@ -16,8 +16,10 @@ function LogInPage() {
     resolver: zodResolver(schema),
   });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    navigate('/');
     console.log(data);
   };
 
