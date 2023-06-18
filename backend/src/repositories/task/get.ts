@@ -76,31 +76,9 @@ Promise<Result<TaskGetMultipleResult>> => {
               },
             },
           },
-<<<<<<< HEAD
         },
       })).map((label) => label.tasks).flat();
       return Result.ok({ tasks });
-=======
-        });
-        return subpageTasks;
-      });
-
-      // there fix the creator getting, idk how
-      const tasks = await Promise.all(labelTasksPromises).then((results) => results.flat());
-      const result: TaskGetMultipleResult = {
-        tasks: tasks.map((task) => ({
-          id: task.id,
-          taskName: task.taskName,
-          dueDate: task.dueDate,
-          content: task.content,
-          creator: { id: task.creatorId, username: '' }, // Add a dummy userName or fetch it from the user table
-          labelId: task.labelId,
-          orderInLabel: task.orderInLabel!,
-          orderInList: task.orderInList!,
-        })),
-      };
-      return Result.ok(result);
->>>>>>> bf0968d480e0cbe9df6c9fd96eff44648cb02e80
     });
   } catch {
     return Result.err(new Error('There was a problem getting labels'));

@@ -1,17 +1,51 @@
 import type { Request, Response } from 'express';
+import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { subpageIdSchema, taskIdSubpageIdSchema } from '../../repositories/models/urlParamsSchema';
-import TaskRepo from '../../repositories/task';
-import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import { functionalityNotImplemented } from '../common/notimplemented';
+
+// validation schema
+const paramsSchemaOne = z.object({
+  taskId: z.string().uuid(),
+  subPageId: z.string().uuid(),
+}).strict();
+
+const paramsSchemaMultiple = z.object({
+  subpageId: z.string().uuid(),
+}).strict();
+
+export type TaskGetData = {
+  taskId: string,
+  subpageId: string,
+};
+
+export type TaskGetMultipleBody = {
+  subpageId:string,
+};
+
+// res.body type
+export type TaskReturn = { // = getOneBody
+  id: string,
+  taskName: string,
+  dueDate: Date,
+  content: string,
+  creator: {
+    id: string,
+    userName: string,
+  },
+  labelId: string,
+  orderInList?: number,
+  orderInLabel?: number,
+};
+
+export type TaskGetMultipleResult = {
+  tasks: TaskReturn[],
+};
 
 // functions
 export const getOne = async (req: Request, res: Response) => {
   try {
-    const params = taskIdSubpageIdSchema.parse(req.params);
-    const response = await TaskRepo.getOne(params);
-    return response.isOk
-      ? handleOkResp(200, response.value, res, `Retrieved task ${params.taskId} from subpage: ${params.subpageId}`)
-      : handleErrResp(500, response.error, res, response.error.message);
+    paramsSchemaOne.parse(req.params);
+    return await functionalityNotImplemented(req, res);
   } catch (e) {
     return handleErrors(e, res);
   }
@@ -19,11 +53,8 @@ export const getOne = async (req: Request, res: Response) => {
 
 export const getMultiple = async (req: Request, res: Response) => {
   try {
-    const params = subpageIdSchema.parse(req.params);
-    const response = await TaskRepo.getMultiple(params);
-    return response.isOk
-      ? handleOkResp(200, response.value, res, `Retrieved all tasks from ${params.subpageId}`)
-      : handleErrResp(500, response.error, res, response.error.message);
+    paramsSchemaMultiple.parse(req.params);
+    return await functionalityNotImplemented(req, res);
   } catch (e) {
     return handleErrors(e, res);
   }
