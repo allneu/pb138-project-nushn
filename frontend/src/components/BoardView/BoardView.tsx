@@ -1,5 +1,6 @@
 import LabelTasks from './LabelTasks.tsx';
 import './BoardView.css';
+import icons from '../../../public/assets/icons/projectIcons.json';
 
 // TODO - GET subpage labels from backend including tasks in label order
 import labels from '../../../public/labeledTasks.json';
@@ -14,7 +15,7 @@ function BoardView() {
           <LabelTasks key={label.id} label={label} />
         ))}
         <div className='board-view__new-label'>
-          <img className="icon" src="/assets/icons/add.svg" alt="Add new label icon"/>
+          <i className={icons['add-new']} />
           <span className="text-sm font-semibold">Add new label</span>
         </div>
       </div>
