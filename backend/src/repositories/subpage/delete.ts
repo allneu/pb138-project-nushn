@@ -5,6 +5,7 @@ import {
 } from '../../models';
 import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const canDelete = async (
   { subpageId, userId }: UserIdSubpageIdType,
@@ -63,20 +64,6 @@ const subpageLabelsRoleDelete = async (
           data: { deletedAt },
         },
       },
-    },
-  });
-};
-
-const subpageEditCreate = async (
-  { userId, subpageId }: UserIdSubpageIdType,
-  deletedAt: Date,
-  tx: PrismaTransactionHandle,
-) => {
-  await tx.subPageEdit.create({
-    data: {
-      subpageId,
-      editorId: userId,
-      editedAt: deletedAt,
     },
   });
 };
