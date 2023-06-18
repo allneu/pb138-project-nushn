@@ -51,7 +51,7 @@ function LabelTasks({ label } : LabelTasksProps) {
                 : <i className={icons['expand-arrow']} onClick={() => setShowTasks(true)}/>
               }
             </div>
-        </div>
+        </form>
 
         <div className="label-tasks">
           { showTasks

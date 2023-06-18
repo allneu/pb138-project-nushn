@@ -53,7 +53,6 @@ function Subpage() {
         <div className="subpage">
             <header className="subpage-form">
                 <div className="name-wrapper">
-<<<<<<< frontend/src/pages/Subpage/Subpage.tsx
                     <i className={subpage?.icon}/>
                     <div className="input-with-errors">
                         <AutosizeInput
@@ -63,10 +62,6 @@ function Subpage() {
                         />
                         {errors.name && <span className="validation-error">{errors.name.message}</span>}
                     </div>
-=======
-                    <i className={subpage?.icon}/>
-                    <span className="name-wrapper__name">{subpage?.name}</span>
->>>>>>> frontend/src/pages/Subpage/Subpage.tsx
                 </div>
                 <div className="input-with-errors">
                         <AutosizeInput
