@@ -2,13 +2,15 @@ import { Result } from '@badrap/result';
 import { checkSubpage } from '../common/common';
 import client from '../client';
 import {
-  TaskGetData,
+  TaskIdSubpageIdType,
+  SubpageIdType,
+} from '../models/urlParamsSchema';
+import {
   TaskReturn,
-  TaskGetMultipleBody,
   TaskGetMultipleResult,
-} from '../../controllers/task/get';
+} from '../models/taskModels';
 
-export const getOne = async (data: TaskGetData): Promise<Result<TaskReturn>> => {
+export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskReturn>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -21,9 +23,9 @@ export const getOne = async (data: TaskGetData): Promise<Result<TaskReturn>> => 
       if (task.deletedAt !== null) {
         return Result.err(new Error('This task is deleted'));
       }
-      const creator: { id: string, userName: string } = await tx.user.findUniqueOrThrow({
+      const creator: { id: string, username: string } = await tx.user.findUniqueOrThrow({
         where: { id: task.creatorId },
-        select: { id: true, userName: true },
+        select: { id: true, username: true },
       });
       const result: TaskReturn = {
         id: task.id,
@@ -44,7 +46,7 @@ export const getOne = async (data: TaskGetData): Promise<Result<TaskReturn>> => 
 
 // TODO add real creators to taskresult
 
-export const getMultiple = async (data: TaskGetMultipleBody):
+export const getMultiple = async (data: SubpageIdType):
 Promise<Result<TaskGetMultipleResult>> => {
   try {
     return await client.$transaction(async (tx) => {
@@ -82,7 +84,7 @@ Promise<Result<TaskGetMultipleResult>> => {
           taskName: task.taskName,
           dueDate: task.dueDate,
           content: task.content,
-          creator: { id: task.creatorId, userName: '' }, // Add a dummy userName or fetch it from the user table
+          creator: { id: task.creatorId, username: '' }, // Add a dummy userName or fetch it from the user table
           labelId: task.labelId,
           orderInLabel: task.orderInLabel!,
           orderInList: task.orderInList!,
