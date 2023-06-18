@@ -15,12 +15,9 @@ Promise<Result<UserUpdateResult>> => {
       if (userExists.isErr) {
         return Result.err(userExists.error);
       }
-      const existingUser = await tx.user.findFirstOrThrow({
-        where: { id: data.userId },
-      });
-      const username = data.username ? data.username : existingUser.username;
-      const email = data.email ? data.email : existingUser.email;
-      const avatar = data.avatar ? data.avatar : existingUser.avatar;
+      const username = data.username ? { username: data.username } : {};
+      const email = data.email ? { email: data.email } : {};
+      const avatar = data.avatar ? { avatar: data.avatar } : {};
       if (data.password !== null) {
         // eslint-disable-next-line import/no-extraneous-dependencies
         const bcryptjs = require('bcryptjs');
@@ -29,29 +26,30 @@ Promise<Result<UserUpdateResult>> => {
         const updated: User = await tx.user.update({
           where: { id: data.userId },
           data: {
-            username,
-            email,
+            ...username,
+            ...email,
             hashedPassword,
             salt,
-            avatar,
+            ...avatar,
           },
         });
         return Result.ok(updated);
       }
-      await tx.user.update({
+      const result = await tx.user.update({
         where: { id: data.userId },
         data: {
-          username,
-          email,
-          avatar,
+          ...username,
+          ...email,
+          ...avatar,
+        },
+        select: {
+          id: true,
+          username: !!data.username,
+          email: !!data.email,
+          avatar: !!data.avatar,
         },
       });
-      return Result.ok({
-        id: data.userId,
-        username: username || null,
-        email: email || null,
-        avatar: avatar || null,
-      });
+      return Result.ok(result);
     });
   } catch {
     return Result.err(new Error('There was a problem updating User'));

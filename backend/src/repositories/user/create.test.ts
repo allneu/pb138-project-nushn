@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import create from './create';
 
 (async () => {
   try {
     const x = await create({
-      userName: 'testingname',
+      username: 'testingname',
       password: 'testingpassword',
       email: 'testing@gmail.com',
     });
