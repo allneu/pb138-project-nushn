@@ -2,7 +2,7 @@
     @apply flex flex-col whitespace-nowrap h-[calc(100%-var(--footer-height))] lg:h-full lg:w-[calc(100%-var(--lg-menu-width))];
 }
 
-.subpage-header {
+.subpage-form {
     @apply px-6 lg:px-16;
 }
 
@@ -10,12 +10,14 @@
     @apply flex justify-center lg:justify-start items-center pb-2.5 pt-4 lg:pt-10 gap-2.5;
 }
 
-.name-wrapper__name {
+.subpage-name {
     @apply text-notion text-base lg:text-2xl font-bold;
+    @apply max-h-16 overflow-scroll focus:outline-none;
 }
 
-.subpage-header__description {
+.subpage-description {
     @apply text-notion text-sm font-bold text-opacity-70 hidden lg:inline;
+    @apply max-h-16 overflow-scroll resize-none focus:outline-none;
 }
 
 .subpage__separator {

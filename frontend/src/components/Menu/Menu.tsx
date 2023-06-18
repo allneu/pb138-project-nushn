@@ -27,15 +27,15 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                     <Link to={`/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
                         <img className="icon" src={subpage.icon} alt="Subpage icon"/>
-                        <span className="subpage-name">{subpage.name}</span>
+                        <span className="name">{subpage.name}</span>
                         <img className="icon" src="/assets/icons/right-arrow.svg" alt="Subpage icon"/>
                     </Link>
                 ))}
             </div>
 
-            <Link to="/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
+            <Link to="/subpage/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
                 <img className="icon" src="/assets/icons/add.svg" alt="Add new subpage icon"/>
-                <span className="subpage-name">New subpage</span>
+                <span className="name">New subpage</span>
             </Link>
         </nav>
   );

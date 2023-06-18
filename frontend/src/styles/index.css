@@ -11,6 +11,14 @@
     @apply w-6 h-6;
 }
 
+.input-with-errors {
+    @apply flex flex-col gap-1;
+}
+
+.validation-error {
+    @apply text-red-800 text-sm font-normal self-center;
+}
+
 h1 {
     @apply font-bold text-lg self-center;
 }
