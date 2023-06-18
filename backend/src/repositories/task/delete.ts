@@ -1,22 +1,17 @@
 import { Result } from '@badrap/result';
-import { checkLabel, checkSubpage, checkTask } from '../common/common';
+import { checkSubpage, checkTask } from '../common/common';
 import client from '../client';
-import { TaskDeleteData } from '../../controllers/task/delete';
-
+import { TaskIdSubpageIdType } from '../models/urlParamsSchema';
 // can surely be written better, check if there is time
 
 const deleteTask = async (
-  data: TaskDeleteData,
+  data: TaskIdSubpageIdType,
 ): Promise<Result<object>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
-      }
-      const labelExists = await checkLabel(data.labelId, tx);
-      if (labelExists.isErr) {
-        return Result.err(labelExists.error);
       }
       const taskExists = await checkTask(data.subpageId, tx);
       if (taskExists.isErr) {
@@ -54,7 +49,6 @@ const deleteTask = async (
         },
         data: { orderInLabel: { increment: -1 } },
       });
-      console.log('asdasd');
       return Result.ok({});
     });
   } catch {

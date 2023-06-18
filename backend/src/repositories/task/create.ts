@@ -1,12 +1,12 @@
 import { Result } from '@badrap/result';
 import { Task } from '@prisma/client';
-import { TaskCreateData, TaskCreateResultBody } from '../../controllers/task/create';
+import { TaskCreateResult, TaskCreateType } from '../models/taskModels';
 import { checkLabel } from '../common/common';
 import client from '../client';
 
 const create = async (
-  data: TaskCreateData,
-) => {
+  data: TaskCreateType,
+): Promise<Result<TaskCreateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const labelExists = await checkLabel(data.labelId, tx);
@@ -39,11 +39,11 @@ const create = async (
           image: data.image ? data.image : null,
         },
       });
-      const creator: { id: string, userName: string } = await tx.user.findUniqueOrThrow({
+      const creator: { id: string, username: string } = await tx.user.findUniqueOrThrow({
         where: { id: newTask.creatorId },
-        select: { id: true, userName: true },
+        select: { id: true, username: true },
       });
-      const result: TaskCreateResultBody = {
+      const result: TaskCreateResult = {
         id: newTask.id,
         taskName: newTask.taskName,
         dueDate: newTask.dueDate,

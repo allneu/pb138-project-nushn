@@ -1,4 +1,4 @@
-import { create } from './create';
+import create from './create';
 import deleteTask from './delete';
 import { getMultiple, getOne } from './get';
 import { update } from './update';

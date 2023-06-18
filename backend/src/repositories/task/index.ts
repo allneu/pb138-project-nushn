@@ -1,10 +1,10 @@
 import create from './create';
-import deleteLabel from './delete';
+import deleteTask from './delete';
 import { getMultiple, getOne } from './get';
 
 export default {
   create,
-  deleteLabel,
+  deleteTask,
   getOne,
   getMultiple,
 };
