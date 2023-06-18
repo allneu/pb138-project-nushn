@@ -1,9 +1,10 @@
+import ViewType from '../../pages/Subpage/viewType';
 import './ActionBar.css';
 
 import icons from '../../../public/assets/icons/projectIcons.json';
 
 type ActionBarProps = {
-  onViewChange: (newView: string) => void;
+  onViewChange: (newView: ViewType) => void;
 };
 
 function ActionBar({ onViewChange }: ActionBarProps) {

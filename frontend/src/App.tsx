@@ -1,14 +1,12 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-
 import MainPage from './pages/MainPage/MainPage.tsx';
 import LogInPage from './pages/AuthPages/LogInPage.tsx';
 import RegisterPage from './pages/AuthPages/RegisterPage.tsx';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <Routes>
-        {/* Delete Navigate later when other pages are done */}
         <Route path="/" element={<Navigate to="/login"/>} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<RegisterPage />} />
