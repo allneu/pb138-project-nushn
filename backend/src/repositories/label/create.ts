@@ -13,7 +13,7 @@ const createLabel = async (
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
       }
-      const highestOrder = await tx.label.findFirst({
+      const highestOrder = await tx.label.findFirstOrThrow({
         orderBy: {
           orderInSubpage: 'desc',
         },
@@ -23,13 +23,13 @@ const createLabel = async (
         data: {
           name: data.name,
           subPageId: data.subpageId,
-          orderInSubpage: highestOrder ? highestOrder.orderInSubpage! + 1 : 0,
+          orderInSubpage: highestOrder.orderInSubpage ? highestOrder.orderInSubpage + 1 : 0,
         },
       });
       return Result.ok({
         id: newLabel.id,
         name: newLabel.name,
-        orderInSubpage: newLabel!.orderInSubpage!,
+        orderInSubpage: newLabel.orderInSubpage,
         createdAt: newLabel.createdAt,
       });
     });

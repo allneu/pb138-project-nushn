@@ -8,8 +8,10 @@ import updateLabel from './update';
       oldOrderInSubpage: 5,
       newOrderInSubpage: 1,
     });
+    // eslint-disable-next-line no-console
     console.log(up);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('An error occurred while creating the label:', error);
     throw new Error('There was some problem with creating the label');
   }

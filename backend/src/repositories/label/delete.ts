@@ -22,7 +22,7 @@ const deleteLabel = async (
       }
       const deletedAt = new Date();
       // get curr order
-      const currOrder = await tx.label.findFirst({
+      const currOrder = await tx.label.findFirstOrThrow({
         where: { id: data.labelId },
         select: { orderInSubpage: true },
       });
@@ -32,16 +32,15 @@ const deleteLabel = async (
         data: { deletedAt, orderInSubpage: null },
       });
       // TODO test tommorow
-      const updateAllHigher = await tx.label.updateMany({
+      await tx.label.updateMany({
         where: {
           orderInSubpage: {
             not: null,
-            gt: currOrder!.orderInSubpage!,
+            gt: currOrder.orderInSubpage ? currOrder.orderInSubpage : 0,
           },
         },
         data: { orderInSubpage: { increment: -1 } },
       });
-      console.log(updateAllHigher);
       return Result.ok({});
     });
   } catch {

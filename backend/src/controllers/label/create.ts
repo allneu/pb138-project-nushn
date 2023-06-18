@@ -24,7 +24,7 @@ export type LabelDataCreate = {
 export type LabelResultBody = {
   id: string,
   name: string,
-  orderInSubpage: number,
+  orderInSubpage: number | null,
   createdAt: Date,
 };
 

@@ -96,7 +96,7 @@ export const moveIndexes = async (
         itemsToShift.map(async (item) => {
           await tx.label.update({
             where: { id: item.id },
-            data: { orderInSubpage: item!.orderInSubpage! + 1 },
+            data: { orderInSubpage: item.orderInSubpage ? item.orderInSubpage + 1 : 0 },
           });
         }),
       );
