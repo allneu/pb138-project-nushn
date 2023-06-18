@@ -35,24 +35,22 @@ export type LabelUpdateResult = {
 };
 
 export type LabelGetResultBody = {
-  labels: [{
-    id: string,
-    name: string,
-    orderInSubpage?: number | null,
-    createdAt: Date,
-  }],
-  tasks: [{
-    id: string,
-    taskName: string,
-    dueDate: Date,
-    content: string,
+  id: string;
+  name: string;
+  orderInSubpage: number | null;
+  createdAt: Date;
+  tasks: {
+    id: string;
+    createdAt: Date;
+    taskName: string;
+    dueDate: Date;
+    content: string;
     creator: {
-      id: string,
-      username: string,
-    },
-    labelId: string,
-    orderInList?: number,
-    orderInLabel?: number,
-    createdAt: Date,
-  }],
-};
+      id: string;
+      username: string;
+    };
+    labelId: string;
+    orderInLabel: number | null;
+    orderInList: number | null;
+  }[];
+}[];

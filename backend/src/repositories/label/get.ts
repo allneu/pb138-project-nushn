@@ -1,10 +1,12 @@
 import { Result } from '@badrap/result';
 // TODO add LabelResultBody to import and return right value
+import { LabelGetResultBody } from '../../models/labelModels';
 import { SubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage } from '../common/common';
 import client from '../client';
 
-const get = async (data: SubpageIdType) => {
+const get = async (data: SubpageIdType):
+Promise<Result<LabelGetResultBody>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -16,16 +18,27 @@ const get = async (data: SubpageIdType) => {
           subPageId: data.subpageId,
           deletedAt: null,
         },
-      });
-      const labelIds = labels.map((label) => label.id);
-      const tasks = await tx.task.findMany({
-        where: {
-          labelId: {
-            in: labelIds,
+        select: {
+          id: true,
+          name: true,
+          orderInSubpage: true,
+          createdAt: true,
+          tasks: {
+            select: {
+              id: true,
+              taskName: true,
+              dueDate: true,
+              content: true,
+              creator: true,
+              labelId: true,
+              orderInLabel: true,
+              orderInList: true,
+              createdAt: true,
+            },
           },
         },
       });
-      return Result.ok({ labels, tasks });
+      return Result.ok(labels);
     });
   } catch {
     return Result.err(new Error('There was a problem getting labels'));
