@@ -1,3 +1,5 @@
+import EmptyObject from './emptyObject';
+
 export type SubpageCreateType = {
   name: string,
   description: string,
@@ -34,4 +36,4 @@ export type SubpageUpdateResultType = Partial<SubpageCreateType> & {
   id: string,
 };
 
-export type SubpageDeleteResultType = object;
+export type SubpageDeleteResultType = EmptyObject;

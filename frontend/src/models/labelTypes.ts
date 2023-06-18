@@ -1,3 +1,4 @@
+import EmptyObject from './emptyObject';
 import { TaskType } from './taskTypes';
 
 export type LabelCreateType = {
@@ -27,4 +28,4 @@ export type LabelUpdateResultType = {
   orderInSubpage?: number,
 };
 
-export type LabelDeleteResultType = object;
+export type LabelDeleteResultType = EmptyObject;

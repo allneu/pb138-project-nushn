@@ -1,3 +1,5 @@
+import EmptyObject from './emptyObject';
+
 export type TaskCreateType = {
   taskName: string,
   dueDate: Date,
@@ -45,4 +47,4 @@ export type TaskUpdateResultType = {
   orderInLabel?: number,
 };
 
-export type TaskDeleteResultType = object;
+export type TaskDeleteResultType = EmptyObject;
