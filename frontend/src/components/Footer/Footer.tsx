@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import './Footer.css';
 import icons from '../../../public/assets/icons/projectIcons.json';
@@ -10,7 +10,11 @@ type FooterProps = {
 function Footer({
   toggleMenu,
 }: FooterProps) {
-  const { userId, subpageId } = useParams();
+  const { userId } = useParams();
+
+  const location = useLocation();
+  const subpageId = location.pathname.split('/')[4] || null;
+
   return (
     <footer className='footer'>
         <div className="footer__nav-icons lg:hidden">

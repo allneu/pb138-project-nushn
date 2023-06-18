@@ -17,7 +17,8 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
 
   const onSubmit = (data: ChangePasswordFormDataType) => {
     console.log(data);
-    // TODO - send an update of the password
+    // TODO - make sure the old password matches the new one and 
+    // send an update of the password
     onClose();
   };
 

@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { SubpageType } from '../../models';
 
 import './Menu.css';
@@ -12,8 +12,18 @@ type MenuProps = {
   toggleMenu: () => void,
 };
 
+// TODO - delete after when you have the user data from backend
+const user = {
+  avatar: icons.user,
+  userName: 'User 1',
+};
+
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-  const { userId, subpageId } = useParams();
+  const { userId } = useParams();
+
+  const location = useLocation();
+  const subpageId = location.pathname.split('/')[4] || null;
+
   return (
         <nav className={`menu ${isOpen ? 'menu--show' : 'menu--hide'}`}>
             <div className="menu-header">
@@ -22,6 +32,12 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                     <span className="logo__text">Nushn</span>
                 </div>
             </div>
+
+            <Link to={`/user/${userId}/subpage/${subpageId}/editUser`} className="menu__user"
+                        onClick={toggleMenu}>
+                    <i className={user.avatar} />
+                    <span className="subpage-name">{user.userName}</span>
+            </Link>
 
             <div className="menu__subpages">
                 {subpages.map((subpage: SubpageType) => (
@@ -35,7 +51,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 ))}
             </div>
 
-            <Link to={`/user/${userId}/new-subpage`} className="menu__subpage border-gray-200" onClick={toggleMenu}>
+            <Link to={`/user/${userId}/new-subpage`} className="menu__subpage border-gray-200 shadow-md" onClick={toggleMenu}>
                 <i className={icons['add-new']} />
                 <span className="subpage-name">New subpage</span>
             </Link>
