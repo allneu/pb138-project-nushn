@@ -58,6 +58,8 @@ function TaskView() {
             <div className="input-with-errors py-2.5">
                 <AutosizeInput
                     className="task-name"
+                    placeholder='New task'
+                    value={formData.taskName}
                     {...register('taskName', { onChange })}
                 />
                 {errors.taskName && <span className="validation-error">{errors.taskName.message}</span>}
@@ -107,6 +109,7 @@ function TaskView() {
             </div>
 
             <AutosizeInput className="task-view__content"
+                placeholder='Task description'
                 value={formData.content}
                 {...register('content', { onChange })}
             />
