@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import handleErrors from '../../common/handleErrors';
-import { roleCreateSchema, userIdSubpageIdSchema } from '../../../models';
+import { roleUpdateSchema, userIdSubpageIdSchema } from '../../../models';
 import SubpageRepos from '../../../repositories/subpage';
 import { handleErrResp, handleOkResp } from '../../common';
 
@@ -13,7 +13,7 @@ import { handleErrResp, handleOkResp } from '../../common';
 const update = async (req: Request, res: Response) => {
   try {
     const params = userIdSubpageIdSchema.parse(req.params);
-    const data = roleCreateSchema.parse(req.body);
+    const data = roleUpdateSchema.parse(req.body);
     const response = await SubpageRepos.RoleRepo.update(data, params);
     return response.isOk
       ? handleOkResp(200, response.value, res, `Updated role for user with id: ${params.userId}.`)

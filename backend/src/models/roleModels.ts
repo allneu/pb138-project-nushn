@@ -15,8 +15,10 @@ export interface Role {
   roleType: RoleType, // role enum
 }
 
-export interface RoleUpdateType {
-  userId: string,
-  newRoleType: RoleType, // role enum
-  oldRoleType: RoleType, // role enum
-}
+export const roleUpdateSchema = z.object({
+  oldRole: z.enum(['OWNER', 'EDITOR']),
+  newRole: z.enum(['OWNER', 'EDITOR']),
+  userId: z.string().uuid().nonempty(),
+}).strict();
+
+export type RoleUpdateType = z.infer<typeof roleUpdateSchema>;

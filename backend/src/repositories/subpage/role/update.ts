@@ -20,7 +20,7 @@ const roleUpdate = (
   tx: PrismaTransactionHandle,
 ) => tx.role.update({
   where: { id },
-  data: { roleType: data.newRoleType },
+  data: { roleType: data.newRole },
 });
 
 const update = async (
@@ -37,7 +37,7 @@ const update = async (
         const oldRole = await findRole(data, params, tx);
         if (oldRole === null) {
           throw roleDoesNotExistError;
-        } if (oldRole.roleType !== data.oldRoleType) {
+        } if (oldRole.roleType !== data.oldRole) {
           throw oldDataError;
         } if (oldRole.deletedAt !== null) {
           throw roleWasDeletedError;

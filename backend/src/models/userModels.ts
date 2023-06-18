@@ -67,3 +67,10 @@ export type UserUpdateResult = {
   email: string | null,
   avatar: string | null,
 };
+
+export const userGetMultipleSchema = z.object({
+  username: z.string(),
+  count: z.number().positive(),
+}).strict();
+
+export type UserGetMultipleType = z.infer<typeof userGetMultipleSchema>;

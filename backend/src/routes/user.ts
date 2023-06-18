@@ -11,11 +11,11 @@ const userRouteSpecific = `${userRouteGeneric}/:userId`;
 
 // Get all Users
 // GET /user
-userRouter.get(userRouteGeneric, UserController.getOne);
+userRouter.get(userRouteGeneric, UserController.getMultiple);
 
 // Get User
 // GET /user/{userId}
-userRouter.get(userRouteSpecific, UserController.getMultiple);
+userRouter.get(userRouteSpecific, UserController.getOne);
 
 // Create User
 // POST /user

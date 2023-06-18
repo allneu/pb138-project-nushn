@@ -45,7 +45,7 @@ export interface Subpage {
   labels: {
     id: string,
     name: string,
-    orderInSubpage: number,
+    orderInSubpage: number | null,
     createdAt: Date,
   }[],
 }

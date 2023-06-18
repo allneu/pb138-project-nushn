@@ -22,7 +22,7 @@ const create = async (
           },
         });
         const role = await roleCreate({ role: 'OWNER', userId: params.userId }, { ...params, subpageId: subpage.id }, tx);
-        if (role.user.deletedAt !== null) {
+        if (role.user.deletedAt) {
           throw userWasDeletedError;
         }
         const label = await tx.label.create({

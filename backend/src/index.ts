@@ -14,6 +14,8 @@ const port = env['PORT'] ?? 3000;
 // CORS middlware
 app.use(cors());
 
+app.use(express.json());
+
 // parse URL encoded strings
 app.use(express.urlencoded({ extended: true }));
 
