@@ -1,8 +1,8 @@
-import updateLabel from './update';
+import update from './update';
 
 (async () => {
   try {
-    const up = await updateLabel({
+    const up = await update({
       labelId: '79011b06-c305-4761-8071-b18465cd999a',
       subpageId: '0',
       oldOrderInSubpage: 5,

@@ -1,9 +1,8 @@
-import createLabel from './create';
+import create from './create';
 
 (async () => {
   try {
-    const cr = await createLabel({ subpageId: '0', name: 'My first label' });
-    // eslint-disable-next-line no-console
+    const cr = await create({ subpageId: '0', name: 'My first label' });
     console.log(cr);
   } catch (error) {
     // eslint-disable-next-line no-console

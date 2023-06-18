@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Result } from '@badrap/result';
-import { UpdateLabelData } from '../../controllers/label/update';
+import { LabelUpdateResult, LabelUpdateType } from '../../models/labelModels';
 import { checkSubpage, checkLabel, moveIndexes } from '../common/common';
 import client from '../client';
-import { genericError } from '../common/types';
+import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 
-const updateLabel = async (
-  data: UpdateLabelData,
-): Promise<Result<object>> => {
+const update = async (
+  data: LabelUpdateType & LabelIdSubpageIdType,
+): Promise<Result<LabelUpdateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -41,11 +41,12 @@ const updateLabel = async (
           select: { id: true, name: true },
         });
         await moveIndexes(data.labelId, oldOrder, newOrder!, tx);
-        return Result.ok({
+        const result: LabelUpdateResult = {
           id: updatedNames.id,
           name: updatedNames.name,
-          orderInSubpage: newOrder,
-        });
+          orderInSubpage: newOrder!,
+        };
+        return Result.ok(result);
         // if we have to update name only
       } if (oldName && oldOrder === null) {
         const nameNow = await tx.label.findFirst({
@@ -60,10 +61,11 @@ const updateLabel = async (
           data: { name: newName! },
           select: { id: true, name: true },
         });
-        return Result.ok({
+        const result: LabelUpdateResult = {
           id: updated.id,
           name: updated.name,
-        });
+        };
+        return Result.ok(result);
       }
 
       // if we have to update order only
@@ -76,11 +78,15 @@ const updateLabel = async (
         return Result.err();
       }
       await moveIndexes(data.labelId, oldOrder!, newOrder!, tx);
-      return Result.ok({ id: data.labelId, orderInSubpage: newOrder });
+      const result: LabelUpdateResult = {
+        id: data.labelId,
+        orderInSubpage: newOrder!,
+      };
+      return Result.ok(result);
     });
   } catch {
-    return genericError;
+    return Result.err(new Error('There was a problem updating label'));
   }
 };
 
-export default updateLabel;
+export default update;

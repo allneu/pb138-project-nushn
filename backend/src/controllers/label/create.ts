@@ -1,40 +1,24 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
-import { functionalityNotImplemented } from '../common/notimplemented';
+import { labelCreateSchema } from '../../models/labelModels';
+import LabelRepo from '../../repositories/label';
+import { subpageIdSchema } from '../../models/urlParamsSchema';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // result code should be 201
 
-// validation schema
-const bodySchema = z.object({
-  name: z.string().min(3),
-}).strict();
-
-const paramsSchema = z.object({
-  subpageId: z.string().uuid().nonempty(),
-}).strict();
-
-// type to create Label
-export type LabelDataCreate = {
-  name: string,
-  subpageId: string
-};
-
-// res.body type
-export type LabelResultBody = {
-  id: string,
-  name: string,
-  orderInSubpage: number | null,
-  createdAt: Date,
-};
-
 // function
-export const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response) => {
   try {
-    bodySchema.parse(req.body);
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const data = labelCreateSchema.parse(req.body);
+    const params = subpageIdSchema.parse(req.params);
+    const response = await LabelRepo.create({ ...data, ...params });
+    return response.isOk
+      ? handleOkResp(201, response.value, res, `Created label with id: ${response.value.id}`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }
 };
+
+export default create;

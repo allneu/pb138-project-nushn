@@ -1,15 +1,12 @@
 import { Result } from '@badrap/result';
-import { LabelDataDelete } from '../../controllers/label/delete';
+import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage, checkLabel } from '../common/common';
 import client from '../client';
-import { genericError } from '../common/types';
-
-// TODO
-// Find out how to change orderInSubPage parameter when deleting task
+import { Deleted } from '../../models/common';
 
 const deleteLabel = async (
-  data: LabelDataDelete,
-): Promise<Result<object>> => {
+  data: LabelIdSubpageIdType,
+): Promise<Result<Deleted>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -31,7 +28,6 @@ const deleteLabel = async (
         where: { id: data.labelId },
         data: { deletedAt, orderInSubpage: null },
       });
-      // TODO test tommorow
       await tx.label.updateMany({
         where: {
           orderInSubpage: {
@@ -44,7 +40,7 @@ const deleteLabel = async (
       return Result.ok({});
     });
   } catch {
-    return genericError;
+    return Result.err(new Error('There was a problem deleting task'));
   }
 };
 
