@@ -19,12 +19,12 @@ const deleteTask = async (
       }
       const deletedAt = new Date();
       // get curr order
-      const currOrders = await tx.task.findFirst({
+      const currOrders = await tx.task.findFirstOrThrow({
         where: { id: data.taskId },
         select: { orderInList: true, orderInLabel: true },
       });
-      const currListOrder = currOrders!.orderInList!;
-      const currLabelOrder = currOrders!.orderInLabel!;
+      const currListOrder = currOrders.orderInList ? currOrders.orderInList : 0;
+      const currLabelOrder = currOrders.orderInLabel ? currOrders.orderInLabel : 0;
       // delete the label and set order to null
       const task = await tx.task.update({
         where: { id: data.taskId },
@@ -34,7 +34,7 @@ const deleteTask = async (
         where: {
           orderInList: {
             not: null,
-            gt: currListOrder!,
+            gt: currListOrder,
           },
         },
         data: { orderInList: { increment: -1 } },
@@ -44,7 +44,7 @@ const deleteTask = async (
           labelId: task.labelId,
           orderInLabel: {
             not: null,
-            gt: currLabelOrder!,
+            gt: currLabelOrder,
           },
         },
         data: { orderInLabel: { increment: -1 } },

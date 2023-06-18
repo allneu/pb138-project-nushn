@@ -33,11 +33,11 @@ export type TaskReturn = { // = getOneBody
   content: string,
   creator: {
     id: string,
-    userName: string,
+    username: string,
   },
   labelId: string,
-  orderInList?: number,
-  orderInLabel?: number,
+  orderInList: number | null,
+  orderInLabel: number | null,
 };
 
 export type TaskGetMultipleResult = {

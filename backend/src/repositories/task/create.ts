@@ -13,14 +13,14 @@ const create = async (
       if (labelExists.isErr) {
         return Result.err(labelExists.error);
       }
-      const highestLabelOrder = await tx.task.findFirst({
+      const highestLabelOrder = await tx.task.findFirstOrThrow({
         where: { orderInLabel: { not: null }, labelId: data.labelId },
         orderBy: {
           orderInLabel: 'desc',
         },
         take: 1,
       });
-      const highestListOrder = await tx.task.findFirst({
+      const highestListOrder = await tx.task.findFirstOrThrow({
         where: { orderInList: { not: null } },
         orderBy: {
           orderInList: 'desc',
@@ -34,8 +34,8 @@ const create = async (
           content: data.content ? data.content : '',
           creatorId: data.creatorId,
           labelId: data.labelId,
-          orderInLabel: highestLabelOrder ? highestLabelOrder.orderInLabel! + 1 : 0,
-          orderInList: highestListOrder ? highestListOrder.orderInList! + 1 : 0,
+          orderInLabel: highestLabelOrder.orderInLabel ? highestLabelOrder.orderInLabel + 1 : 0,
+          orderInList: highestListOrder.orderInList ? highestListOrder.orderInList + 1 : 0,
           image: data.image ? data.image : null,
         },
       });
@@ -43,6 +43,9 @@ const create = async (
         where: { id: newTask.creatorId },
         select: { id: true, username: true },
       });
+      if (newTask.orderInLabel === null || newTask.orderInList == null) {
+        throw new Error('Order error');
+      }
       const result: TaskCreateResult = {
         id: newTask.id,
         taskName: newTask.taskName,
@@ -50,15 +53,14 @@ const create = async (
         content: newTask.content,
         creator,
         labelId: newTask.labelId,
-        orderInLabel: newTask.orderInLabel!,
-        orderInList: newTask.orderInList!,
+        orderInLabel: newTask.orderInLabel,
+        orderInList: newTask.orderInList,
         createdAt: newTask.createdAt,
       };
 
       return Result.ok(result);
     });
   } catch (e) {
-    console.log(e);
     return Result.err(new Error('There was a problem in label creation'));
   }
 };

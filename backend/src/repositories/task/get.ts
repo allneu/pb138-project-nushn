@@ -27,6 +27,10 @@ export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskRetu
         where: { id: task.creatorId },
         select: { id: true, username: true },
       });
+      if (task.orderInLabel === null || task.orderInList === null) {
+        throw new Error('Order error.');
+      }
+
       const result: TaskReturn = {
         id: task.id,
         taskName: task.taskName,
@@ -34,8 +38,8 @@ export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskRetu
         content: task.content,
         creator,
         labelId: task.labelId,
-        orderInLabel: task.orderInLabel!,
-        orderInList: task.orderInList!,
+        orderInLabel: task.orderInLabel,
+        orderInList: task.orderInList,
       };
       return Result.ok(result);
     });
@@ -71,7 +75,7 @@ Promise<Result<TaskGetMultipleResult>> => {
               creator: {
                 select: {
                   id: true,
-                  userName: true,
+                  username: true,
                 },
               },
             },
