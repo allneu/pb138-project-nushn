@@ -10,15 +10,17 @@ type FooterProps = {
 function Footer({
   toggleMenu,
 }: FooterProps) {
-  const { subpageId } = useParams();
+  const { userId, subpageId } = useParams();
   return (
     <footer className='footer'>
         <div className="footer__nav-icons lg:hidden">
             <i className={icons.menu} onClick={toggleMenu} />
-            <Link to={`/subpage/${subpageId}/task/newTask`}>
+            <Link to={`/user/${userId}/subpage/${subpageId}/task/newTask`}>
                 <i className={icons['add-new']} />
             </Link>
-            <i className={icons.user} />
+            <Link to={`/user/${userId}/subpage/${subpageId}/editUser`}>
+              <i className={icons.user} />
+            </Link>
         </div>
     </footer>
   );

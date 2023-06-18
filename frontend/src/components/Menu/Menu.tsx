@@ -13,7 +13,7 @@ type MenuProps = {
 };
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-  const { subpageId } = useParams();
+  const { userId, subpageId } = useParams();
   return (
         <nav className={`menu ${isOpen ? 'menu--show' : 'menu--hide'}`}>
             <div className="menu-header">
@@ -25,7 +25,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
 
             <div className="menu__subpages">
                 {subpages.map((subpage: SubpageType) => (
-                    <Link to={`/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
+                    <Link to={`/user/${userId}/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
                         <i className={subpage.icon} />
                         <span className="subpage-name">{subpage.name}</span>
@@ -35,7 +35,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 ))}
             </div>
 
-            <Link to="/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
+            <Link to={`/user/${userId}/new-subpage`} className="menu__subpage border-gray-200" onClick={toggleMenu}>
                 <i className={icons['add-new']} />
                 <span className="subpage-name">New subpage</span>
             </Link>

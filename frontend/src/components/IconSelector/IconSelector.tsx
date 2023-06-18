@@ -10,15 +10,6 @@ type IconSelectorProps = {
 
 function IconSelector({ selectedIcon, setSelectedIcon, icons }: IconSelectorProps) {
   const [open, setOpen] = useState(false);
-  const [dialogPosition, setDialogPosition] = useState({ top: '0px', left: '0px' });
-  const iconRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (iconRef.current) {
-      const { bottom, left } = iconRef.current.getBoundingClientRect();
-      setDialogPosition({ top: `${bottom}px`, left: `${left}px` });
-    }
-  }, [open]);
 
   const toggleDialog = () => {
     setOpen(!open);
@@ -32,9 +23,9 @@ function IconSelector({ selectedIcon, setSelectedIcon, icons }: IconSelectorProp
   return (
     <>
     <div className={`bcg ${open ? '' : 'dialog--close'}`} onClick={toggleDialog}/>
-    <div className='icon-selector'>
-      <i ref={iconRef} className={`icon-selector__icon large ${selectedIcon}`} onClick={toggleDialog} />
-      <div style={{ ...dialogPosition, position: 'absolute' }}>
+    <div className='icon-selector self-center'>
+      <i className={`icon-selector__icon large ${selectedIcon}`} onClick={toggleDialog} />
+      <div className='absolute z-1'>
         <dialog className={`dialog ${open ? '' : 'dialog--close'}`} open={open}>
           <div className="icons-wrapper">
             <div className="icons">

@@ -1,12 +1,12 @@
-.task-view {
+.task-view, .user-view {
     @apply fixed right-0 bg-white flex flex-col w-full lg:w-1/3 h-full lg:border-l lg:border-gray-400;
 }
 
-.task-view__nav {
+.task-view__nav, .user-view__nav {
     @apply flex justify-between px-6 py-2;
 }
 
-.task-view__form {
+.task-view__form, .user-view__form {
     @apply flex flex-col px-11;
 }
 
@@ -16,19 +16,23 @@
 }
 
 .input-with-errors {
-    @apply flex flex-col gap-1;
+    @apply flex flex-col gap-1 m-3;
+}
+
+.form__input {
+    @apply text-notion text-sm font-semibold;
 }
 
 .validation-error {
     @apply text-red-800 text-sm font-normal;
 }
 
-.task-view__info {
+.task-view__info, .user-view__info {
     @apply flex flex-col gap-2.5;
 }
 
 .detail {
-    @apply flex justify-between text-gray-500 text-sm font-medium;
+    @apply flex justify-between text-gray-500 text-sm font-medium items-center;
 }
 
 .detail__label {
@@ -42,4 +46,12 @@
 .task-view__content {
     @apply flex-grow text-notion text-sm font-medium focus:outline-none;
     @apply overflow-y-scroll max-h-[calc(100vh-15rem)] resize-none;
+}
+
+.change-pswd {
+    @apply py-10 mt-6 flex flex-col items-center;
+}
+
+.change-password-btn {
+    @apply bg-black text-white py-2 px-4 rounded mt-8 w-96;
 }

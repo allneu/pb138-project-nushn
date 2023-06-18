@@ -9,8 +9,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/user/:userId/*" element={<MainPage />} />
       </Routes>
-      <MainPage />
     </>
   );
 }

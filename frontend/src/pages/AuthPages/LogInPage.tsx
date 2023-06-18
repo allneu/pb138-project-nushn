@@ -1,25 +1,21 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import './AuthPages.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const schema = z.object({
-  email: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
-  password: z.string().nonempty({ message: 'Password is required' }),
-});
+import { logInSchema, LogInFormDataType } from './AuthPagesSchema';
 
 function LogInPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
+  const { register, handleSubmit, formState: { errors } } = useForm<LogInFormDataType>({
+    resolver: zodResolver(logInSchema),
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    navigate('/');
+  const onSubmit = (data: LogInFormDataType) => {
+    navigate('/user/1');
     console.log(data);
   };
 
@@ -39,20 +35,20 @@ function LogInPage() {
           <input
             type="text"
             placeholder="email"
-            className={`form__input ${errors['email'] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+            className={`form__input ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
             {...register('email')}
           />
-          {errors['email'] && <p className="text-red-500 text-xs">{errors['email'].message}</p>}
+          {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
         </div>
 
         <div className='validated-input'>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="password"
-            className={`form__input ${errors['password'] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+            className={`form__input ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
             {...register('password')}
           />
-          {errors['password'] && <p className="text-red-500 text-xs">{errors['password'].message}</p>}
+          {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
         </div>
         <label className="show-password">
           <input

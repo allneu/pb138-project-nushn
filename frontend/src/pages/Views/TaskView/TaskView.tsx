@@ -6,12 +6,12 @@ import AutosizeInput from 'react-textarea-autosize';
 
 import { taskFormSchema, TaskFormDataType } from './taskSchema';
 import defaultTaskValues from './defaultTaskValues';
-import icons from '../../../public/assets/icons/projectIcons.json';
+import icons from '../../../../public/assets/icons/projectIcons.json';
 
-import './TaskView.css';
+import '../Views.css';
 
 function TaskView() {
-  const { subpageId, taskId } = useParams();
+  const { userId, subpageId, taskId } = useParams();
   const [formData, setFormData] = useState(defaultTaskValues);
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function TaskView() {
   return (
     <form className="task-view" onSubmit={handleSubmit(onSubmit)}>
         <nav className="task-view__nav">
-            <Link to={`/subpage/${subpageId}`}>
+            <Link to={`/user/${userId}/subpage/${subpageId}`}>
                 <i className={icons['back-arrow']}/>
             </Link>
             <button type="submit">
