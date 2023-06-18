@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
 import './Footer.css';
+import icons from '../../../public/assets/icons/projectIcons.json';
 
 type FooterProps = {
   toggleMenu: () => void;
@@ -13,11 +14,11 @@ function Footer({
   return (
     <footer className='footer'>
         <div className="footer__nav-icons lg:hidden">
-            <img className="icon" src="/assets/icons/menu.svg" onClick={toggleMenu} alt="Subpage menu icon"/>
+            <i className={icons.menu} onClick={toggleMenu} />
             <Link to={`/subpage/${subpageId}/task/newTask`}>
-                <img className='icon' src="/assets/icons/add.svg" alt="Add new task icon"/>
+                <i className={icons['add-new']} />
             </Link>
-            <img className="icon" src="/assets/icons/account.svg" alt="User account icon"/>
+            <i className={icons.user} />
         </div>
     </footer>
   );

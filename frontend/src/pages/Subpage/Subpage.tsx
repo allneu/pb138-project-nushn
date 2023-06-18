@@ -33,7 +33,7 @@ function Subpage() {
         <div className="subpage">
             <header className="subpage-header">
                 <div className="name-wrapper">
-                    <img className="icon" src={subpage?.icon} alt="Subpage icon"/>
+                    <i className={subpage?.icon}/>
                     <span className="name-wrapper__name">{subpage?.name}</span>
                 </div>
                 <span className="subpage-header__description">{subpage?.description}</span>
