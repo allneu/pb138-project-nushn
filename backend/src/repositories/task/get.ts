@@ -2,15 +2,10 @@ import { Result } from '@badrap/result';
 import { checkSubpage } from '../common/common';
 import client from '../client';
 import {
-  TaskIdSubpageIdType,
-  SubpageIdType,
-} from '../models/urlParamsSchema';
-import {
-  TaskReturn,
-  TaskGetMultipleResult,
-} from '../models/taskModels';
+  SubpageIdType, Task, TaskGetMultipleResult, TaskIdSubpageIdType,
+} from '../../models';
 
-export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskReturn>> => {
+export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<Task>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -31,7 +26,7 @@ export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskRetu
         throw new Error('Order error.');
       }
 
-      const result: TaskReturn = {
+      const result: Task = {
         id: task.id,
         taskName: task.taskName,
         dueDate: task.dueDate,
@@ -40,6 +35,7 @@ export const getOne = async (data: TaskIdSubpageIdType): Promise<Result<TaskRetu
         labelId: task.labelId,
         orderInLabel: task.orderInLabel,
         orderInList: task.orderInList,
+        createdAt: task.createdAt,
       };
       return Result.ok(result);
     });
@@ -72,6 +68,7 @@ Promise<Result<TaskGetMultipleResult>> => {
               labelId: true,
               orderInList: true,
               orderInLabel: true,
+              createdAt: true,
               creator: {
                 select: {
                   id: true,

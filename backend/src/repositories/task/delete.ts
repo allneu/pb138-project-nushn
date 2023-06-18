@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import { checkSubpage, checkTask } from '../common/common';
 import client from '../client';
-import { TaskIdSubpageIdType } from '../models/urlParamsSchema';
+import { TaskIdSubpageIdType } from '../../models';
 // can surely be written better, check if there is time
 
 const deleteTask = async (

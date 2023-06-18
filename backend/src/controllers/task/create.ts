@@ -1,9 +1,8 @@
 import type { Request, Response } from 'express';
 import handleErrors from '../common/handleErrors';
-import { taskCreateSchema } from '../../repositories/models/taskModels';
-import { subpageIdSchema } from '../../repositories/models/urlParamsSchema';
 import TaskRepo from '../../repositories/task';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import { subpageIdSchema, taskCreateSchema } from '../../models';
 
 // result code should be 201
 

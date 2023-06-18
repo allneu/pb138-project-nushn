@@ -1,12 +1,11 @@
 import { Result } from '@badrap/result';
-import { Task } from '@prisma/client';
-import { TaskCreateResult, TaskCreateType } from '../models/taskModels';
 import { checkLabel } from '../common/common';
 import client from '../client';
+import { Task, TaskCreateType } from '../../models';
 
 const create = async (
   data: TaskCreateType,
-): Promise<Result<TaskCreateResult>> => {
+): Promise<Result<Task>> => {
   try {
     return await client.$transaction(async (tx) => {
       const labelExists = await checkLabel(data.labelId, tx);
@@ -27,7 +26,7 @@ const create = async (
         },
         take: 1,
       });
-      const newTask: Task = await tx.task.create({
+      const newTask = await tx.task.create({
         data: {
           taskName: data.taskName,
           dueDate: data.dueDate,
@@ -46,7 +45,7 @@ const create = async (
       if (newTask.orderInLabel === null || newTask.orderInList == null) {
         throw new Error('Order error');
       }
-      const result: TaskCreateResult = {
+      const result: Task = {
         id: newTask.id,
         taskName: newTask.taskName,
         dueDate: newTask.dueDate,
