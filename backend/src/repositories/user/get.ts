@@ -1,9 +1,10 @@
 import { Result } from '@badrap/result';
 import client from '../client';
-import { UserGetData, User } from '../../controllers/user/get';
+import { UserGetSpecificType, UserGetSpecificResult } from '../../models/userModels';
 import { checkUser } from '../common/common';
 
-const getOne = async (data: UserGetData): Promise<Result<User>> => {
+const getOne = async (data: UserGetSpecificType):
+Promise<Result<UserGetSpecificResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const userFlag = await checkUser(data.userId, tx);

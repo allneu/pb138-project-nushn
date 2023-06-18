@@ -3,7 +3,7 @@
 /* These are the types of the data from the JSON document */
 export type UserJson = {
   id: string;
-  userName: string;
+  username: string;
   email: string;
   createdAt: string;
   editedAt?: string;

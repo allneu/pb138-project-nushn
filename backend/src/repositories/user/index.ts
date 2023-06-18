@@ -1,11 +1,11 @@
 import create from './create';
-import deleteLabel from './delete';
+import deleteUser from './delete';
 import getOne from './get';
 import update from './update';
 
 export default {
   create,
-  deleteLabel,
+  deleteUser,
   getOne,
   update,
 };

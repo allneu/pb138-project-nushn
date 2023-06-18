@@ -1,37 +1,22 @@
 import type { Request, Response } from 'express';
-import { z } from 'zod';
 import handleErrors from '../common/handleErrors';
 import { functionalityNotImplemented } from '../common/notimplemented';
+import { userIdSchema } from '../../models/urlParamsSchema';
+import UserRepos from '../../repositories/user';
+import { handleErrResp, handleOkResp } from '../common/handleResponse';
 
 // TODO:
 // add get by params - username?
 // add pagination
 
-// validation schema
-const paramsSchema = z.object({
-  userId: z.string().uuid(),
-}).strict();
-
-export type UserGetData = {
-  userId: string,
-};
-
-// res.body type
-export type User = { // = getOneBody
-  id: string,
-  userName: string,
-  email: string,
-};
-
-export type GetMultipleBody = {
-  users: User[],
-};
-
 // functions
 export const getOne = async (req: Request, res: Response) => {
   try {
-    paramsSchema.parse(req.params);
-    return await functionalityNotImplemented(req, res);
+    const params = userIdSchema.parse(req.params);
+    const response = await UserRepos.getOne(params);
+    return response.isOk
+      ? handleOkResp(200, response.value, res, `Listed user with id: ${params.userId}.`)
+      : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
   }

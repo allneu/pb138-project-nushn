@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "0",
-      "userName": "seed name",
+      "username": "seed name",
       "email": "j.hill@scada.org",
       "createdAt": "2023-03-17T13:00:06.000Z",
       "hashedPassword": "9f45cd50672132537264050cd666e6ae5dcc00de78361c2ecdbb6d1847cfe63e",
@@ -11,7 +11,7 @@
     },
     {
       "id": "35e0e8da-9b01-4ae0-8c81-ac3243033f92",
-      "userName": "johnsnowofficial",
+      "username": "johnsnowofficial",
       "email": "snow@got.com",
       "createdAt": "2023-03-17T12:48:06.000Z",
       "hashedPassword": "2a6a462fabaf273bc3e03487845abb6b2798df336d1ec410af3e2db0947e168f",
@@ -20,7 +20,7 @@
     },
     {
       "id": "94ba79b3-ede8-4d91-9e72-a9f09b328b92",
-      "userName": "thedaddy.darthvader",
+      "username": "thedaddy.darthvader",
       "email": "vader@empire.org",
       "createdAt": "2023-03-17T12:51:14.000Z",
       "hashedPassword": "8893aed7540956b6b5308f832771670ee4461853eb08f1cf3871ec0e602e2309",
@@ -29,7 +29,7 @@
     },
     {
       "id": "f27d5290-3b84-4998-834a-f9369fe2b7bd",
-      "userName": "big.lightsaber.benkenobi",
+      "username": "big.lightsaber.benkenobi",
       "email": "benkenobi@tatooine.net",
       "createdAt": "2023-03-17T12:51:14.000Z",
       "hashedPassword": "fd82a6d6ac36da4ce2d22cf64e5ea278b2dd5034e55c430aa9a3e91810e66d26",
@@ -38,7 +38,7 @@
     },
     {
       "id": "91ed64ab-b393-4911-a37f-c9d20e812e44",
-      "userName": "jimmy.smith",
+      "username": "jimmy.smith",
       "email": "smithy69420@gmail.com",
       "createdAt": "2023-03-17T17:16:39.000Z",
       "hashedPassword": "9b43f9881be027aec4baefbc13de34ae46e42d481b59c5c8228059431f39de40",
@@ -47,7 +47,7 @@
     },
     {
       "id": "3c786755-9110-4266-b0e0-a85d9ef0a637",
-      "userName": "xn97reginald",
+      "username": "xn97reginald",
       "email": "reggiexn97@gmail.com",
       "createdAt": "2023-03-17T14:49:25.000Z",
       "deletedAt": "2023-03-18T15:07:48.000Z",

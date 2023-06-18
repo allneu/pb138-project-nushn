@@ -3,10 +3,12 @@
 import { Result } from '@badrap/result';
 import type { User } from '@prisma/client';
 import client from '../client';
-import { UserUpdateData } from '../../controllers/user/update';
+import { UserUpdateResult, UserUpdateType } from '../../models/userModels';
 import { checkUser } from '../common/common';
+import { UserIdType } from '../../models/urlParamsSchema';
 
-const update = async (data: UserUpdateData) => {
+const update = async (data: UserUpdateType & UserIdType):
+Promise<Result<UserUpdateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const userExists = await checkUser(data.userId, tx);
@@ -16,7 +18,7 @@ const update = async (data: UserUpdateData) => {
       const existingUser = await tx.user.findFirstOrThrow({
         where: { id: data.userId },
       });
-      const userName = data.userName ? data.userName : existingUser.userName;
+      const username = data.username ? data.username : existingUser.username;
       const email = data.email ? data.email : existingUser.email;
       const avatar = data.avatar ? data.avatar : existingUser.avatar;
       if (data.password !== null) {
@@ -27,7 +29,7 @@ const update = async (data: UserUpdateData) => {
         const updated: User = await tx.user.update({
           where: { id: data.userId },
           data: {
-            userName,
+            username,
             email,
             hashedPassword,
             salt,
@@ -39,16 +41,16 @@ const update = async (data: UserUpdateData) => {
       await tx.user.update({
         where: { id: data.userId },
         data: {
-          userName,
+          username,
           email,
           avatar,
         },
       });
       return Result.ok({
         id: data.userId,
-        userName: data.userName,
-        email: data.email,
-        avatar: data.avatar,
+        username: username || null,
+        email: email || null,
+        avatar: avatar || null,
       });
     });
   } catch {
