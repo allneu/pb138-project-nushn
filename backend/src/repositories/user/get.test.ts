@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import getOne from './get';
+import { getOne } from './get';
 
 (async () => {
   try {
