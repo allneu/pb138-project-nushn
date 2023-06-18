@@ -2,63 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 
 import './IconSelector.css';
 
-// TODO - load from some file
-const icons = [
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/right-arrow.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-  { src: '/assets/icons/account.svg' },
-];
-
 type IconSelectorProps = {
   selectedIcon: string;
-  setSelectedIcon: (iconSrc: string) => void;
+  setSelectedIcon: (iconName: string) => void;
+  icons: { name: string }[];
 };
 
-function IconSelector({ selectedIcon, setSelectedIcon }: IconSelectorProps) {
+function IconSelector({ selectedIcon, setSelectedIcon, icons }: IconSelectorProps) {
   const [open, setOpen] = useState(false);
   const [dialogPosition, setDialogPosition] = useState({ top: '0px', left: '0px' });
   const iconRef = useRef<HTMLImageElement>(null);
@@ -74,8 +24,8 @@ function IconSelector({ selectedIcon, setSelectedIcon }: IconSelectorProps) {
     setOpen(!open);
   };
 
-  const handleIconClick = (iconSrc) => {
-    setSelectedIcon(iconSrc);
+  const handleIconClick = (iconName) => {
+    setSelectedIcon(iconName);
     toggleDialog();
   };
 
@@ -83,24 +33,22 @@ function IconSelector({ selectedIcon, setSelectedIcon }: IconSelectorProps) {
     <>
     <div className={`bcg ${open ? '' : 'dialog--close'}`} onClick={toggleDialog}/>
     <div className='icon-selector'>
-      <img ref={iconRef} className='icon-selector__icon' src={selectedIcon} onClick={toggleDialog} alt="Selected icon" />
+      <i ref={iconRef} className={`icon-selector__icon large ${selectedIcon}`} onClick={toggleDialog} />
       <div style={{ ...dialogPosition, position: 'absolute' }}>
-      <dialog className={`dialog ${open ? '' : 'dialog--close'}`} open={open}>
-        <div className="icons-wrapper">
-          <div className="icons">
-            {icons.map((icon, index) => (
-              <img
-              className="dialog-icon"
-                src={icon.src}
-                key={index}
-                onClick={() => handleIconClick(icon.src)}
-                alt="icon"
-                />
-            ))}
+        <dialog className={`dialog ${open ? '' : 'dialog--close'}`} open={open}>
+          <div className="icons-wrapper">
+            <div className="icons">
+              {icons.map((icon, index) => (
+                <i
+                  className={`dialog-icon large ${icon.name}`}
+                  key={index}
+                  onClick={() => handleIconClick(icon.name)}
+                  />
+              ))}
+            </div>
           </div>
-        </div>
-        <p className="close-btn" onClick={toggleDialog}>Close</p>
-      </dialog>
+          <p className="close-btn" onClick={toggleDialog}>Close</p>
+        </dialog>
       </div>
     </div>
     </>

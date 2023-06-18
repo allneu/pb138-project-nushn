@@ -6,6 +6,7 @@ import { useState } from 'react';
 import './AuthPages.css';
 import { Link } from 'react-router-dom';
 import IconSelector from '../../components/IconSelector/IconSelector.tsx';
+import icons from '../../../public/assets/icons/dialogIcons.json';
 
 const passwordSchema = z.string()
   .refine((value) => value.length >= 8, { message: 'Password must be at least 8 characters long' })
@@ -21,7 +22,7 @@ const schema = z.object({
 });
 
 function RegisterPage() {
-  const [selectedIcon, setSelectedIcon] = useState('/assets/icons/account.svg');
+  const [selectedIcon, setSelectedIcon] = useState('user secret icon');
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
@@ -44,7 +45,7 @@ function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
         <div className='validated-input flex flex-row gap-3 items-center'>
           <div className='border border-gray-300 rounded-md p-2 self-center'>
-            <IconSelector selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon}/>
+            <IconSelector selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon} icons={icons.user}/>
           </div>
           <div className='flex-grow'>
             <input

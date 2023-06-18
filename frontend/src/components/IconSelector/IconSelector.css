@@ -4,7 +4,7 @@
 }
 
 .dialog {
-  @apply w-[15rem] h-[15rem] flex flex-col rounded-2xl border border-gray-300 drop-shadow-xl;
+  @apply w-[17rem] h-[15rem] flex flex-col rounded-2xl border border-gray-300 drop-shadow-xl;
 }
 
 .dialog--close {
@@ -16,7 +16,11 @@
 }
 
 .icons {
-    @apply overflow-y-auto grid grid-cols-5 p-[0.5rem];
+    @apply overflow-y-auto grid grid-cols-5 p-[0.5rem] gap-5;
+}
+
+.dialog-icon {
+    @apply hover:scale-125;
 }
 
 .close-btn {
