@@ -1,0 +1,12 @@
+{
+    "share": "large share icon",
+    "boardview": "large table icon",
+    "checklist": "large tasks icon",
+    "bulletlist": "large list ul icon",
+    "add-new": "large plus square outline icon",
+    "check-todo": "large square outline icon",
+    "check-done": "large grey check square outline icon",
+    "edit": "large grey ellipsis vertical icon",
+    "collapse-arrow": "large angle up icon",
+    "expand-arrow": "large angle down icon"
+}

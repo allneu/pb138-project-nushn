@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { TaskType } from '../../models';
 import './Task.css';
 
+import icons from '../../../public/assets/icons/projectIcons.json';
+
 type TaskProps = {
   task: TaskType;
   todoIcon: string;
@@ -11,9 +13,9 @@ type TaskProps = {
 function Task({ task, todoIcon, doneIcon } : TaskProps) {
   return (
       <Link to={`task/${task.id}`} className="task">
-        <img className="icon rounded" src={task.done ? doneIcon : todoIcon} alt="Task icon" />
+        <i className={`icon rounded ${task.done ? doneIcon : todoIcon}`}/>
         <span className={task.done ? 'task__name task__name--done' : 'task__name'}>{task.taskName}</span>
-        <img className="icon" src="/assets/icons/edit.svg" alt="Edit task icon"/>
+        <i className={icons['edit']}/>
       </Link>
   );
 }
