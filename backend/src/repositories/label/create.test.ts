@@ -3,6 +3,7 @@ import create from './create';
 (async () => {
   try {
     const cr = await create({ subpageId: '0', name: 'My first label' });
+    // eslint-disable-next-line no-console
     console.log(cr);
   } catch (error) {
     // eslint-disable-next-line no-console

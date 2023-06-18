@@ -13,7 +13,7 @@ const create = async (
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
       }
-      const highestOrder = await tx.label.findFirst({
+      const highestOrder = await tx.label.findFirstOrThrow({
         where: { orderInSubpage: { not: null } },
         orderBy: {
           orderInSubpage: 'desc',
@@ -35,7 +35,6 @@ const create = async (
       });
     });
   } catch (e) {
-    console.log(e);
     return Result.err(new Error('There was a problem in label creation'));
   }
 };

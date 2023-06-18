@@ -9,7 +9,7 @@ export type LabelCreateType = z.infer<typeof labelCreateSchema>;
 export type LabelCreateResult = {
   id: string,
   name: string,
-  orderInSubpage: number,
+  orderInSubpage: number | null,
   createdAt: Date,
 };
 
