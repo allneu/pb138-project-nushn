@@ -59,7 +59,7 @@ model SubPageEdit {
 model Label {
   id             String    @id @default(uuid())
   name           String
-  orderInSubpage Int?      @unique
+  orderInSubpage Int?      
   createdAt      DateTime  @default(now())
   deletedAt      DateTime?
   subPageId      String
@@ -72,8 +72,8 @@ model Task {
   taskName     String
   done         Boolean   @default(false)
   dueDate      DateTime
-  orderInList  Int?      @unique
-  orderInLabel Int?      @unique
+  orderInList  Int?      
+  orderInLabel Int?      
   content      String
   createdAt    DateTime  @default(now())
   deletedAt    DateTime?
