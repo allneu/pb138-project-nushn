@@ -1,6 +1,6 @@
 .menu {
     @apply fixed lg:static flex flex-col w-3/4 lg:w-60 lg:min-w-[15rem] h-[calc(100%-3rem)] lg:h-full bg-white
-        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-scroll duration-500;
+        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-auto duration-500;
 }
 
 .menu--show {

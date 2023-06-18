@@ -12,7 +12,7 @@
 
 .task-name {
     @apply text-notion text-base font-bold text-center;
-    @apply max-h-16 overflow-scroll resize-none focus:outline-none;
+    @apply max-h-16 overflow-auto resize-none focus:outline-none;
 }
 
 .input-with-errors {

@@ -20,6 +20,7 @@
     "react-hook-form": "^7.44.3",
     "react-router-dom": "^6.12.1",
     "react-textarea-autosize": "^8.4.1",
+    "semantic-ui-css": "^2.5.0",
     "semantic-ui-icon": "^2.5.0",
     "zod": "^3.21.4"
   },
