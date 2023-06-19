@@ -1,5 +1,6 @@
 import { RoleType } from '@prisma/client';
 import { z } from 'zod';
+import { LabelCreateResult } from './labelModels';
 
 export const subpageCreateSchema = z.object({
   name: z.string().min(3),
@@ -36,25 +37,28 @@ export const subpageUpdateSchema = z.object({
 
 export type SubpageUpdateType = z.infer<typeof subpageUpdateSchema>;
 
-export interface Subpage {
+export type Subpage = SubpageWithoutLabels & {
+  labels: LabelCreateResult[],
+};
+
+export type SubpageWithoutLabels = {
   id: string,
   name: string,
   description: string,
   icon: string,
   createdAt: Date,
-  labels: {
-    id: string,
-    name: string,
-    orderInSubpage: number | null,
-    createdAt: Date,
-  }[],
-}
+};
+
+export type SubpageWithoutLabelsWithRoleType = SubpageWithoutLabels & {
+  roleType: RoleType,
+};
 
 export const labelSelect = {
   id: true,
   name: true,
   orderInSubpage: true,
   createdAt: true,
+  tasks: true,
 };
 
 export const subpageSelect = {

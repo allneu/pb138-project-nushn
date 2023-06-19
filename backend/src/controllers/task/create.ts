@@ -10,9 +10,9 @@ import { subpageIdSchema, taskCreateSchema } from '../../models';
 const create = async (req: Request, res: Response) => {
   try {
     const data = taskCreateSchema.parse(req.body);
-    // should I send also subpageId?
+    const params = subpageIdSchema.parse(req.params);
     subpageIdSchema.parse(req.params);
-    const response = await TaskRepo.create(data);
+    const response = await TaskRepo.create(data, params);
     return response.isOk
       ? handleOkResp(201, response.value, res, `Created label with id: ${response.value.id}`)
       : handleErrResp(500, response.error, res, response.error.message);

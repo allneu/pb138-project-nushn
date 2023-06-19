@@ -6,12 +6,14 @@ export const labelCreateSchema = z.object({
 
 export type LabelCreateType = z.infer<typeof labelCreateSchema>;
 
-export type LabelCreateResult = {
+export type Label = {
   id: string,
   name: string,
   orderInSubpage: number | null,
   createdAt: Date,
 };
+
+export type LabelCreateResult = Label; // Prefer use Label - this is for compability
 
 export const labelUpdateSchema = z.object({
   oldName: z.string().min(3).optional(),

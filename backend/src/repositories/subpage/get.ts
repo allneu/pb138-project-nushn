@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import {
-  Subpage, SubpageWithRole, UserIdSubpageIdType, UserIdType,
-  labelSelect,
+  SubpageWithoutLabels, SubpageWithoutLabelsWithRoleType, UserIdSubpageIdType, UserIdType,
   subpageSelect,
   subpageWasDeletedError, userHasNotPermissionError,
 } from '../../models';
@@ -10,7 +9,7 @@ import { PrismaTransactionHandle } from '../common/types';
 
 export const getOne = async (
   { subpageId, userId }: UserIdSubpageIdType,
-): Promise<Result<Subpage>> => {
+): Promise<Result<SubpageWithoutLabels>> => {
   try {
     return Result.ok(
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
@@ -19,7 +18,6 @@ export const getOne = async (
           select: {
             ...subpageSelect,
             deletedAt: true,
-            labels: { select: labelSelect },
             roles: {
               where: { deletedAt: null, userId },
               select: {
@@ -41,7 +39,9 @@ export const getOne = async (
   }
 };
 
-export const getMultiple = async ({ userId }: UserIdType): Promise<Result<SubpageWithRole[]>> => {
+export const getMultiple = async (
+  { userId }: UserIdType,
+): Promise<Result<SubpageWithoutLabelsWithRoleType[]>> => {
   try {
     return Result.ok(
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
@@ -53,7 +53,6 @@ export const getMultiple = async ({ userId }: UserIdType): Promise<Result<Subpag
               select: {
                 ...subpageSelect,
                 deletedAt: true,
-                labels: { select: labelSelect },
               },
             },
           },
@@ -62,7 +61,8 @@ export const getMultiple = async ({ userId }: UserIdType): Promise<Result<Subpag
           .map(({ subpage, roleType }) => {
             const { deletedAt, ...resultSubpage } = subpage;
             return { ...resultSubpage, roleType };
-          });
+          })
+          .sort((a, b) => a.createdAt.getDate() - b.createdAt.getDate());
         return subpages;
       }),
     );
