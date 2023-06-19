@@ -48,10 +48,10 @@
     @apply overflow-y-scroll max-h-[calc(100vh-15rem)] resize-none;
 }
 
-.change-pswd {
-    @apply py-10 mt-6 flex flex-col items-center;
+.user-view__btns {
+    @apply py-10 flex flex-col items-center border border-t border-gray-400;
 }
 
-.change-password-btn {
+.user-view__btn {
     @apply bg-black text-white py-2 px-4 rounded mt-8 w-96;
 }
