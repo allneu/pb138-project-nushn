@@ -1,7 +1,7 @@
 function Loading() {
   return (
     <div className="flex justify-center items-center">
-      <span className="text-notion text-lg">The page is loading, wait please ...</span>
+      <span className="text-notion text-lg">Loading the content, wait please ...</span>
     </div>
   );
 }

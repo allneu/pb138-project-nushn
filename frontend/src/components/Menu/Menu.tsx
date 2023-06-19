@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
@@ -7,12 +7,10 @@ import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './Menu.css';
 
-// TODO - GET subpages from backend
-import subpages from '../../../public/subpages.json';
-
 type MenuProps = {
   isOpen: boolean,
   toggleMenu: () => void,
+  subpages: SubpageType,
 };
 
 // TODO - delete after when you have the user data from backend
@@ -22,7 +20,6 @@ const user = {
 };
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-
   const location = useLocation();
   const subpageId = location.pathname.split('/')[3] || null;
 
