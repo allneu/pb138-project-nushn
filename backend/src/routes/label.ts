@@ -7,7 +7,7 @@ const labelRouteGeneric = '/subpage/:subpageId/label';
 const labelRouteSpecific = `${labelRouteGeneric}/:labelId`;
 
 // Get subpage Labels
-// GET /subpage/{subpageId}/labels
+// GET /subpage/{subpageId}/label
 labelRouter.get(labelRouteGeneric, LabelController.get);
 
 // Create Label
