@@ -1,0 +1,16 @@
+.action-bar {
+    @apply flex lg:flex-row-reverse justify-between lg:justify-end items-center
+        pb-3 lg:pb-2 pt-2 lg:pt-5 lg:gap-6;
+}
+
+.view-options {
+    @apply flex gap-2.5;
+}
+
+.option {
+    @apply lg:flex lg:items-center lg:gap-1;
+}
+
+.option__name {
+    @apply text-notion text-sm font-bold hidden lg:inline;
+}

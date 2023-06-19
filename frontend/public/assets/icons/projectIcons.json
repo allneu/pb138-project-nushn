@@ -1,0 +1,23 @@
+{
+    "share": "fas share",
+    "boardview": "fas table",
+    "checklist": "fas list-check",
+    "bulletlist": "fas list-ul",
+    "add-new": "fas plus",
+    "check-todo": "far square",
+    "check-done": "far square-check",
+    "bullet-todo": "fas circle",
+    "bullet-done": "far circle-dot",
+    "edit": "fas ellipsis-vertical",
+    "collapse-arrow": "fas angle-up",
+    "expand-arrow": "fas angle-down",
+    "menu": "fas bars",
+    "user": "fas user",
+    "shared": "fas share-nodes",
+    "back-arrow": "fas arrow-left-long",
+    "submit": "fas check",
+    "clock": "fas clock",
+    "hourglass": "fas hourglass-half",
+    "label": "fas tag",
+    "email": "fas envelope"
+}

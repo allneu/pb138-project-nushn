@@ -1,0 +1,15 @@
+.task {
+    @apply flex px-5 lg:px-2 py-1 lg:py-1.5 gap-4 lg:border-[1px] rounded min-w-[10rem];
+}
+
+.task__name {
+    @apply flex-grow text-notion text-sm font-semibold;
+}
+
+.task__name--done {
+    @apply line-through text-gray-500;
+}
+ 
+.task__name--new {
+    @apply text-gray-500;
+}
