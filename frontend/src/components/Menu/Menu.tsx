@@ -47,16 +47,16 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                     <Link to={`/user/${userId}/subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
                         <FontAwesomeIcon className='icon' icon={subpage.icon.split(' ') as IconProp} />
-                        <span className="subpage-name">{subpage.name}</span>
+                        <span className="name">{subpage.name}</span>
                         {/* TODO - show only when subpage is shared */}
                         <FontAwesomeIcon className='icon' icon={projectIcons.shared.split(' ') as IconProp} />
                     </Link>
                 ))}
             </div>
 
-            <Link to={`/user/${userId}/new-subpage`} className="menu__subpage border-gray-200 shadow-md" onClick={toggleMenu}>
+            <Link to='/new-subpage' className="menu__subpage border-gray-200 shadow-md" onClick={toggleMenu}>
                 <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
-                <span className="subpage-name">New subpage</span>
+                <span className="name">New subpage</span>
             </Link>
         </nav>
   );

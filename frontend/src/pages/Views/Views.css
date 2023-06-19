@@ -16,7 +16,7 @@
 }
 
 .input-with-errors {
-    @apply flex flex-col gap-1 m-3;
+    @apply flex flex-col gap-0;
 }
 
 .form__input {
@@ -24,7 +24,7 @@
 }
 
 .validation-error {
-    @apply text-red-800 text-sm font-normal;
+    @apply text-red-800 text-xs font-normal;
 }
 
 .task-view__info, .user-view__info {

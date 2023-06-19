@@ -1,6 +1,7 @@
 .menu {
-    @apply fixed lg:static flex flex-col w-3/4 lg:w-60 lg:min-w-[15rem] h-[calc(100%-3rem)] lg:h-full bg-white
-        border-r border-gray-200 lg:border-gray-400 lg:overflow-y-auto duration-500;
+    @apply fixed lg:static flex flex-col w-3/4 lg:w-[var(--lg-menu-width)] lg:min-w-[var(--lg-menu-width)]
+        h-[calc(100%-var(--footer-height))] lg:h-full bg-white border-r border-gray-200 lg:border-gray-400
+        lg:overflow-y-scroll duration-500;
 }
 
 .menu--show {
@@ -27,7 +28,7 @@
     @apply text-notion text-base lg:text-2xl font-bold;
 }
 
-.subpage-name {
+.name {
     @apply flex-grow text-notion text-base lg:text-sm font-bold;
 }
 

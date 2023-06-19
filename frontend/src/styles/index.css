@@ -4,11 +4,19 @@
 
 :root {
     --footer-height: 3.5rem;
-    --lg-menu-width: 15rem;
+    --lg-menu-width: 17rem;
 }
 
 .icon {
     @apply w-5 h-5;
+}
+
+.input-with-errors {
+    @apply flex flex-col gap-1;
+}
+
+.validation-error {
+    @apply text-red-800 text-sm font-normal self-center;
 }
 
 h1 {
