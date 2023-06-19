@@ -5,7 +5,7 @@ export const taskCreateSchema = z.object({
   dueDate: z.date(),
   content: z.string(),
   creatorId: z.string().uuid().nonempty(),
-  labelId: z.string().uuid(),
+  labelId: z.string().uuid().optional(),
   image: z.string(),
 }).strict();
 
