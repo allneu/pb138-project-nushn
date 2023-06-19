@@ -33,8 +33,8 @@ function RegisterPage() {
       </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
-        <div className='validated-input flex flex-row gap-3 items-center'>
-          <div className='border border-gray-300 rounded-md p-2 self-center'>
+        <div className='flex flex-row gap-2 items-center py-2'>
+          <div className='border border-gray-300 rounded-md p-1.5 self-center'>
             <IconSelector selectedIcon={selectedIcon}
                           setSelectedIcon={setSelectedIcon}
                           icons={icons.user}/>
