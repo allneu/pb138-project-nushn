@@ -3,9 +3,9 @@ import { config as configEnvVariables } from 'dotenv';
 import { env } from 'process';
 import cors from 'cors';
 // eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
-import cookieParser from 'cookie-parser';
-// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
 import bodyParser from 'body-parser';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import cookieParser from 'cookie-parser';
 import userRouter from './routes/user';
 import subpageRouter from './routes/subpage';
 import labelRouter from './routes/label';
