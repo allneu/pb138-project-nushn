@@ -1,7 +1,6 @@
 import { Result } from '@badrap/result';
 import {
-  Subpage, SubpageWithoutLabelsWithRoleType, UserIdSubpageIdType, UserIdType,
-  labelSelect,
+  SubpageWithoutLabels, SubpageWithoutLabelsWithRoleType, UserIdSubpageIdType, UserIdType,
   subpageSelect,
   subpageWasDeletedError, userHasNotPermissionError,
 } from '../../models';
@@ -10,7 +9,7 @@ import { PrismaTransactionHandle } from '../common/types';
 
 export const getOne = async (
   { subpageId, userId }: UserIdSubpageIdType,
-): Promise<Result<Subpage>> => {
+): Promise<Result<SubpageWithoutLabels>> => {
   try {
     return Result.ok(
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
@@ -19,7 +18,6 @@ export const getOne = async (
           select: {
             ...subpageSelect,
             deletedAt: true,
-            labels: { select: labelSelect },
             roles: {
               where: { deletedAt: null, userId },
               select: {
