@@ -13,19 +13,17 @@ type FooterProps = {
 function Footer({
   toggleMenu,
 }: FooterProps) {
-  const { userId } = useParams();
-
   const location = useLocation();
-  const subpageId = location.pathname.split('/')[4] || null;
+  const subpageId = location.pathname.split('/')[3] || null;
 
   return (
     <footer className='footer'>
         <div className="footer__nav-icons lg:hidden">
             <FontAwesomeIcon className='icon' icon={projectIcons.menu.split(' ') as IconProp} onClick={toggleMenu}/>
-            <Link to={`/user/${userId}/subpage/${subpageId}/task/newTask`}>
+            <Link to={`subpage/${subpageId}/task/newTask`}>
               <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             </Link>
-            <Link to={`/user/${userId}/subpage/${subpageId}/editUser`}>
+            <Link to={ `subpage/${subpageId}/editUser`}>
               <FontAwesomeIcon className='icon' icon={projectIcons.user.split(' ') as IconProp} />
             </Link>
         </div>
