@@ -58,6 +58,7 @@ export const labelSelect = {
   name: true,
   orderInSubpage: true,
   createdAt: true,
+  tasks: true,
 };
 
 export const subpageSelect = {
