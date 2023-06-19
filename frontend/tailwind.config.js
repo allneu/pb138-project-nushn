@@ -14,6 +14,9 @@ export default {
       fontFamily: {
         'sans': ['Inter', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        "notion-icon": "#55534E",
+      },
       textColor: {
         "notion": "#37352F",
       },
