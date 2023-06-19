@@ -23,7 +23,7 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
   };
 
   return (
-    <form className="password-change-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
       <div className="input-with-errors">
         <input
           className='form__input'

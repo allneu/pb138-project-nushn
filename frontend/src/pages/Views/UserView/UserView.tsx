@@ -82,7 +82,7 @@ function UserView() {
 
                 <div className="user-view__info">
                     <div className='detail'>
-                        <div className="detail__label text-base">
+                        <div className="detail__label items-center">
                             <FontAwesomeIcon className='icon' icon={projectIcons.email.split(' ') as IconProp} />
                             <span>Email</span>
                         </div>
