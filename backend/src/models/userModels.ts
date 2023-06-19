@@ -74,3 +74,10 @@ export const userGetMultipleSchema = z.object({
 }).strict();
 
 export type UserGetMultipleType = z.infer<typeof userGetMultipleSchema>;
+
+export const userLoginSchema = z.object({
+  email: z.any(),
+  password: z.any(),
+});
+
+export type UserLoginType = z.infer<typeof userLoginSchema>;

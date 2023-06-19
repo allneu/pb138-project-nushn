@@ -2,6 +2,8 @@ import create from './create';
 import deleteUser from './delete';
 import { getMultiple, getOne } from './get';
 import { update } from './update';
+import { login } from './login';
+import { logout } from './logout';
 
 export default {
   create,
@@ -9,4 +11,6 @@ export default {
   getOne,
   getMultiple,
   update,
+  login,
+  logout,
 };

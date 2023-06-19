@@ -20,16 +20,14 @@ Promise<Result<UserUpdateResult>> => {
       const avatar = data.avatar ? { avatar: data.avatar } : {};
       if (data.password !== null) {
         // eslint-disable-next-line import/no-extraneous-dependencies
-        const bcryptjs = require('bcryptjs');
-        const salt = await bcryptjs.genSalt();
-        const hashedPassword = await bcryptjs.hash(data.password, salt);
+        const argon2 = require('argon2');
+        const hashedPassword = await argon2.hash(data.password);
         const updated: User = await tx.user.update({
           where: { id: data.userId },
           data: {
             ...username,
             ...email,
             hashedPassword,
-            salt,
             ...avatar,
           },
         });

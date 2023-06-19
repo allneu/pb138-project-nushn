@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { endpointNotImplemented } from '../controllers/common';
 import UserController from '../controllers/user';
+import auth from '../middleware/authMiddleware';
 
 const userRouter = Router();
 
@@ -11,30 +11,30 @@ const userRouteSpecific = `${userRouteGeneric}/:userId`;
 
 // Get all Users
 // GET /user
-userRouter.get(userRouteGeneric, UserController.getMultiple);
+userRouter.get(userRouteGeneric, auth(), UserController.getMultiple);
 
 // Get User
 // GET /user/{userId}
-userRouter.get(userRouteSpecific, UserController.getOne);
+userRouter.get(userRouteSpecific, auth(), UserController.getOne);
 
 // Create User
 // POST /user
-userRouter.post(userRouteGeneric, UserController.create);
+userRouter.post(userRouteGeneric, auth(), UserController.create);
 
 // Update User
 // PATCH /user/{userId}
-userRouter.patch(userRouteSpecific, UserController.update);
+userRouter.patch(userRouteSpecific, auth(), UserController.update);
 
 // Delete User
 // DELETE /user/{userId}
-userRouter.delete(userRouteSpecific, UserController.deleteUser);
+userRouter.delete(userRouteSpecific, auth(), UserController.deleteUser);
 
 // Log in User
 // POST /user/login
-userRouter.post(userRouteLogIn, endpointNotImplemented);
+userRouter.post(userRouteLogIn, auth(), UserController.login);
 
 // Log out User
 // POST /user/logout
-userRouter.post(userRouteLogOut, endpointNotImplemented);
+userRouter.post(userRouteLogOut, auth(), UserController.logout);
 
 export default userRouter;

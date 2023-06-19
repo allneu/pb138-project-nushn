@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-import create from './create';
+import { login } from './login';
 
 (async () => {
   try {
-    const x = await create({
-      username: 'testingname1',
-      password: 'testingpassword1',
+    const x = await login({
       email: 'testing@gmails.com',
+      password: 'testingpassword1',
     });
     console.log(x);
   } catch {
