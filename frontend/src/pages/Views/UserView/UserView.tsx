@@ -12,6 +12,7 @@ import dialogIcons from '../../../../public/assets/icons/dialogIcons.json';
 import '../Views.css';
 import IconSelector from '../../../components/IconSelector/IconSelector.tsx';
 import ChangePassword from '../../../components/ChangePassword/ChangePassword.tsx';
+import useAuth from '../../../hooks/useAuth.ts';
 
 const user = {
   avatar: projectIcons.user,
@@ -21,7 +22,9 @@ const user = {
 };
 
 function UserView() {
-  const { userId, subpageId } = useParams();
+  const { subpageId } = useParams();
+  const { auth } = useAuth();
+  const userId = auth?.data.id;
   const [formData, setFormData] = useState(user);
   const [selectedIcon, setSelectedIcon] = useState(user.avatar);
   const [changePasswordMode, setChangePasswordMode] = useState(false);

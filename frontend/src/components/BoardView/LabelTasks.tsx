@@ -7,7 +7,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { labelFormSchema, LabelFormDataType } from './labelSchema';
 import defaultLabelValues from './defaultLabelValues';
-import { TaskType } from '../../models';
+import { LabelWithTasksType, TaskType } from '../../models';
 
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';
@@ -16,11 +16,11 @@ import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import './BoardView.css';
 
 type LabelTasksProps = {
-  tasks: TaskType[];
+  labelWithTasks: LabelWithTasksType,
 };
 
 function LabelTasks({
-  tasks,
+  labelWithTasks,
 } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
 
@@ -44,6 +44,7 @@ function LabelTasks({
                 <AutosizeInput
                     className="label-name"
                     placeholder='Label name'
+                    value={labelWithTasks.name}
                     {...register('name', { onBlur: handleSubmit(onSubmit) })}
                 />
                 {errors.name && <span className="validation-error">{errors.name.message}</span>}
@@ -59,12 +60,12 @@ function LabelTasks({
 
         <div className="label-tasks">
           { showTasks
-            ? tasks.map((task: TaskType) => (
+            ? labelWithTasks.tasks.map((task: TaskType) => (
                   <Task key={task.id} task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
             ))
             : <></>
           }
-          { showTasks ? <NewTask /> : <></>}
+          { showTasks ? <NewTask labelId={labelWithTasks.id}/> : <></>}
         </div>
       </div>
   );
