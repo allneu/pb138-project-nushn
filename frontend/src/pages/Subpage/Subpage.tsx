@@ -20,11 +20,15 @@ function Subpage() {
     isLoading,
     isError,
     subpage,
-    tasks,
+    labelsWithTasks,
     register,
     handleSubmit,
     errors,
   } = useSubpage();
+
+  const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
+    (labelWithTasks) => labelWithTasks.tasks,
+  ) : [];
 
   const onSubmit = (data: SubpageFormDataType) => {
     console.log(data);
@@ -32,12 +36,11 @@ function Subpage() {
 
   let viewComponent: JSX.Element;
   if (view === 'board') {
-    viewComponent = <BoardView labels={subpage ? subpage.data.labels : []}
-      tasks={tasks ? tasks.data : []} />;
+    viewComponent = <BoardView labelsWithTasks={labelsWithTasks ? labelsWithTasks.data : []} />;
   } else if (view === 'checklist') {
-    viewComponent = <ListView type="check" tasks={tasks ? tasks.data : []} />;
+    viewComponent = <ListView type="check" tasks={allTasks} />;
   } else {
-    viewComponent = <ListView type="bullet" tasks={tasks ? tasks.data : []} />;
+    viewComponent = <ListView type="bullet" tasks={allTasks} />;
   }
 
   if (isError) return <Notice message={'An error occured while loading subpage.'} />;
@@ -46,7 +49,7 @@ function Subpage() {
   return (
     <>
         <div className="subpage">
-            <header className="subpage-form">
+            <form className="subpage-form">
                 <div className="name-wrapper">
                     <FontAwesomeIcon className='icon' icon={subpage?.data.icon.split(' ') as IconProp} />
                     <div className="input-with-errors">
@@ -67,7 +70,7 @@ function Subpage() {
                         {errors.description && <span className="validation-error">{errors.description.message}</span>}
                     </div>
                 <ActionBar onViewChange={handleViewChange}/>
-            </header>
+            </form>
 
             <div className="subpage__separator"/>
 

@@ -21,10 +21,19 @@ export type SubpageCreateResultType = SubpageType & {
     name: string,
     orderInSubpage: number,
     createdAt: Date,
+    tasks: {
+      id: string,
+      creator: {
+        id: string,
+        username: string,
+      },
+      done: boolean,
+      orderInList: number,
+      orderInLabel: number,
+      createdAt: Date,
+    }[]
   }],
 };
-
-export type SubpageWithLabelsType = SubpageCreateResultType;
 
 export interface SubpageUpdateType {
   oldName?: string,

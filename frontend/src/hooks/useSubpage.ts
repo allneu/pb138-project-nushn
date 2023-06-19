@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import useAuth from './useAuth';
-import { SubpagesApi, TasksApi } from '../services/index';
+import { SubpagesApi, LabelsApi } from '../services/index';
 import ViewType from '../pages/Subpage/viewType';
 
 import defaultSubpageValues from '../pages/Subpage/defaultSubpageValues';
@@ -27,9 +27,9 @@ const useSubpage = () => {
     enabled: !!auth && !!subpageId,
   });
 
-  const { data: tasks, isLoading: isTasksLoading, isError: isTasksError } = useQuery({
-    queryKey: ['subpage', 'task'],
-    queryFn: () => TasksApi.getAll(subpageId!),
+  const { data: labelsWithTasks, isLoading: isTasksLoading, isError: isTasksError } = useQuery({
+    queryKey: ['subpage', 'label'],
+    queryFn: () => LabelsApi.getAll(subpageId!),
     enabled: !!subpageId,
   });
 
@@ -44,7 +44,7 @@ const useSubpage = () => {
     isLoading: isSubpageLoading || isTasksLoading,
     isError: !auth || isSubpageError || isTasksError,
     subpage,
-    tasks,
+    labelsWithTasks,
     register,
     handleSubmit,
     errors,
