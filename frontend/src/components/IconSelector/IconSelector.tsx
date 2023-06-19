@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import './IconSelector.css';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type IconSelectorProps = {
   selectedIcon: string;
@@ -24,17 +26,16 @@ function IconSelector({ selectedIcon, setSelectedIcon, icons }: IconSelectorProp
     <>
     <div className={`bcg ${open ? '' : 'dialog--close'}`} onClick={toggleDialog}/>
     <div className='icon-selector self-center'>
-      <i className={`icon-selector__icon large ${selectedIcon}`} onClick={toggleDialog} />
+      <FontAwesomeIcon className='icon-selector__icon icon' icon={selectedIcon.split(' ') as IconProp} onClick={toggleDialog}/>
       <div className='absolute z-1'>
         <dialog className={`dialog ${open ? '' : 'dialog--close'}`} open={open}>
           <div className="icons-wrapper">
             <div className="icons">
               {icons.map((icon, index) => (
-                <i
-                  className={`dialog-icon large ${icon.name}`}
-                  key={index}
-                  onClick={() => handleIconClick(icon.name)}
-                  />
+                <FontAwesomeIcon className='dialog-icon icon'
+                      key={index}
+                      icon={icon.name.split(' ') as IconProp}
+                      onClick={() => handleIconClick(icon.name)}/>
               ))}
             </div>
           </div>

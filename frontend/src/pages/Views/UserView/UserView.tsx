@@ -3,6 +3,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { userFormSchema, UserFormDataType } from './UserSchema';
 import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import dialogIcons from '../../../../public/assets/icons/dialogIcons.json';
@@ -12,7 +14,7 @@ import IconSelector from '../../../components/IconSelector/IconSelector.tsx';
 import ChangePassword from '../../../components/ChangePassword/ChangePassword.tsx';
 
 const user = {
-  avatar: 'secret user icon',
+  avatar: projectIcons.user,
   userName: 'user1',
   email: 'user1@email.com',
   password: 'something',
@@ -55,10 +57,10 @@ function UserView() {
         <form className='flex-grow' onSubmit={handleSubmit(onSubmit)}>
             <nav className="user-view__nav">
                 <Link to={`/user/${userId}/subpage/${subpageId}`}>
-                    <i className={projectIcons['back-arrow']}/>
+                    <FontAwesomeIcon className='icon' icon={projectIcons['back-arrow'].split(' ') as IconProp} />
                 </Link>
                 <button type="submit">
-                    <i className={projectIcons.submit}/>
+                    <FontAwesomeIcon className='icon' icon={projectIcons.submit.split(' ') as IconProp} />
                 </button>
             </nav>
 
@@ -81,7 +83,7 @@ function UserView() {
                 <div className="user-view__info">
                     <div className='detail'>
                         <div className="detail__label text-base">
-                            <i className={`w-5 h-5 ${projectIcons.email}`} />
+                            <FontAwesomeIcon className='icon' icon={projectIcons.email.split(' ') as IconProp} />
                             <span>Email</span>
                         </div>
                         <div className="input-with-errors">
@@ -95,14 +97,19 @@ function UserView() {
                 </div>
             </div>
         </form>
-    <div className='change-pswd'>
-        <div className='bg-gray-400 h-px w-full'></div>
+    <div className='user-view__btns'>
         {changePasswordMode
           ? <ChangePassword onClose={() => setChangePasswordMode(false)} />
-          : <button className="change-password-btn" onClick={handleChangePassword}>
+          : <button className="user-view__btn" onClick={handleChangePassword}>
                 Change Password
             </button>
         }
+      <button className="user-view__btn">
+        Delete account
+      </button>
+      <button className="user-view__btn">
+        Log out
+      </button>
     </div>
     </div>
   );

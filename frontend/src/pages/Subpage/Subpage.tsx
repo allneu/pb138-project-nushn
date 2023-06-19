@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ViewType from './viewType';
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
@@ -33,7 +37,7 @@ function Subpage() {
         <div className="subpage">
             <header className="subpage-header">
                 <div className="name-wrapper">
-                    <i className={subpage?.icon}/>
+                    <FontAwesomeIcon className='icon' icon={subpage?.icon.split(' ') as IconProp} />
                     <span className="name-wrapper__name">{subpage?.name}</span>
                 </div>
                 <span className="subpage-header__description">{subpage?.description}</span>

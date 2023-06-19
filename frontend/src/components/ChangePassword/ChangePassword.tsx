@@ -17,7 +17,7 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
 
   const onSubmit = (data: ChangePasswordFormDataType) => {
     console.log(data);
-    // TODO - make sure the old password matches the new one and 
+    // TODO - make sure the old password matches the new one and
     // send an update of the password
     onClose();
   };
@@ -44,7 +44,7 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
         {errors.newPassword && <span className="validation-error">{errors.newPassword.message}</span>}
       </div>
 
-      <button type="submit" className="change-password-btn bg-black text-white">
+      <button type="submit" className="user-view__btn">
         Change
       </button>
     </form>

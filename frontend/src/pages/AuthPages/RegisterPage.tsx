@@ -4,12 +4,15 @@ import { useState } from 'react';
 
 import './AuthPages.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import IconSelector from '../../components/IconSelector/IconSelector.tsx';
 import icons from '../../../public/assets/icons/dialogIcons.json';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import { SignUpFormDataType, signUpSchema } from './AuthPagesSchema';
 
 function RegisterPage() {
-  const [selectedIcon, setSelectedIcon] = useState('user secret icon');
+  const [selectedIcon, setSelectedIcon] = useState(projectIcons.user);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormDataType>({
     resolver: zodResolver(signUpSchema),
