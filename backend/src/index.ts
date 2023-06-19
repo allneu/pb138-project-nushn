@@ -13,7 +13,7 @@ import taskRouter from './routes/task';
 import session from './middleware/sessionMiddleware';
 
 declare module 'express-session' {
-  interface SessionData {user: { email:string }}
+  interface SessionData {user: { id:string }}
 }
 
 configEnvVariables();
