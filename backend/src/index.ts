@@ -2,19 +2,35 @@ import express from 'express';
 import { config as configEnvVariables } from 'dotenv';
 import { env } from 'process';
 import cors from 'cors';
+// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
+import cookieParser from 'cookie-parser';
+// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
+import bodyParser from 'body-parser';
 import userRouter from './routes/user';
 import subpageRouter from './routes/subpage';
 import labelRouter from './routes/label';
 import taskRouter from './routes/task';
+import session from './middleware/sessionMiddleware';
+
+declare module 'express-session' {
+  interface SessionData {user: { id:string }}
+}
 
 configEnvVariables();
 const app = express();
 const port = env['PORT'] ?? 3000;
 
+app.use(session());
+
 // CORS middlware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 // parse URL encoded strings
 app.use(express.urlencoded({ extended: true }));

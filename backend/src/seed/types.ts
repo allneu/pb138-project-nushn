@@ -9,6 +9,5 @@ export type UserJson = {
   editedAt?: string;
   deletedAt?: string;
   hashedPassword: string;
-  salt: string;
   avatar: string;
 };
