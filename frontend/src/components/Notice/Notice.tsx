@@ -4,7 +4,7 @@ interface NoticeProps {
 
 function Notice({ message }: NoticeProps) {
   return (
-    <div className="flex justify-center items-center flex-grow">
+    <div className="flex justify-center items-center flex-grow p-5">
       <span className="text-notion text-lg font-semibold">{message}</span>
     </div>
   );

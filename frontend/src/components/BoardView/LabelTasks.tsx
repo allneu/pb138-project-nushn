@@ -3,23 +3,25 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AutosizeInput from 'react-textarea-autosize';
 
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { labelFormSchema, LabelFormDataType } from './labelSchema';
 import defaultLabelValues from './defaultLabelValues';
-import { LabelType, TaskType } from '../../models';
+import { TaskType } from '../../models';
 
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './BoardView.css';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type LabelTasksProps = {
-  label: LabelType;
+  tasks: TaskType[];
 };
 
-function LabelTasks({ label } : LabelTasksProps) {
+function LabelTasks({
+  tasks,
+} : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
 
   const {
@@ -57,7 +59,7 @@ function LabelTasks({ label } : LabelTasksProps) {
 
         <div className="label-tasks">
           { showTasks
-            ? label.tasks.map((task: TaskType) => (
+            ? tasks.map((task: TaskType) => (
                   <Task key={task.id} task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
             ))
             : <></>

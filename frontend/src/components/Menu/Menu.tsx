@@ -27,8 +27,8 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
     enabled: !!auth,
   });
 
+  if (!auth || isError) return <Notice message={'An error occured while loading menu.'} />;
   if (isLoading) return <Notice message={'The menu is loading ...'} />;
-  if (isError) return <Notice message={'An error occured while loading menu.'} />;
 
   return (
     <nav className={`menu ${isOpen ? 'menu--show' : 'menu--hide'}`}>

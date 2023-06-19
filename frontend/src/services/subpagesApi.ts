@@ -1,5 +1,6 @@
 import {
   SubpageType,
+  SubpageWithLabelsType,
   SubpageCreateType,
   SubpageCreateResultType,
   SubpageUpdateType,
@@ -17,7 +18,7 @@ Promise<ResponseSingle<SubpageCreateResultType>> => {
 };
 
 export const getSingle = async (userId: string, subpageId: string):
-Promise<ResponseSingle<SubpageType>> => {
+Promise<ResponseSingle<SubpageWithLabelsType>> => {
   const response = await axiosInstance.get(`/user/${userId}/subpage/${subpageId}`);
   return response.data;
 };

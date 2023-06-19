@@ -1,26 +1,20 @@
 import NewTask from '../Task/NewTask.tsx';
 import Task from '../Task/Task.tsx';
-
-import './ListView.css';
-
-// TODO - GET tasks from backend
-import tasks from '../../../public/tasks.json';
+import { TaskType } from '../../models/taskTypes';
+import ListViewType from './listViewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
-function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
-  // TODO - Get the subpage ID from the URL and load the tasks from backend in the subpage order
-  // const { subpageId } = useParams();
+type ListViewProps = {
+  type: ListViewType,
+  tasks: TaskType[],
+};
 
-  let todoIcon : string;
-  let doneIcon : string;
-
-  if (type === 'check') {
-    todoIcon = projectIcons['check-todo'];
-    doneIcon = projectIcons['check-done'];
-  } else { // type === 'bullet'
-    todoIcon = projectIcons['bullet-todo'];
-    doneIcon = projectIcons['bullet-done'];
-  }
+function ListView({
+  type,
+  tasks,
+}: ListViewProps) {
+  const todoIcon = projectIcons[`${type}-todo`];
+  const doneIcon = projectIcons[`${type}-done`];
 
   return (
       <div className="flex flex-col gap-1 lg:pt-5 overflow-y-auto">
