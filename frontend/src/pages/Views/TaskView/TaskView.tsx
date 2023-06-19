@@ -3,11 +3,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AutosizeInput from 'react-textarea-autosize';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
 import { taskFormSchema, TaskFormDataType } from './taskSchema';
 import defaultTaskValues from './defaultTaskValues';
-import icons from '../../../public/assets/icons/projectIcons.json';
 
-import './TaskView.css';
+import projectIcons from '../../../../public/assets/icons/projectIcons.json';
+import '../Views.css';
 
 function TaskView() {
   const { subpageId, taskId } = useParams();
@@ -39,10 +42,10 @@ function TaskView() {
     <form className="task-view" onSubmit={handleSubmit(onSubmit)}>
         <nav className="task-view__nav">
             <Link to={`/auth/subpage/${subpageId}`}>
-                <i className={icons['back-arrow']}/>
+                <FontAwesomeIcon className='icon' icon={projectIcons['back-arrow'].split(' ') as IconProp} />
             </Link>
             <button type="submit">
-                <i className={icons.submit}/>
+                <FontAwesomeIcon className='icon' icon={projectIcons.submit.split(' ') as IconProp} />
             </button>
         </nav>
 
@@ -59,7 +62,7 @@ function TaskView() {
             <div className="task-view__info">
                 <div className='detail'>
                     <div className="detail__label">
-                        <i className={`w-5 h-5 ${icons.clock}`} />
+                        <FontAwesomeIcon className='icon' icon={projectIcons.clock.split(' ') as IconProp} />
                         <span>Created</span>
                     </div>
                     <span>Now</span>
@@ -67,7 +70,7 @@ function TaskView() {
 
                 <div className='detail'>
                     <div className="detail__label">
-                        <i className={`w-5 h-5 ${icons.hourglass}`} />
+                        <FontAwesomeIcon className='icon' icon={projectIcons.hourglass.split(' ') as IconProp} />
                         <span>Deadline</span>
                     </div>
                     <div className="input-with-errors">
@@ -80,7 +83,7 @@ function TaskView() {
 
                 <div className='detail'>
                     <div className="detail__label">
-                        <i className={`w-5 h-5 ${icons.label}`} />
+                        <FontAwesomeIcon className='icon' icon={projectIcons.label.split(' ') as IconProp} />
                         <span>Label</span>
                     </div>
                     <div className="input-with-errors">

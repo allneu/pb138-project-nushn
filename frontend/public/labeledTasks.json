@@ -10,7 +10,7 @@
           "name": "Task 1",
           "status": false,
           "dueDate": "2021-05-01",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "123e4567-e89b-12d3-a456-426614174000",
           "creatorID": "1",
           "content": "Task 1 content",
@@ -21,7 +21,7 @@
           "name": "Task 2",
           "status": false,
           "dueDate": "2021-05-02",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "1",
           "creatorID": "1",
           "content": "Task 2 content",
@@ -32,7 +32,7 @@
           "name": "Task 3",
           "status": false,
           "dueDate": "2021-05-03",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "1",
           "creatorID": "1",
           "content": "Task 3 content",
@@ -43,7 +43,7 @@
           "name": "Task 4",
           "status": true,
           "dueDate": "2021-05-04",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "1",
           "creatorID": "1",
           "content": "Task 4 content",
@@ -54,7 +54,7 @@
           "name": "Task 5",
           "status": true,
           "dueDate": "2021-05-05",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "1",
           "creatorID": "1",
           "content": "Task 5 content",
@@ -65,482 +65,12 @@
           "name": "Task 5",
           "status": true,
           "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "7",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "8",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "9",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "10",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "11",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "12",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "13",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "14",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "15",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "16",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "17",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "18",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "19",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
-          "labelID": "1",
-          "creatorID": "1",
-          "content": "Task 5 content",
-          "createdAt": "2021-05-05"
-        },
-        {
-          "id": "20",
-          "name": "Task 5",
-          "status": true,
-          "dueDate": "2021-05-05",
-          "icon": "",
+          "icon": "fas table",
           "labelID": "1",
           "creatorID": "1",
           "content": "Task 5 content",
           "createdAt": "2021-05-05"
         }
       ]
-    },
-    {
-      "id": "2",
-      "name": "Label 2",
-      "subpageID": "1",
-      "createdAt": "2023-06-02",
-      "tasks": [
-        {
-          "id": "6",
-          "name": "Task 6",
-          "status": false,
-          "dueDate": "2021-05-06",
-          "icon": "",
-          "labelID": "2",
-          "creatorID": "1",
-          "content": "Task 6 content",
-          "createdAt": "2021-05-06"
-        },
-        {
-          "id": "7",
-          "name": "Task 7",
-          "status": false,
-          "dueDate": "2021-05-07",
-          "icon": "",
-          "labelID": "2",
-          "creatorID": "1",
-          "content": "Task 7 content",
-          "createdAt": "2021-05-07"
-        },
-        {
-          "id": "8",
-          "name": "Task 8",
-          "status": true,
-          "dueDate": "2021-05-08",
-          "icon": "",
-          "labelID": "2",
-          "creatorID": "1",
-          "content": "Task 8 content",
-          "createdAt": "2021-05-08"
-        },
-        {
-          "id": "9",
-          "name": "Task 9",
-          "status": true,
-          "dueDate": "2021-05-09",
-          "icon": "",
-          "labelID": "2",
-          "creatorID": "1",
-          "content": "Task 9 content",
-          "createdAt": "2021-05-09"
-        },
-        {
-          "id": "10",
-          "name": "Task 10",
-          "status": true,
-          "dueDate": "2021-05-10",
-          "icon": "",
-          "labelID": "2",
-          "creatorID": "1",
-          "content": "Task 10 content",
-          "createdAt": "2021-05-10"
-        }
-      ]
-    },
-    {
-        "id": "3",
-        "name": "Label 3",
-        "subpageID": "1",
-        "createdAt": "2023-06-03",
-        "tasks": [
-        {
-            "id": "11",
-            "name": "Task 11",
-            "status": false,
-            "dueDate": "2021-05-11",
-            "icon": "",
-            "labelID": "3",
-            "creatorID": "1",
-            "content": "Task 11 content",
-            "createdAt": "2021-05-11"
-        },
-        {
-            "id": "12",
-            "name": "Task 12",
-            "status": false,
-            "dueDate": "2021-05-12",
-            "icon": "",
-            "labelID": "3",
-            "creatorID": "1",
-            "content": "Task 12 content",
-            "createdAt": "2021-05-12"
-        },
-        {
-            "id": "13",
-            "name": "Task 13",
-            "status": false,
-            "dueDate": "2021-05-13",
-            "icon": "",
-            "labelID": "3",
-            "creatorID": "1",
-            "content": "Task 13 content",
-            "createdAt": "2021-05-13"
-        },
-        {
-            "id": "14",
-            "name": "Task 14",
-            "status": true,
-            "dueDate": "2021-05-14",
-            "icon": "",
-            "labelID": "3",
-            "creatorID": "1",
-            "content": "Task 14 content",
-            "createdAt": "2021-05-14"
-        },
-        {
-            "id": "15",
-            "name": "Task 15",
-            "status": true,
-            "dueDate": "2021-05-15",
-            "icon": "",
-            "labelID": "3",
-            "creatorID": "1",
-            "content": "Task 15 content",
-            "createdAt": "2021-05-15"
-        }
-        ]
-    },
-    {
-        "id": "4",
-        "name": "Label 4",
-        "subpageID": "1",
-        "createdAt": "2023-06-04",
-        "tasks": [
-        {
-            "id": "16",
-            "name": "Task 16",
-            "status": false,
-            "dueDate": "2021-05-16",
-            "icon": "",
-            "labelID": "4",
-            "creatorID": "1",
-            "content": "Task 16 content",
-            "createdAt": "2021-05-16"
-        },
-        {
-            "id": "17",
-            "name": "Task 17",
-            "status": false,
-            "dueDate": "2021-05-17",
-            "icon": "",
-            "labelID": "4",
-            "creatorID": "1",
-            "content": "Task 17 content",
-            "createdAt": "2021-05-17"
-        },
-        {
-            "id": "18",
-            "name": "Task 18",
-            "status": true,
-            "dueDate": "2021-05-18",
-            "icon": "",
-            "labelID": "4",
-            "creatorID": "1",
-            "content": "Task 18 content",
-            "createdAt": "2021-05-18"
-        },
-        {
-            "id": "19",
-            "name": "Task 19",
-            "status": true,
-            "dueDate": "2021-05-19",
-            "icon": "",
-            "labelID": "4",
-            "creatorID": "1",
-            "content": "Task 19 content",
-            "createdAt": "2021-05-19"
-        },
-        {
-            "id": "20",
-            "name": "Task 20",
-            "status": true,
-            "dueDate": "2021-05-20",
-            "icon": "",
-            "labelID": "4",
-            "creatorID": "1",
-            "content": "Task 20 content",
-            "createdAt": "2021-05-20"
-        }
-        ]
-    },
-    {
-        "id": "5",
-        "name": "Label 5",
-        "subpageID": "1",
-        "createdAt": "2023-06-05",
-        "tasks": [
-            {
-            "id": "21",
-            "name": "Task 21",
-            "status": false,
-            "dueDate": "2021-05-21",
-            "icon": "",
-            "labelID": "5",
-            "creatorID": "1",
-            "content": "Task 21 content",
-            "createdAt": "2021-05-21"
-            },
-            {
-            "id": "22",
-            "name": "Task 22",
-            "status": false,
-            "dueDate": "2021-05-22",
-            "icon": "",
-            "labelID": "5",
-            "creatorID": "1",
-            "content": "Task 22 content",
-            "createdAt": "2021-05-22"
-            },
-            {
-            "id": "23",
-            "name": "Task 23",
-            "status": false,
-            "dueDate": "2021-05-23",
-            "icon": "",
-            "labelID": "5",
-            "creatorID": "1",
-            "content": "Task 23 content",
-            "createdAt": "2021-05-23"
-            },
-            {
-            "id": "24",
-            "name": "Task 24",
-            "status": false,
-            "dueDate": "2021-05-24",
-            "icon": "",
-            "labelID": "5",
-            "creatorID": "1",
-            "content": "Task 24 content",
-            "createdAt": "2021-05-24"
-            },
-            {
-            "id": "25",
-            "name": "Task 25",
-            "status": true,
-            "dueDate": "2021-05-25",
-            "icon": "",
-            "labelID": "5",
-            "creatorID": "1",
-            "content": "Task 25 content",
-            "createdAt": "2021-05-25"
-            }
-        ]
-        },
-        {
-        "id": "6",
-        "name": "Label 6",
-        "subpageID": "1",
-        "createdAt": "2023-06-06",
-        "tasks": [
-            {
-            "id": "26",
-            "name": "Task 26",
-            "status": false,
-            "dueDate": "2021-05-26",
-            "icon": "",
-            "labelID": "6",
-            "creatorID": "1",
-            "content": "Task 26 content",
-            "createdAt": "2021-05-26"
-            },
-            {
-            "id": "27",
-            "name": "Task 27",
-            "status": false,
-            "dueDate": "2021-05-27",
-            "icon": "",
-            "labelID": "6",
-            "creatorID": "1",
-            "content": "Task 27 content",
-            "createdAt": "2021-05-27"
-            },
-            {
-            "id": "28",
-            "name": "Task 28",
-            "status": false,
-            "dueDate": "2021-05-28",
-            "icon": "",
-            "labelID": "6",
-            "creatorID": "1",
-            "content": "Task 28 content",
-            "createdAt": "2021-05-28"
-            },
-            {
-            "id": "29",
-            "name": "Task 29",
-            "status": true,
-            "dueDate": "2021-05-29",
-            "icon": "",
-            "labelID": "6",
-            "creatorID": "1",
-            "content": "Task 29 content",
-            "createdAt": "2021-05-29"
-            },
-            {
-            "id": "30",
-            "name": "Task 30",
-            "status": true,
-            "dueDate": "2021-05-30",
-            "icon": "",
-            "labelID": "6",
-            "creatorID": "1",
-            "content": "Task 30 content",
-            "createdAt": "2021-05-30"
-            }
-        ]
     }
-]
-  
+  ]

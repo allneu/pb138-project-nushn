@@ -1,8 +1,11 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
 import { SubpageType } from '../../models';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './Menu.css';
-import icons from '../../../public/assets/icons/projectIcons.json';
 
 // TODO - GET subpages from backend
 import subpages from '../../../public/subpages.json';
@@ -12,8 +15,17 @@ type MenuProps = {
   toggleMenu: () => void,
 };
 
+// TODO - delete after when you have the user data from backend
+const user = {
+  avatar: projectIcons.user,
+  userName: 'User 1',
+};
+
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-  const { subpageId } = useParams();
+
+  const location = useLocation();
+  const subpageId = location.pathname.split('/')[3] || null;
+
   return (
         <nav className={`menu ${isOpen ? 'menu--show' : 'menu--hide'}`}>
             <div className="menu-header">
@@ -23,20 +35,26 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 </div>
             </div>
 
+            <Link to={ `subpage/${subpageId}/editUser`} className="menu__user"
+                        onClick={toggleMenu}>
+                    <FontAwesomeIcon className='icon' icon={user.avatar.split(' ') as IconProp} />
+                    <span className="name">{user.userName}</span>
+            </Link>
+
             <div className="menu__subpages">
                 {subpages.map((subpage: SubpageType) => (
                     <Link to={`subpage/${subpage.id}`} className={`menu__subpage ${subpage.id === subpageId ? 'current' : ''}`}
                         key={subpage.id} onClick={toggleMenu}>
-                        <i className={subpage.icon} />
+                        <FontAwesomeIcon className='icon' icon={subpage.icon.split(' ') as IconProp} />
                         <span className="name">{subpage.name}</span>
                         {/* TODO - show only when subpage is shared */}
-                        <i className={`grey ${icons.shared}`}/>
+                        <FontAwesomeIcon className='icon' icon={projectIcons.shared.split(' ') as IconProp} />
                     </Link>
                 ))}
             </div>
 
-            <Link to="/new-subpage" className="menu__subpage border-gray-200" onClick={toggleMenu}>
-                <i className={icons['add-new']} />
+            <Link to='/new-subpage' className="menu__subpage border-gray-200 shadow-md" onClick={toggleMenu}>
+                <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
                 <span className="name">New subpage</span>
             </Link>
         </nav>

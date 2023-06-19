@@ -1,26 +1,20 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import './AuthPages.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const loginFormSchema = z.object({
-  email: z.string().email({ message: 'Valid e-mail address required' }).nonempty({ message: 'Email is required' }),
-  password: z.string().nonempty({ message: 'Password is required' }),
-});
-
-export type LoginFormDataType = z.infer<typeof loginFormSchema>;
+import { logInFormSchema, LogInFormDataType } from './AuthPagesSchema';
 
 function LogInPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormDataType>({
-    resolver: zodResolver(loginFormSchema),
+  const { register, handleSubmit, formState: { errors } } = useForm<LogInFormDataType>({
+    resolver: zodResolver(logInFormSchema),
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginFormDataType) => {
+  const onSubmit = (data: LogInFormDataType) => {
     navigate('/');
     console.log(data);
   };

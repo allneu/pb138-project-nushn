@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 
@@ -7,24 +6,11 @@ import './AuthPages.css';
 import { Link, useNavigate } from 'react-router-dom';
 import IconSelector from '../../components/IconSelector/IconSelector.tsx';
 import icons from '../../../public/assets/icons/dialogIcons.json';
-
-const passwordSchema = z.string()
-  .refine((value) => value.length >= 8, { message: 'Password must be at least 8 characters long' })
-  .refine((value) => /[A-Z]/.test(value), { message: 'Password must contain at least one uppercase letter' })
-  .refine((value) => /[a-z]/.test(value), { message: 'Password must contain at least one lowercase letter' })
-  .refine((value) => /\d/.test(value), { message: 'Password must contain at least one digit' })
-  .refine((value) => /\W/.test(value), { message: 'Password must contain at least one special character' });
-
-const signUpFormSchema = z.object({
-  username: z.string().nonempty({ message: 'Username is required' }),
-  email: z.string().nonempty({ message: 'Email required' }).email({ message: 'Invalid email address' }),
-  password: passwordSchema,
-});
-
-export type SignUpFormDataType = z.infer<typeof signUpFormSchema>;
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
+import { SignUpFormDataType, signUpFormSchema } from './AuthPagesSchema';
 
 function RegisterPage() {
-  const [selectedIcon, setSelectedIcon] = useState('user secret icon');
+  const [selectedIcon, setSelectedIcon] = useState(projectIcons.user);
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormDataType>({
     resolver: zodResolver(signUpFormSchema),
@@ -47,10 +33,11 @@ function RegisterPage() {
       </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="register__form">
-        <div className='validated-input flex flex-row gap-3 items-center'>
-          <div className='border border-gray-300 rounded-md p-2 self-center'>
+        <div className='flex flex-row gap-2 items-center py-2'>
+          <div className='border border-gray-300 rounded-md p-1.5 self-center'>
             <IconSelector selectedIcon={selectedIcon}
-                setSelectedIcon={setSelectedIcon} icons={icons.user}/>
+                          setSelectedIcon={setSelectedIcon}
+                          icons={icons.user}/>
           </div>
           <div className='flex-grow'>
             <input

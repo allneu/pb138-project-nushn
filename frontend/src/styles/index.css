@@ -8,7 +8,7 @@
 }
 
 .icon {
-    @apply w-6 h-6;
+    @apply w-4 h-4;
 }
 
 .input-with-errors {

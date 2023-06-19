@@ -1,7 +1,10 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import './Footer.css';
-import icons from '../../../public/assets/icons/projectIcons.json';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 type FooterProps = {
   toggleMenu: () => void;
@@ -10,15 +13,19 @@ type FooterProps = {
 function Footer({
   toggleMenu,
 }: FooterProps) {
-  const { subpageId } = useParams();
+  const location = useLocation();
+  const subpageId = location.pathname.split('/')[3] || null;
+
   return (
     <footer className='footer'>
         <div className="footer__nav-icons lg:hidden">
-            <i className={icons.menu} onClick={toggleMenu} />
-            <Link to={`/subpage/${subpageId}/task/newTask`}>
-                <i className={icons['add-new']} />
+            <FontAwesomeIcon className='icon' icon={projectIcons.menu.split(' ') as IconProp} onClick={toggleMenu}/>
+            <Link to={`subpage/${subpageId}/task/newTask`}>
+              <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             </Link>
-            <i className={icons.user} />
+            <Link to={ `subpage/${subpageId}/editUser`}>
+              <FontAwesomeIcon className='icon' icon={projectIcons.user.split(' ') as IconProp} />
+            </Link>
         </div>
     </footer>
   );
