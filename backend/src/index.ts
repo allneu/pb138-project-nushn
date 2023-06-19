@@ -20,6 +20,8 @@ configEnvVariables();
 const app = express();
 const port = env['PORT'] ?? 3000;
 
+app.use(session());
+
 // CORS middlware
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -29,7 +31,6 @@ app.use(cors({
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session());
 
 // parse URL encoded strings
 app.use(express.urlencoded({ extended: true }));

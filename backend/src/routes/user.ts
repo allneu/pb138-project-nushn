@@ -19,7 +19,7 @@ userRouter.get(userRouteSpecific, auth(), UserController.getOne);
 
 // Create User
 // POST /user
-userRouter.post(userRouteGeneric, auth(), UserController.create);
+userRouter.post(userRouteGeneric, UserController.create);
 
 // Update User
 // PATCH /user/{userId}
@@ -31,7 +31,7 @@ userRouter.delete(userRouteSpecific, auth(), UserController.deleteUser);
 
 // Log in User
 // POST /user/login
-userRouter.post(userRouteLogIn, auth(), UserController.login);
+userRouter.post(userRouteLogIn, UserController.login);
 
 // Log out User
 // POST /user/logout

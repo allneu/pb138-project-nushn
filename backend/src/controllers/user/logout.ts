@@ -1,7 +1,11 @@
 import { Request, Response } from 'express';
 
 export const logout = async (req: Request, res: Response) => {
-  req.session.destroy(() => {});
+  try {
+    req.session.destroy(() => {});
+  } catch {
+    throw new Error('Problem logging out');
+  }
   res.json({ message: 'Logout' });
 };
 
