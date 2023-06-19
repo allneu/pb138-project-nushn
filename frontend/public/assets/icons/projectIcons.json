@@ -6,6 +6,8 @@
     "add-new": "fas plus",
     "check-todo": "far square",
     "check-done": "far square-check",
+    "bullet-todo": "fas circle",
+    "bullet-done": "far circle-dot",
     "edit": "fas ellipsis-vertical",
     "collapse-arrow": "fas angle-up",
     "expand-arrow": "fas angle-down",

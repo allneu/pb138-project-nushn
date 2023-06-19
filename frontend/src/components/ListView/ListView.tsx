@@ -5,6 +5,7 @@ import './ListView.css';
 
 // TODO - GET tasks from backend
 import tasks from '../../../public/tasks.json';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   // TODO - Get the subpage ID from the URL and load the tasks from backend in the subpage order
@@ -14,11 +15,11 @@ function ListView({ type } : { type : string }) { // type = 'check' | 'bullet'
   let doneIcon : string;
 
   if (type === 'check') {
-    todoIcon = '/assets/icons/check-todo.svg';
-    doneIcon = '/assets/icons/check-done.svg';
+    todoIcon = projectIcons['check-todo'];
+    doneIcon = projectIcons['check-done'];
   } else { // type === 'bullet'
-    todoIcon = '/assets/icons/bullet-todo.svg';
-    doneIcon = '/assets/icons/bullet-done.svg';
+    todoIcon = projectIcons['bullet-todo'];
+    doneIcon = projectIcons['bullet-done'];
   }
 
   return (

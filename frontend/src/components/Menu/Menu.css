@@ -41,5 +41,5 @@
 }
 
 .menu__user {
-    @apply mt-5 hidden lg:flex shadow-md;
+    @apply mt-4 hidden lg:flex shadow-md;
 }

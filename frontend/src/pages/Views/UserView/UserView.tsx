@@ -56,7 +56,7 @@ function UserView() {
     <div className='user-view'>
         <form className='flex-grow' onSubmit={handleSubmit(onSubmit)}>
             <nav className="user-view__nav">
-                <Link to={`/user/${userId}/subpage/${subpageId}`}>
+                <Link to={subpageId ? `/auth/subpage/${subpageId}` : '/auth'}>
                     <FontAwesomeIcon className='icon' icon={projectIcons['back-arrow'].split(' ') as IconProp} />
                 </Link>
                 <button type="submit">

@@ -22,10 +22,9 @@ const user = {
 };
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-  const { userId } = useParams();
 
   const location = useLocation();
-  const subpageId = location.pathname.split('/')[4] || null;
+  const subpageId = location.pathname.split('/')[3] || null;
 
   return (
         <nav className={`menu ${isOpen ? 'menu--show' : 'menu--hide'}`}>
@@ -36,10 +35,10 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 </div>
             </div>
 
-            <Link to={`/user/${userId}/subpage/${subpageId}/editUser`} className="menu__user"
+            <Link to={ `subpage/${subpageId}/editUser`} className="menu__user"
                         onClick={toggleMenu}>
                     <FontAwesomeIcon className='icon' icon={user.avatar.split(' ') as IconProp} />
-                    <span className="subpage-name">{user.userName}</span>
+                    <span className="name">{user.userName}</span>
             </Link>
 
             <div className="menu__subpages">

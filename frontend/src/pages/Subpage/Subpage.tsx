@@ -2,12 +2,10 @@ import { useState } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import AutosizeInput from 'react-textarea-autosize';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ViewType from './viewType';
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
@@ -22,6 +20,7 @@ import subpages from '../../../public/subpages.json';
 
 function Subpage() {
   const { subpageId } = useParams();
+
   // TODO - load the subpage from backend by its ID
   const subpage = subpages.find((page) => page.id === subpageId);
 
@@ -56,7 +55,7 @@ function Subpage() {
     <>
         <div className="subpage">
             <header className="subpage-form">
-                <div className="name-wrapper">
+                <div className="name-wrapper"> 
                     <FontAwesomeIcon className='icon' icon={subpage?.icon.split(' ') as IconProp} />
                     <div className="input-with-errors">
                         <AutosizeInput
