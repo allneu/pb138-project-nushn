@@ -2,7 +2,7 @@ import {
   SubpageType,
   SubpageCreateType,
   SubpageCreateResultType,
-  SubpageUpdateType,
+  SubpageUpdateSendType,
   SubpageUpdateResultType,
   SubpageDeleteResultType,
   ResponseSingle,
@@ -27,7 +27,7 @@ export const getAll = async (userId: string): Promise<ResponseMulti<SubpageType>
   return response.data;
 };
 
-export const updateSingle = async (userId: string, subpageId: string, body: SubpageUpdateType):
+export const updateSingle = async (userId: string, subpageId: string, body: SubpageUpdateSendType):
 Promise<ResponseSingle<SubpageUpdateResultType>> => {
   const response = await axiosInstance.patch(`/user/${userId}/subpage/${subpageId}`, body);
   return response.data;

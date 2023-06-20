@@ -14,7 +14,7 @@ import {
 import axiosInstance from './base';
 
 export const auth = async (): Promise<ResponseSingle<UserType>> => {
-  const resp = await axiosInstance.get('/user/auth', {});
+  const resp = await axiosInstance.get('/user/auth');
   return resp.data;
 };
 
