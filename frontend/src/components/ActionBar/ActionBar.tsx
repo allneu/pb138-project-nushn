@@ -5,16 +5,18 @@ import './ActionBar.css';
 import ViewType from '../../pages/Subpage/viewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import UseDeleteSubpage from '../../hooks/delete/useDeleteSubpage';
+import { useParams } from 'react-router-dom';
 
 type ActionBarProps = {
   onViewChange: (newView: ViewType) => void;
 };
 
 function ActionBar({ onViewChange }: ActionBarProps) {
+  const { subpageId } = useParams();
   const { deleteSubpage } = UseDeleteSubpage({ redirect: '/' });
 
   function handleDeleteSubpage() {
-    deleteSubpage();
+    deleteSubpage(subpageId || '');
   }
 
   return (
