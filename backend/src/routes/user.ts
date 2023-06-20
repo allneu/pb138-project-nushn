@@ -5,6 +5,7 @@ import auth from '../middleware/authMiddleware';
 const userRouter = Router();
 
 const userRouteGeneric = '/user';
+const userRouteAuth = `${userRouteGeneric}/auth`;
 const userRouteLogIn = `${userRouteGeneric}/login`;
 const userRouteLogOut = `${userRouteGeneric}/logout`;
 const userRouteSpecific = `${userRouteGeneric}/:userId`;
@@ -16,6 +17,10 @@ userRouter.get(userRouteGeneric, UserController.getMultiple);
 // Get User
 // GET /user/{userId}
 userRouter.get(userRouteSpecific, auth(), UserController.getOne);
+
+// Auth User
+// GET /user/auth
+userRouter.get(userRouteAuth, UserController.auth);
 
 // Create User
 // POST /user

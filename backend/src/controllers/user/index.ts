@@ -4,6 +4,7 @@ import { getMultiple, getOne } from './get';
 import { update } from './update';
 import { login } from './login';
 import { logout } from './logout';
+import { auth } from './auth';
 
 export default {
   create,
@@ -13,4 +14,5 @@ export default {
   update,
   login,
   logout,
+  auth,
 };

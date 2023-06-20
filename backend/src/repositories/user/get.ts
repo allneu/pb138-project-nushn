@@ -4,6 +4,7 @@ import {
   UserGetSpecificType, UserGetSpecificResult, UserGetMultipleType, UserGetMultipleResultBody,
 } from '../../models/userModels';
 import { checkUser } from '../common/common';
+import userSelect from '../common/user';
 
 export const getOne = async (data: UserGetSpecificType):
 Promise<Result<UserGetSpecificResult>> => {
@@ -15,12 +16,7 @@ Promise<Result<UserGetSpecificResult>> => {
       }
       const user = await tx.user.findFirstOrThrow({
         where: { id: data.userId },
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          avatar: true,
-        },
+        select: userSelect,
       });
       return Result.ok(user);
     });
@@ -38,12 +34,7 @@ export const getMultiple = async (
         where: { username: { contains: username }, deletedAt: null },
         orderBy: { username: 'asc' },
         take: count,
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          avatar: true,
-        },
+        select: userSelect,
       });
       return Result.ok(users);
     });
