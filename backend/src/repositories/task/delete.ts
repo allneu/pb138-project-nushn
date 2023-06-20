@@ -50,7 +50,7 @@ const deleteTask = async (
         },
         data: { orderInLabel: { increment: -1 } },
       });
-      return Result.ok({ id: task.id });
+      return Result.ok({ taskId: task.id, labelId: task.labelId });
     });
   } catch {
     return Result.err(new Error('There was a problem deleting task'));

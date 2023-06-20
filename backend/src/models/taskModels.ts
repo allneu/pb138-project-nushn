@@ -71,5 +71,6 @@ export type TaskUpdateResult = { // return only id and updated data
 };
 
 export type TaskDeleteResult = {
-  id: string,
+  taskId: string,
+  labelId: string,
 };

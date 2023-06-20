@@ -24,6 +24,7 @@ const create = async (
         data: {
           name: data.name,
           subPageId: data.subpageId,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           orderInSubpage: highestOrder ? highestOrder.orderInSubpage! + 1 : 0,
         },
       });

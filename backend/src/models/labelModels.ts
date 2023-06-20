@@ -57,6 +57,6 @@ export type LabelGetResultBody = {
   }[];
 }[];
 
-export type LabelDeleteType = {
-  id: string,
+export type LabelDeleteResult = {
+  labelId: string,
 };

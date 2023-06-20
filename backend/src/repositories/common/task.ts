@@ -47,7 +47,6 @@ export const getSubpageTasksByLabelId = async (
   tx: PrismaTransactionHandle,
   { labelId }: { labelId: string },
 ) => {
-  console.log(labelId);
   const tasks = (await tx.label.findFirstOrThrow({
     where: { id: labelId, deletedAt: null },
     select: {
