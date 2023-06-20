@@ -70,7 +70,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
         </div>
 
         <Link to={`subpage/${subpageId}/editUser`} className="menu__user" onClick={toggleMenu}>
-            <FontAwesomeIcon className='icon' icon={(auth?.data.avatar ? auth.data.avatar.split(' ') : projectIcons.user) as IconProp} />
+            <FontAwesomeIcon className='icon' icon={(auth.data.avatar ? auth.data.avatar.split(' ') : projectIcons.user.split(' ')) as IconProp} />
             <span className="name">{auth?.data.username}</span>
         </Link>
 
