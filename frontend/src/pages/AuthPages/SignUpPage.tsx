@@ -3,22 +3,24 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 
 import './AuthPages.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import IconSelector from '../../components/IconSelector/IconSelector.tsx';
 import icons from '../../../public/assets/icons/dialogIcons.json';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import { SignUpFormDataType, signUpFormSchema } from './AuthPagesSchema';
+import useSignup from '../../hooks/useSignup';
 
-function RegisterPage() {
+function SignUpPage() {
   const [selectedIcon, setSelectedIcon] = useState(projectIcons.user);
-  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormDataType>({
     resolver: zodResolver(signUpFormSchema),
   });
 
+  const { signup } = useSignup({ redirect: '/' });
+
   const onSubmit = (data: SignUpFormDataType) => {
-    navigate('/');
     console.log(data);
+    signup(data);
   };
 
   return (
@@ -78,4 +80,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default SignUpPage;
