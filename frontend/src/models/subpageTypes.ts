@@ -35,14 +35,14 @@ export type SubpageCreateResultType = SubpageType & {
   }],
 };
 
-export interface SubpageUpdateType {
+export type SubpageUpdateType = {
   oldName?: string,
   oldDescription?: string,
   oldIcon?: string,
   newName?: string,
   newDescription?: string,
   newIcon?: string,
-}
+};
 
 export type SubpageUpdateResultType = Partial<SubpageCreateType> & {
   id: string,
