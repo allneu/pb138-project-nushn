@@ -22,9 +22,10 @@ const port = env['PORT'] ?? 3000;
 
 app.use(session());
 
-// CORS middlware
+// CORS middleware
+// localhost:5173 is address on which Vite apps run defaultly
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5173',
   credentials: true,
 }));
 

@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
-import Notice from './components/Notice/Notice.tsx'
+import Notice from './components/Notice/Notice.tsx';
 import MainPage from './pages/MainPage/MainPage.tsx';
 import LogInPage from './pages/AuthPages/LogInPage.tsx';
 import RegisterPage from './pages/AuthPages/RegisterPage.tsx';

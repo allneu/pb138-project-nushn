@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from 'react-router-dom';
+
+import useLogin from '../../hooks/useLogin';
+import { logInFormSchema, LogInFormDataType } from './AuthPagesSchema';
 
 import './AuthPages.css';
-import { Link, useNavigate } from 'react-router-dom';
-
-import { logInFormSchema, LogInFormDataType } from './AuthPagesSchema';
 
 function LogInPage() {
   const { register, handleSubmit, formState: { errors } } = useForm<LogInFormDataType>({
     resolver: zodResolver(logInFormSchema),
   });
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+
+  const { login } = useLogin({ redirect: '/' });
 
   const onSubmit = (data: LogInFormDataType) => {
-    navigate('/');
-    console.log(data);
+    console.log('login');
+    login(data);
   };
 
   return (
