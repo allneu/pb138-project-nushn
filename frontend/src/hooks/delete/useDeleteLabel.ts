@@ -7,7 +7,7 @@ type UseDeleteLabelProps = {
   labelId: string;
 };
 
-const UseDeleteLabel = ({ labelId }: UseDeleteLabelProps) => {
+const useDeleteLabel = ({ labelId }: UseDeleteLabelProps) => {
   const queryClient = useQueryClient();
   const { subpageId } = useParams();
 
@@ -31,4 +31,4 @@ const UseDeleteLabel = ({ labelId }: UseDeleteLabelProps) => {
   return { deleteLabel };
 };
 
-export default UseDeleteLabel;
+export default useDeleteLabel;

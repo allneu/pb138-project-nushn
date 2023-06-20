@@ -8,7 +8,7 @@ type UseDeleteSubpageProps = {
   redirect: string;
 };
 
-const UseDeleteSubpage = ({ redirect }: UseDeleteSubpageProps) => {
+const useDeleteSubpage = ({ redirect }: UseDeleteSubpageProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { subpageId } = useParams();
@@ -36,4 +36,4 @@ const UseDeleteSubpage = ({ redirect }: UseDeleteSubpageProps) => {
   return { deleteSubpage };
 };
 
-export default UseDeleteSubpage;
+export default useDeleteSubpage;

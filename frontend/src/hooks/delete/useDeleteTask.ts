@@ -8,7 +8,7 @@ type UseDeleteTaskProps = {
   task: TaskType;
 };
 
-const UseDeleteTask = ({ redirect, task }: UseDeleteTaskProps) => {
+const useDeleteTask = ({ redirect, task }: UseDeleteTaskProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { subpageId } = useParams();
@@ -42,4 +42,4 @@ const UseDeleteTask = ({ redirect, task }: UseDeleteTaskProps) => {
   return { deleteTask };
 };
 
-export default UseDeleteTask;
+export default useDeleteTask;

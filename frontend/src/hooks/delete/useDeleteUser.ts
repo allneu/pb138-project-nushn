@@ -3,7 +3,7 @@ import { UsersApi } from '../../services';
 import useAuth from '../useAuth';
 import useLogout from '../useLogout';
 
-const UseDeleteUser = () => {
+const useDeleteUser = () => {
   const { auth } = useAuth();
   const userId = auth?.data.id;
   const { logout } = useLogout();
@@ -18,4 +18,4 @@ const UseDeleteUser = () => {
   return { deleteUser };
 };
 
-export default UseDeleteUser;
+export default useDeleteUser;
