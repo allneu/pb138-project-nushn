@@ -26,7 +26,7 @@ const controlLastData = async (
       deletedAt: true,
     },
   });
-  if (task.deletedAt === null) {
+  if (task.deletedAt !== null) {
     throw taskWasDeletedError;
   } if (
     (data.newTaskName && data.oldTaskName !== task.taskName)

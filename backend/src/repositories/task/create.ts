@@ -10,7 +10,8 @@ const create = async (
 ): Promise<Result<Task>> => {
   try {
     return await client.$transaction(async (tx) => {
-      const labelIdToUse = labelId || (await tx.label.findFirstOrThrow({ where: { subPageId: subpageId, name: 'unlabeled' } })).id;
+      const labelIdToUse = labelId
+      || (await tx.label.findFirstOrThrow({ where: { subPageId: subpageId, name: 'unlabeled' } })).id;
       if (labelId) {
         const labelExists = await checkLabel(labelId, tx);
         if (labelExists.isErr) {
@@ -19,6 +20,7 @@ const create = async (
       }
       const highestLabelOrder = await getHighestLabelOrder(labelIdToUse, tx);
       const highestListOrder = await getHighestListOrder(labelIdToUse, tx);
+
       const newTask = await tx.task.create({
         data: {
           ...data,

@@ -47,6 +47,7 @@ export const getSubpageTasksByLabelId = async (
   tx: PrismaTransactionHandle,
   { labelId }: { labelId: string },
 ) => {
+  console.log(labelId);
   const tasks = (await tx.label.findFirstOrThrow({
     where: { id: labelId, deletedAt: null },
     select: {
@@ -62,21 +63,25 @@ export const getHighestLabelOrder = async (
   labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
-  const res = await tx.task.findFirstOrThrow({
+  const res = await tx.task.findFirst({
     where: { orderInLabel: { not: null }, labelId },
     orderBy: {
       orderInLabel: 'desc',
     },
     select: { orderInLabel: true },
   });
-  return res.orderInLabel;
+  return res ? res.orderInLabel : 0;
 };
 
 export const getHighestListOrder = async (
   labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
-  const res = (await getSubpageTasksByLabelId(tx, { labelId }))
+  const result = await getSubpageTasksByLabelId(tx, { labelId });
+  if (result.length === 0) {
+    return 0;
+  }
+  const res = (result)
     .reduce((resTask, task) => {
       if (!resTask.orderInList) {
         return task;

@@ -13,7 +13,7 @@ const deleteTask = async (
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
       }
-      const taskExists = await checkTask(data.subpageId, tx);
+      const taskExists = await checkTask(data.taskId, tx);
       if (taskExists.isErr) {
         return Result.err(taskExists.error);
       }

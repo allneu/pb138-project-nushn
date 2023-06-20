@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const taskCreateSchema = z.object({
   taskName: z.string().min(3),
-  dueDate: z.date(),
+  dueDate: z.string(),
   content: z.string(),
   creatorId: z.string().uuid().nonempty(),
   labelId: z.string().uuid().optional(),
