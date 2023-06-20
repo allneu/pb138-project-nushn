@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SubpagesApi } from '../../services';
 import useAuth from '../useAuth';
 import { ResponseMulti, SubpageType } from '../../models';
 
 type UseDeleteSubpageProps = {
   redirect: string;
-  subpageId: string;
 };
 
-const UseDeleteSubpage = ({ redirect, subpageId }: UseDeleteSubpageProps) => {
+const UseDeleteSubpage = ({ redirect }: UseDeleteSubpageProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { subpageId } = useParams();
   const { auth } = useAuth();
   const userId = auth?.data.id;
 
-  const deleteSubpageFC = (data: string) => SubpagesApi.deleteSingle(userId || '', data);
+  const deleteSubpageFC = () => SubpagesApi.deleteSingle(userId || '', subpageId || '');
 
   const { mutateAsync: deleteSubpage } = useMutation({
     mutationFn: deleteSubpageFC,

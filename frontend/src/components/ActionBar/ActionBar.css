@@ -3,7 +3,7 @@
         pb-3 lg:pb-2 pt-2 lg:pt-5 lg:gap-6;
 }
 
-.view-options {
+.subpage-options {
     @apply flex gap-2.5;
 }
 

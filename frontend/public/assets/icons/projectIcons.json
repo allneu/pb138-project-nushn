@@ -20,5 +20,6 @@
     "hourglass": "fas hourglass-half",
     "label": "fas tag",
     "email": "fas envelope",
+    "delete": "fas trash",
     "subpage-default": "fas pen"
 }
