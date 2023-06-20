@@ -18,15 +18,16 @@ const useSubpage = () => {
   };
 
   const { subpageId } = useParams();
-
   const { auth } = useAuth();
 
+  // fetch subpage info
   const { data: subpage, isLoading: isSubpageLoading, isError: isSubpageError } = useQuery({
     queryKey: ['subpage', subpageId],
     queryFn: () => SubpagesApi.getSingle(auth!.data.id, subpageId!),
     enabled: !!auth && !!subpageId,
   });
 
+  // fetch labels with tasks belonging to this subpage
   const { data: labelsWithTasks, isLoading: isTasksLoading, isError: isTasksError } = useQuery({
     queryKey: ['subpage', subpageId, 'labelsWithTasks'],
     queryFn: () => LabelsApi.getAll(subpageId!),

@@ -35,13 +35,15 @@ export type SubpageCreateResultType = SubpageType & {
   }],
 };
 
-export type SubpageUpdateType = {
-  oldName?: string,
-  oldDescription?: string,
-  oldIcon?: string,
-  newName?: string,
-  newDescription?: string,
-  newIcon?: string,
+export type SubpageUpdateType = Partial<SubpageCreateType>;
+
+export type SubpageUpdateSendType = {
+  oldName: string | undefined,
+  oldDescription: string | undefined,
+  oldIcon: string | undefined,
+  newName: string | undefined,
+  newDescription: string | undefined,
+  newIcon: string | undefined,
 };
 
 export type SubpageUpdateResultType = Partial<SubpageCreateType> & {
