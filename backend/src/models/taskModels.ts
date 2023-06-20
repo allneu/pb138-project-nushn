@@ -56,6 +56,17 @@ export const taskUpdateSchema = z.object({
       || (data.newOrderInList !== undefined && data.oldOrderInList !== undefined)
     ),
     'At least one pair of taskName, dueDate, content, labelId, orderInLabel or orderInList must be provided.',
+  )
+  .refine(
+    (data) => (
+      (data.newDueDate === undefined || data.oldDueDate !== undefined)
+      && (data.newContent === undefined || data.oldContent !== undefined)
+      && (data.newTaskName === undefined || data.oldTaskName !== undefined)
+      && (data.newLabelId === undefined || data.oldLabelId !== undefined)
+      && (data.newOrderInLabel === undefined || data.oldOrderInLabel !== undefined)
+      && (data.newOrderInList === undefined || data.oldOrderInList !== undefined)
+    ),
+    'For each new[] data are old[] data required!',
   );
 
 export type TaskUpdateType = z.infer<typeof taskUpdateSchema>;
