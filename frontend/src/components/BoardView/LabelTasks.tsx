@@ -30,7 +30,7 @@ function LabelTasks({
     handleSubmit,
     formState: { errors },
   } = useForm<LabelFormDataType>({
-    values: defaultLabelValues,
+    values: labelWithTasks,
     resolver: zodResolver(labelFormSchema),
   });
 
