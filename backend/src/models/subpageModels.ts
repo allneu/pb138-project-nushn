@@ -12,11 +12,11 @@ export type SubpageCreateType = z.infer<typeof subpageCreateSchema>;
 
 export const subpageUpdateSchema = z.object({
   oldName: z.string().min(3).optional(),
-  oldDescription: z.string().nonempty().optional(),
-  oldIcon: z.string().nonempty().optional(),
+  oldDescription: z.string().optional(),
+  oldIcon: z.string().optional(),
   newName: z.string().min(3).optional(),
-  newDescription: z.string().nonempty().optional(),
-  newIcon: z.string().nonempty().optional(),
+  newDescription: z.string().optional(),
+  newIcon: z.string().optional(),
 }).strict()
   .refine(
     (data) => (
