@@ -1,12 +1,12 @@
 import { Result } from '@badrap/result';
 import { checkSubpage, checkTask } from '../common/common';
 import client from '../client';
-import { TaskIdSubpageIdType } from '../../models';
+import { TaskDeleteResult, TaskIdSubpageIdType } from '../../models';
 // can surely be written better, check if there is time
 
 const deleteTask = async (
   data: TaskIdSubpageIdType,
-): Promise<Result<object>> => {
+): Promise<Result<TaskDeleteResult>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -29,6 +29,7 @@ const deleteTask = async (
       const task = await tx.task.update({
         where: { id: data.taskId },
         data: { deletedAt, orderInList: null, orderInLabel: null },
+        select: { labelId: true, id: true },
       });
       await tx.task.updateMany({
         where: {
@@ -49,7 +50,7 @@ const deleteTask = async (
         },
         data: { orderInLabel: { increment: -1 } },
       });
-      return Result.ok({});
+      return Result.ok({ id: task.id });
     });
   } catch {
     return Result.err(new Error('There was a problem deleting task'));

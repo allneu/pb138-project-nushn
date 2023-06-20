@@ -2,11 +2,11 @@ import { Result } from '@badrap/result';
 import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import { checkSubpage, checkLabel } from '../common/common';
 import client from '../client';
-import { Deleted } from '../../models/common';
+import { LabelDeleteType } from '../../models/labelModels';
 
 const deleteLabel = async (
   data: LabelIdSubpageIdType,
-): Promise<Result<Deleted>> => {
+): Promise<Result<LabelDeleteType>> => {
   try {
     return await client.$transaction(async (tx) => {
       const subPageExists = await checkSubpage(data.subpageId, tx);
@@ -21,7 +21,7 @@ const deleteLabel = async (
       // get curr order
       const currOrder = await tx.label.findFirstOrThrow({
         where: { id: data.labelId },
-        select: { orderInSubpage: true },
+        select: { orderInSubpage: true, id: true },
       });
       // delete the label and set order to null
       await tx.label.update({
@@ -37,7 +37,7 @@ const deleteLabel = async (
         },
         data: { orderInSubpage: { increment: -1 } },
       });
-      return Result.ok({});
+      return Result.ok({ id: currOrder.id });
     });
   } catch {
     return Result.err(new Error('There was a problem deleting task'));

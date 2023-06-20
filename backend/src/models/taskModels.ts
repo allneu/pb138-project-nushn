@@ -69,3 +69,7 @@ export type TaskUpdateResult = { // return only id and updated data
   orderInList?: number | null,
   orderInLabel?: number | null,
 };
+
+export type TaskDeleteResult = {
+  id: string,
+};
