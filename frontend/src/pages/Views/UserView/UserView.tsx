@@ -12,7 +12,9 @@ import dialogIcons from '../../../../public/assets/icons/dialogIcons.json';
 import '../Views.css';
 import IconSelector from '../../../components/IconSelector/IconSelector.tsx';
 import ChangePassword from '../../../components/ChangePassword/ChangePassword.tsx';
-import useAuth from '../../../hooks/useAuth.ts';
+import useAuth from '../../../hooks/useAuth';
+import UseDeleteUser from '../../../hooks/delete/useDeleteUser';
+import useLogout from '../../../hooks/useLogout';
 
 const user = {
   avatar: projectIcons.user,
@@ -29,6 +31,8 @@ function UserView() {
   const [selectedIcon, setSelectedIcon] = useState(user.avatar);
   const [changePasswordMode, setChangePasswordMode] = useState(false);
   const navigate = useNavigate();
+  const { deleteUser } = UseDeleteUser();
+  const { logout } = useLogout();
 
   const {
     register,
@@ -53,6 +57,14 @@ function UserView() {
 
   const handleChangePassword = () => {
     setChangePasswordMode(true);
+  };
+
+  const handleDeleteAccount = () => {
+    deleteUser();
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -107,10 +119,10 @@ function UserView() {
                 Change Password
             </button>
         }
-      <button className="user-view__btn">
+      <button className="user-view__btn" onClick={handleDeleteAccount}>
         Delete account
       </button>
-      <button className="user-view__btn">
+      <button className="user-view__btn" onClick={handleLogout}>
         Log out
       </button>
     </div>
