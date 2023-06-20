@@ -11,12 +11,16 @@
     @apply h-0 hidden;
   }
 
-.icons-wrapper {
+.icons-wrapper, .users-wrapper {
     @apply overflow-y-auto flex-grow;
 }
 
-.icons {
+.icons, .users {
     @apply overflow-y-auto grid grid-cols-5 p-[0.5rem] gap-5;
+}
+
+.user {
+    @apply flex flex-row gap-2;
 }
 
 .dialog-icon {

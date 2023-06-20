@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import './AuthPages.css';
 import { Link } from 'react-router-dom';
-import IconSelector from '../../components/IconSelector/IconSelector.tsx';
+import IconSelector from '../../components/Dialogs/IconSelector/IconSelector.tsx';
 import icons from '../../../public/assets/icons/dialogIcons.json';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import { SignUpFormDataType, signUpFormSchema } from './AuthPagesSchema';

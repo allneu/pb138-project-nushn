@@ -10,7 +10,7 @@ import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import dialogIcons from '../../../../public/assets/icons/dialogIcons.json';
 
 import '../Views.css';
-import IconSelector from '../../../components/IconSelector/IconSelector.tsx';
+import IconSelector from '../../../components/Dialogs/IconSelector/IconSelector.tsx';
 import ChangePassword from '../../../components/ChangePassword/ChangePassword.tsx';
 import useAuth from '../../../hooks/useAuth';
 import UseDeleteUser from '../../../hooks/delete/useDeleteUser';

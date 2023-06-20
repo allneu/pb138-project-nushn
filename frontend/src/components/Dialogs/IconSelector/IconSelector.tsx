@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
-import './IconSelector.css';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import '../Dialog.css';
 
 type IconSelectorProps = {
   selectedIcon: string;
