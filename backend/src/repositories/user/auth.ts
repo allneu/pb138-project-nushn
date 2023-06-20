@@ -14,7 +14,7 @@ export const auth = async (id: string): Promise<Result<UserGetSpecificResult>> =
           deletedAt: true,
         },
       });
-      if (deletedAt === null) {
+      if (deletedAt) {
         throw userWasDeletedError;
       }
       return Result.ok(user);
