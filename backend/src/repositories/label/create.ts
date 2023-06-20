@@ -5,16 +5,17 @@ import { checkSubpage } from '../common/common';
 import client from '../client';
 
 const create = async (
-  data: LabelCreateType & SubpageIdType,
+  data: LabelCreateType,
+  { subpageId }: SubpageIdType,
 ): Promise<Result<LabelCreateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
-      const subPageExists = await checkSubpage(data.subpageId, tx);
+      const subPageExists = await checkSubpage(subpageId, tx);
       if (subPageExists.isErr) {
-        return Result.err(subPageExists.error);
+        throw subPageExists.error;
       }
       const highestOrder = await tx.label.findFirstOrThrow({
-        where: { orderInSubpage: { not: null } },
+        where: { orderInSubpage: { not: null }, subPageId: subpageId },
         orderBy: {
           orderInSubpage: 'desc',
         },
@@ -23,7 +24,7 @@ const create = async (
       const newLabel = await tx.label.create({
         data: {
           name: data.name,
-          subPageId: data.subpageId,
+          subPageId: subpageId,
           orderInSubpage: highestOrder.orderInSubpage ? highestOrder.orderInSubpage + 1 : 0,
         },
       });
@@ -35,7 +36,7 @@ const create = async (
       });
     });
   } catch (e) {
-    return Result.err(new Error('There was a problem in label creation'));
+    return Result.err(e as Error);
   }
 };
 export default create;

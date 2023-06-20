@@ -12,7 +12,7 @@ const create = async (req: Request, res: Response) => {
   try {
     const data = labelCreateSchema.parse(req.body);
     const params = subpageIdSchema.parse(req.params);
-    const response = await LabelRepo.create({ ...data, ...params });
+    const response = await LabelRepo.create(data, params);
     return response.isOk
       ? handleOkResp(201, response.value, res, `Created label with id: ${response.value.id}`)
       : handleErrResp(500, response.error, res, response.error.message);

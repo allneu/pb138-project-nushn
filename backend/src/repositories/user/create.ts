@@ -18,7 +18,7 @@ Promise<Result<UserCreateResult>> => {
           email: data.email,
           hashedPassword,
           avatar: data.avatar ? data.avatar : '',
-        }
+        },
       });
       const returnedUser = { id: newUser.id, username: newUser.username, email: newUser.email };
       return Result.ok(returnedUser);

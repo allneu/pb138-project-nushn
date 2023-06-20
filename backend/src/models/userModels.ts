@@ -21,7 +21,7 @@ export type UserCreateType = z.infer<typeof userCreateSchema>;
 export type UserCreateResult = {
   id: string,
   username: string,
-  email?: string,
+  email: string,
 };
 
 export const userDeleteSchema = z.object({
