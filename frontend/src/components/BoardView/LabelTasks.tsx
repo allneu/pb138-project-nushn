@@ -6,7 +6,6 @@ import AutosizeInput from 'react-textarea-autosize';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { labelFormSchema, LabelFormDataType } from './labelSchema';
-import defaultLabelValues from './defaultLabelValues';
 import { LabelWithTasksType, TaskType } from '../../models';
 import useUpdateLabel from '../../hooks/useUpdateLabel';
 
