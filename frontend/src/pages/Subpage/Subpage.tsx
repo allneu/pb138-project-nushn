@@ -1,42 +1,34 @@
-import { useState } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import AutosizeInput from 'react-textarea-autosize';
 
-import ViewType from './viewType';
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
+import Notice from '../../components/Notice/Notice.tsx';
 
-import { subpageFormSchema, SubpageFormDataType } from './subpageSchema';
-// replace with subpage object from backend
-import defaultSubpageValues from './defaultSubpageValues';
+import useSubpage from '../../hooks/useSubpage';
+import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
-import subpages from '../../../public/subpages.json';
 
 function Subpage() {
-  const { subpageId } = useParams();
-
-  // TODO - load the subpage from backend by its ID
-  const subpage = subpages.find((page) => page.id === subpageId);
-
-  const [view, setView] = useState<ViewType>('board');
-  const handleViewChange = (newView: ViewType) => {
-    setView(newView);
-  };
-
   const {
+    view,
+    handleViewChange,
+    isLoading,
+    isError,
+    subpage,
+    labelsWithTasks,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<SubpageFormDataType>({
-    values: defaultSubpageValues,
-    resolver: zodResolver(subpageFormSchema),
-  });
+    errors,
+  } = useSubpage();
+
+  const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
+    (labelWithTasks) => labelWithTasks.tasks,
+  ) : [];
 
   const onSubmit = (data: SubpageFormDataType) => {
     console.log(data);
@@ -44,19 +36,22 @@ function Subpage() {
 
   let viewComponent: JSX.Element;
   if (view === 'board') {
-    viewComponent = <BoardView />;
+    viewComponent = <BoardView labelsWithTasks={labelsWithTasks ? labelsWithTasks.data : []} />;
   } else if (view === 'checklist') {
-    viewComponent = <ListView type="check" />;
+    viewComponent = <ListView type="check" tasks={allTasks} />;
   } else {
-    viewComponent = <ListView type="bullet" />;
+    viewComponent = <ListView type="bullet" tasks={allTasks} />;
   }
+
+  if (isError) return <Notice message={'An error occured while loading subpage.'} />;
+  if (isLoading) return <Notice message={'The subpage is loading ...'} />;
 
   return (
     <>
         <div className="subpage">
-            <header className="subpage-form">
-                <div className="name-wrapper"> 
-                    <FontAwesomeIcon className='icon' icon={subpage?.icon.split(' ') as IconProp} />
+            <form className="subpage-form">
+                <div className="name-wrapper">
+                    <FontAwesomeIcon className='icon' icon={subpage?.data.icon.split(' ') as IconProp} />
                     <div className="input-with-errors">
                         <AutosizeInput
                             className="subpage-name"
@@ -75,7 +70,7 @@ function Subpage() {
                         {errors.description && <span className="validation-error">{errors.description.message}</span>}
                     </div>
                 <ActionBar onViewChange={handleViewChange}/>
-            </header>
+            </form>
 
             <div className="subpage__separator"/>
 

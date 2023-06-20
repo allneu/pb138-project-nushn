@@ -1,5 +1,5 @@
 import {
-  LabelType,
+  LabelWithTasksType,
   LabelCreateType,
   LabelCreateResultType,
   LabelUpdateType,
@@ -16,7 +16,7 @@ Promise<ResponseSingle<LabelCreateResultType>> => {
   return response.data;
 };
 
-export const getAll = async (subpageId: string): Promise<ResponseMulti<LabelType>> => {
+export const getAll = async (subpageId: string): Promise<ResponseMulti<LabelWithTasksType>> => {
   const response = await axiosInstance.get(`/subpage/${subpageId}/label`);
   return response.data;
 };

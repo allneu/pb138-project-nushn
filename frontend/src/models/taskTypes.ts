@@ -4,7 +4,7 @@ export type TaskCreateType = {
   taskName: string,
   dueDate: Date,
   content: string,
-  labelId: string,
+  labelId?: string,
   creatorId: string,
 };
 

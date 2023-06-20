@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer.tsx';
 import Subpage from '../Subpage/Subpage.tsx';
 import TaskView from '../Views/TaskView/TaskView.tsx';
 import Homepage from '../../components/Homepage/Homepage.tsx';
-import NoPage from '../../components/NoPage/NoPage.tsx';
+import Notice from '../../components/Notice/Notice.tsx';
 
 import './MainPage.css';
 import UserView from '../Views/UserView/UserView.tsx';
@@ -29,7 +29,7 @@ function MainPage() {
             <Route path="task/:taskId" element={<TaskView />} />
             <Route path="editUser" element={<UserView />} />
           </Route>
-          <Route path="*" element={<NoPage />} />
+          <Route path="*" element={<Notice message={'The page was not found.'} />} />
         </Routes>
 
         <Footer toggleMenu={toggleMenu}/>

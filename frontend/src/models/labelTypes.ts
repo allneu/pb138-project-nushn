@@ -5,13 +5,16 @@ export type LabelCreateType = {
   name: string,
 };
 
-export type LabelCreateResultType = LabelCreateType & {
+export type LabelCreateResultType = {
   id: string,
+  name: string,
   orderInSubpage: number,
   createdAt: Date,
 };
 
-export type LabelType = LabelCreateResultType & {
+export type LabelType = LabelCreateResultType;
+
+export type LabelWithTasksType = LabelType & {
   tasks: TaskType[],
 };
 

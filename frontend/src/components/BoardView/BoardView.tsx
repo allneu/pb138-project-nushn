@@ -1,22 +1,57 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+
 import LabelTasks from './LabelTasks.tsx';
 import './BoardView.css';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
+import { LabelCreateResultType, LabelCreateType, LabelWithTasksType } from '../../models/labelTypes';
+import { addSingle } from '../../services/labelsApi';
+import { ResponseMulti, ResponseSingle } from '../../models';
 
-// TODO - GET subpage labels from backend including tasks in label order
-import labels from '../../../public/labeledTasks.json';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+type BoardViewProps = {
+  labelsWithTasks: LabelWithTasksType[],
+};
 
-function BoardView() {
-  // Get the subpage ID from the URL and load the labels from backend including tasks in label order
-  // const { subpageId } = useParams();
+function BoardView({
+  labelsWithTasks,
+}: BoardViewProps) {
+  const { subpageId } = useParams();
+  const queryClient = useQueryClient();
+
+  const newLabelFC = (data: LabelCreateType) => addSingle(subpageId || '', data);
+
+  const { mutateAsync: mutate } = useMutation({
+    mutationFn: newLabelFC,
+    onSuccess: (newTaskResponse: ResponseSingle<LabelCreateResultType>) => {
+      queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
+        ['subpage', subpageId, 'labelsWithTasks'],
+        (oldData) => (oldData ? {
+          ...oldData,
+          data: [...oldData.data, { ...newTaskResponse.data, tasks: [] }],
+        }
+          : undefined),
+      );
+    },
+  });
+
+  function handleAddNewLabel() {
+    const newLabel: LabelCreateType = {
+      name: 'Untitled',
+    };
+    mutate(newLabel);
+  }
+
   return (
     <div className="">
       <div className="columns-wrapper">
-        {labels.map((label) => (
-          <LabelTasks key={label.id} label={label} />
-        ))}
-        <div className='board-view__new-label'>
+        {
+          labelsWithTasks.map((labelWithTasks) => (
+            <LabelTasks key={labelWithTasks.id} labelWithTasks={labelWithTasks} />
+          ))
+        }
+        <div className='board-view__new-label' onClick={handleAddNewLabel}>
           <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
           <span className="text-sm font-semibold">Add new label</span>
         </div>

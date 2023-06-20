@@ -6,22 +6,34 @@ export type SubpageCreateType = {
   icon: string,
 };
 
-export type SubpageCreateResultType = SubpageCreateType & {
+export type SubpageType = SubpageCreateType & {
   id: string,
   creator: {
     id: string,
     username: string,
   },
   createdAt: Date,
+};
+
+export type SubpageCreateResultType = SubpageType & {
   labels: [{
     id: string,
     name: string,
-    orderInSubpabe: number,
+    orderInSubpage: number,
     createdAt: Date,
+    tasks: {
+      id: string,
+      creator: {
+        id: string,
+        username: string,
+      },
+      done: boolean,
+      orderInList: number,
+      orderInLabel: number,
+      createdAt: Date,
+    }[]
   }],
 };
-
-export type SubpageType = SubpageCreateResultType;
 
 export interface SubpageUpdateType {
   oldName?: string,
