@@ -11,7 +11,7 @@ const userRouteSpecific = `${userRouteGeneric}/:userId`;
 
 // Get all Users
 // GET /user
-userRouter.get(userRouteGeneric, auth(), UserController.getMultiple);
+userRouter.get(userRouteGeneric, UserController.getMultiple);
 
 // Get User
 // GET /user/{userId}
