@@ -1,5 +1,5 @@
 const defaultLabelValues = {
-  name: 'Unlabeled',
+  name: 'Untitled',
 };
 
 export default defaultLabelValues;
