@@ -5,6 +5,7 @@ import { userLoginSchema } from '../../models/userModels';
 import UserRepos from '../../repositories/user';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
 import client from '../../repositories/client';
+import log from '../common/log';
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -20,6 +21,8 @@ export const login = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 
