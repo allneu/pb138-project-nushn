@@ -28,7 +28,7 @@ const useSubpage = () => {
   });
 
   const { data: labelsWithTasks, isLoading: isTasksLoading, isError: isTasksError } = useQuery({
-    queryKey: ['subpage', 'label'],
+    queryKey: ['subpage', subpageId, 'labelsWithTasks'],
     queryFn: () => LabelsApi.getAll(subpageId!),
     enabled: !!subpageId,
   });

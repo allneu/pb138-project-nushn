@@ -1,5 +1,5 @@
-import { NavLink, Link, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { NavLink, Link, useParams, useNavigate } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
@@ -10,6 +10,8 @@ import Notice from '../Notice/Notice.tsx';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './Menu.css';
+import { ResponseMulti, ResponseSingle, SubpageCreateResultType, SubpageCreateType, SubpageType } from '../../models';
+import { addSingle } from '../../services/subpagesApi.ts';
 
 type MenuProps = {
   isOpen: boolean,
@@ -18,14 +20,42 @@ type MenuProps = {
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {
   const { subpageId } = useParams();
-
+  const queryClient = useQueryClient();
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const { data: subpages, isLoading, isError } = useQuery({
     queryKey: ['menu'],
     queryFn: () => SubpagesApi.getAll(auth!.data.id),
     enabled: !!auth,
   });
+
+  const newSubpageFC = (data: SubpageCreateType) => addSingle(auth?.data.id || '', data);
+
+  const { mutateAsync: mutate } = useMutation({
+    mutationFn: newSubpageFC,
+    onSuccess: (newSubpageResponse: ResponseSingle<SubpageCreateResultType>) => {
+      queryClient.setQueryData<ResponseMulti<SubpageType>>(
+        ['menu'],
+        (oldData) => (oldData ? {
+          ...oldData,
+          data: [...oldData.data, newSubpageResponse.data],
+        }
+          : undefined),
+      );
+      navigate(`subpage/${newSubpageResponse.data.id}`);
+      toggleMenu();
+    },
+  });
+
+  function handleAddNewSubpage() {
+    const newSubpage: SubpageCreateType = {
+      name: 'Untitled',
+      description: '',
+      icon: projectIcons['subpage-default'],
+    };
+    mutate(newSubpage);
+  }
 
   if (!auth || isError) return <Notice message={'An error occured while loading menu.'} />;
   if (isLoading) return <Notice message={'The menu is loading ...'} />;
@@ -60,10 +90,10 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
             ))}
         </div>
 
-        <Link to='/new-subpage' className="menu__subpage border-gray-200 shadow-md" onClick={toggleMenu}>
+        <div className="menu__subpage border-gray-200 shadow-md" onClick={handleAddNewSubpage}>
             <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             <span className="name">New subpage</span>
-        </Link>
+        </div>
     </nav>
   );
 }

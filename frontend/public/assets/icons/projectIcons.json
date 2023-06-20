@@ -19,5 +19,6 @@
     "clock": "fas clock",
     "hourglass": "fas hourglass-half",
     "label": "fas tag",
-    "email": "fas envelope"
+    "email": "fas envelope",
+    "subpage-default": "fas pen"
 }
