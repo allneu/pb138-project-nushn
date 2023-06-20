@@ -13,8 +13,8 @@ const create = async (
       if (subPageExists.isErr) {
         return Result.err(subPageExists.error);
       }
-      const highestOrder = await tx.label.findFirstOrThrow({
-        where: { orderInSubpage: { not: null } },
+      const highestOrder = await tx.label.findFirst({
+        where: { orderInSubpage: { not: null }, subPageId: data.subpageId },
         orderBy: {
           orderInSubpage: 'desc',
         },
@@ -24,7 +24,8 @@ const create = async (
         data: {
           name: data.name,
           subPageId: data.subpageId,
-          orderInSubpage: highestOrder.orderInSubpage ? highestOrder.orderInSubpage + 1 : 0,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          orderInSubpage: highestOrder ? highestOrder.orderInSubpage! + 1 : 0,
         },
       });
       return Result.ok({

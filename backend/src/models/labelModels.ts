@@ -56,3 +56,7 @@ export type LabelGetResultBody = {
     orderInList: number | null;
   }[];
 }[];
+
+export type LabelDeleteResult = {
+  labelId: string,
+};

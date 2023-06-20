@@ -65,7 +65,7 @@ const update = async (
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
         await controlLastData(data, params, tx);
         const subpage = await updateSubpage(data, params, tx);
-        subpageEditCreate(params, new Date(), tx);
+        await subpageEditCreate(params, new Date(), tx);
         return subpage;
       }),
     );
