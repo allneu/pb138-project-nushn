@@ -12,6 +12,8 @@ import useSignup from '../../hooks/useSignup';
 
 function SignUpPage() {
   const [selectedIcon, setSelectedIcon] = useState(projectIcons.user);
+  const [showPassword, setShowPassword] = useState(false);
+
   const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormDataType>({
     resolver: zodResolver(signUpFormSchema),
   });
@@ -67,13 +69,22 @@ function SignUpPage() {
 
         <div className='validated-input'>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="password"
-            className={`form__input ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+            className={`form__input ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
             {...register('password')}
           />
           {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
         </div>
+        <label className="show-password">
+          <input
+            type="checkbox"
+            className='h-8'
+            checked={showPassword}
+            onChange={() => setShowPassword(!showPassword)}
+          />
+          <span className="ml-2 text-sm text-gray-500">Show password</span>
+        </label>
 
         <button type="submit">Sign up</button>
 

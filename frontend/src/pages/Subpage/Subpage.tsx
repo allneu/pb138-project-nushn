@@ -1,6 +1,5 @@
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import AutosizeInput from 'react-textarea-autosize';
 
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
@@ -10,11 +9,15 @@ import Notice from '../../components/Notice/Notice.tsx';
 import TaskView from '../Views/TaskView/TaskView.tsx';
 
 import useSubpage from '../../hooks/useSubpage';
-import useUpdateSubpage from '../../hooks/useUpdateSubpage';
+import useUpdateSubpage from '../../hooks/update/useUpdateSubpage';
 import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
 import UserView from '../Views/UserView/UserView.tsx';
+import IconSelector from '../../components/Dialogs/IconSelector/IconSelector.tsx';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
+import dialogIcons from '../../../public/assets/icons/dialogIcons.json';
+import { SubpageUpdateType } from '../../models/subpageTypes';
 
 function Subpage() {
   const {
@@ -30,6 +33,12 @@ function Subpage() {
   } = useSubpage();
 
   const { updateSubpage } = useUpdateSubpage();
+  const [selectedIcon, setSelectedIcon] = useState<string>(subpage?.data.icon || projectIcons['subpage-default']);
+
+  // Update the selected icon when different subpage is loaded
+  useEffect(() => {
+    setSelectedIcon(subpage?.data.icon || projectIcons['subpage-default']);
+  }, [subpage?.data.icon]);
 
   const allLabels = labelsWithTasks ? labelsWithTasks.data.map(
     (labelWithTasks) => {
@@ -43,7 +52,11 @@ function Subpage() {
   ).sort((fst, snd) => fst.orderInList - snd.orderInList) : [];
 
   const onSubmit = (data: SubpageFormDataType) => {
-    updateSubpage(data);
+    const updatedSubpage: SubpageUpdateType = {
+      ...data,
+      icon: selectedIcon,
+    };
+    updateSubpage(updatedSubpage);
   };
 
   let viewComponent: JSX.Element;
@@ -63,7 +76,11 @@ function Subpage() {
         <div className="subpage">
             <form className="subpage-form">
                 <div className="name-wrapper">
-                    <FontAwesomeIcon className='icon' icon={subpage?.data.icon.split(' ') as IconProp} />
+                    <div onBlur={handleSubmit(onSubmit)}>
+                    <IconSelector selectedIcon={selectedIcon}
+                      setSelectedIcon={setSelectedIcon}
+                      icons={dialogIcons.subpage} />
+                    </div>
                     <div className="input-with-errors">
                         <AutosizeInput
                             className="subpage-name"

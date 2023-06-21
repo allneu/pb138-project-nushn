@@ -7,7 +7,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { labelFormSchema, LabelFormDataType } from './labelSchema';
 import { LabelWithTasksType, TaskType } from '../../models';
-import useUpdateLabel from '../../hooks/useUpdateLabel';
+import useUpdateLabel from '../../hooks/update/useUpdateLabel.ts';
 
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';

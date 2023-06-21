@@ -29,6 +29,7 @@ export type UserUpdateType = {
   username?: string,
   email?: string,
   avatar?: string,
+  password?: string,
 };
 
 export type UserUpdateResultType = UserUpdateType & {

@@ -6,8 +6,8 @@ import {
   LabelUpdateType,
   LabelWithTasksType,
   LabelUpdateResultType,
-} from '../models';
-import { LabelsApi } from '../services';
+} from '../../models';
+import { LabelsApi } from '../../services';
 
 type UseUpdateLabelProps = {
   labelId: string,
