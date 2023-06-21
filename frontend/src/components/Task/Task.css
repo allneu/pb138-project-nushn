@@ -1,0 +1,15 @@
+.task {
+    @apply flex px-5 lg:px-2 py-1 lg:py-2 gap-4 lg:border-[1px] rounded min-w-[10rem] justify-between items-center;
+}
+
+.task__name {
+    @apply flex-grow text-notion text-sm leading-[0.875rem] font-semibold;
+}
+
+.task__name--done {
+    @apply line-through text-gray-500;
+}
+ 
+.task__name--new {
+    @apply flex-none text-gray-500 hover:bg-gray-200 hover:cursor-pointer;
+}
