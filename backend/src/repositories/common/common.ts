@@ -3,7 +3,9 @@ import {
   PrismaTransactionHandle,
   genericError,
 } from './types';
-import { subpageDoesNotExistError, subpageWasDeletedError } from '../../models';
+import {
+  subpageDoesNotExistError, subpageWasDeletedError, userDoesNotExistError, userWasDeletedError,
+} from '../../models';
 import logger from '../../log/log';
 
 export const checkSubpage = async (
@@ -66,17 +68,13 @@ export const checkUser = async (
   id: string,
   tx: PrismaTransactionHandle,
 ) => {
-  try {
-    const user = await tx.user.findFirst({
-      where: { id },
-    });
-    if (user === null) {
-      return Result.err(new Error('The specified user does not exist!'));
-    } if (user.deletedAt !== null) {
-      return Result.err(new Error('The specified user has already been deleted!'));
-    }
-    return Result.ok({});
-  } catch {
-    return genericError;
+  const user = await tx.user.findFirst({
+    where: { id },
+  });
+  if (user === null) {
+    throw userDoesNotExistError;
+  } if (user.deletedAt !== null) {
+    throw userWasDeletedError;
   }
+  return Result.ok({});
 };

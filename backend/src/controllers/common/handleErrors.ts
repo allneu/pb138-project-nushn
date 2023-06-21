@@ -5,7 +5,7 @@ import { handleErrResp } from './handleResponse';
 
 const errCodes = new Map([
   [er.notimplementedError, { code: 501, msg: 'Not implemented!' }],
-  [er.canNotRenameUnlabeled, { code: 403, msg: 'Sorry, can not rename "unlabeled"!' }],
+  [er.canNotRenameUnlabeledError, { code: 403, msg: 'Sorry, can not rename "unlabeled"!' }],
   [er.canNotCreateUnlabeled, { code: 403, msg: 'Sorry, "unlabeled" is private name!' }],
   [er.wrongSubpageIdError, { code: 404, msg: 'Wrong subpage id!' }],
   [er.labelDoesNotExistError, { code: 404, msg: 'This label does not exist!' }],
@@ -21,6 +21,8 @@ const errCodes = new Map([
   [er.userHasNotPermissionError, { code: 401, msg: 'Operation was rejected! The user has not enough permission!' }],
   [er.userDoesNotExistError, { code: 404, msg: 'This user does not exist!' }],
   [er.userWasDeletedError, { code: 400, msg: 'This user was deleted!' }],
+  [er.invalidPasswordError, { code: 401, msg: 'Invalid password!' }],
+  [er.oldPasswordRequiredError, { code: 400, msg: 'For this operation is oldPassword required' }],
 ]);
 
 const handleErrors = (e: Error, res: Response) => {

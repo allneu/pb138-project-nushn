@@ -4,7 +4,7 @@ import client from '../client';
 import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import {
   canNotCreateUnlabeled,
-  canNotRenameUnlabeled,
+  canNotRenameUnlabeledError,
   labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageIdError,
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
@@ -52,7 +52,7 @@ const update = async (
     if (data.newName === 'unlabeled') {
       throw canNotCreateUnlabeled;
     } if (data.oldName === 'unlabeled') {
-      throw canNotRenameUnlabeled;
+      throw canNotRenameUnlabeledError;
     }
     return await client.$transaction(async (tx) => {
       const { labelId, subpageId } = params;

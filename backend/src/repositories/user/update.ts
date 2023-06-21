@@ -5,15 +5,13 @@ import client from '../client';
 import { UserUpdateResult, UserUpdateType } from '../../models/userModels';
 import { checkUser } from '../common/common';
 import { UserIdType } from '../../models/urlParamsSchema';
+import { invalidPasswordError, oldPasswordRequiredError } from '../../models';
 
 const update = async (data: UserUpdateType & UserIdType):
 Promise<Result<UserUpdateResult>> => {
   try {
     return await client.$transaction(async (tx) => {
-      const userExists = await checkUser(data.userId, tx);
-      if (userExists.isErr) {
-        return Result.err(userExists.error);
-      }
+      await checkUser(data.userId, tx);
       const username = data.username ? { username: data.username } : {};
       const email = data.email ? { email: data.email } : {};
       const avatar = data.avatar ? { avatar: data.avatar } : {};
@@ -21,11 +19,13 @@ Promise<Result<UserUpdateResult>> => {
         const oldPasswordData = await tx.user.findFirstOrThrow({
           where: { id: data.userId },
         });
+        if (!data.oldPassword) {
+          throw oldPasswordRequiredError;
+        }
         const verifiedPass = await
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        argon2.verify(oldPasswordData?.hashedPassword, data.oldPassword!);
+        argon2.verify(oldPasswordData?.hashedPassword, data.oldPassword);
         if (!verifiedPass) {
-          throw new Error();
+          throw invalidPasswordError;
         }
         const hashedPassword = await argon2.hash(data.newPassword);
         const updated: User = await tx.user.update({
@@ -55,8 +55,8 @@ Promise<Result<UserUpdateResult>> => {
       });
       return Result.ok(result);
     });
-  } catch {
-    return Result.err(new Error('There was a problem updating User'));
+  } catch (e) {
+    return Result.err(e as Error);
   }
 };
 export default update;

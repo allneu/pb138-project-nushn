@@ -8,10 +8,7 @@ const deleteUser = async (data: UserDeleteType): Promise<Result<Deleted>> => {
   try {
     return await client.$transaction(async (tx) => {
       const deletedAt = new Date();
-      const userExists = await checkUser(data.userId, tx);
-      if (userExists.isErr) {
-        return Result.err(userExists.error);
-      }
+      await checkUser(data.userId, tx);
       await tx.user.update({
         where: { id: data.userId },
         data: {
@@ -21,7 +18,7 @@ const deleteUser = async (data: UserDeleteType): Promise<Result<Deleted>> => {
       return Result.ok({});
     });
   } catch (e) {
-    return Result.err(new Error('There was a problem deleting user'));
+    return Result.err(e as Error);
   }
 };
 

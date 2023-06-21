@@ -19,7 +19,7 @@ Promise<Result<User>> => {
       return Result.ok(newUser);
     });
   } catch (e) {
-    return Result.err(new Error('There was an error creating user.'));
+    return Result.err(e as Error);
   }
 };
 export default create;

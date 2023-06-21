@@ -32,4 +32,8 @@ export const wrongSubpageIdError = new Error('Wrong subpage id!');
 
 export const canNotCreateUnlabeled = new Error('Sorry, "unlabeled" is private name!');
 
-export const canNotRenameUnlabeled = new Error('Sorry, can not rename "unlabeled"!');
+export const canNotRenameUnlabeledError = new Error('Sorry, can not rename "unlabeled"!');
+
+export const oldPasswordRequiredError = new Error('For this operation is oldPassword required');
+
+export const invalidPasswordError = new Error('Invalid password!');

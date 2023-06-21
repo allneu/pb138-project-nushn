@@ -3,6 +3,7 @@ import argon2 from 'argon2';
 import client from '../client';
 import { UserLoginType } from '../../models/userModels';
 import { checkUser } from '../common/common';
+import { invalidPasswordError } from '../../models';
 
 export const login = async (data: UserLoginType) => {
   try {
@@ -13,12 +14,12 @@ export const login = async (data: UserLoginType) => {
       await checkUser(findUser.id, tx);
       const checkPassword = await argon2.verify(findUser.hashedPassword, data.password);
       if (!checkPassword) {
-        return Result.err(new Error('Wrong password'));
+        throw invalidPasswordError;
       }
       return Result.ok({});
     });
-  } catch {
-    return Result.err(new Error('There was a problem logging in'));
+  } catch (e) {
+    return Result.err(e as Error);
   }
 };
 

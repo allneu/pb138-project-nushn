@@ -10,10 +10,7 @@ export const getOne = async (data: UserGetSpecificType):
 Promise<Result<User>> => {
   try {
     return await client.$transaction(async (tx) => {
-      const userFlag = await checkUser(data.userId, tx);
-      if (userFlag.isErr) {
-        throw userFlag.error;
-      }
+      await checkUser(data.userId, tx);
       const user = await tx.user.findFirstOrThrow({
         where: { id: data.userId },
         select: userSelect,
