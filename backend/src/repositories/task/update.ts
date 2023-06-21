@@ -4,6 +4,7 @@ import {
   oldDataError,
   serverInternalError,
   subpageDoesNotExistError,
+  taskDoesNotExistError,
   taskWasDeletedError,
 } from '../../models';
 import client from '../client';
@@ -17,7 +18,7 @@ const controlLastData = async (
   tx: PrismaTransactionHandle,
 ) => {
   logger.debug({ task: { controlLastData: 'start' } });
-  const task = await tx.task.findUniqueOrThrow({
+  const task = await tx.task.findUnique({
     where: { id: taskId },
     select: {
       taskName: true,
@@ -29,7 +30,11 @@ const controlLastData = async (
       deletedAt: true,
     },
   });
-  if (task.deletedAt !== null) {
+  if (!task) {
+    logger.debug({ task: { controlLastData: 'task does not exist error' } });
+    throw taskDoesNotExistError;
+  } if (task.deletedAt !== null) {
+    logger.debug({ task: { controlLastData: 'task was deleted error' } });
     throw taskWasDeletedError;
   } if (
     (data.newTaskName !== undefined && data.oldTaskName !== task.taskName)
@@ -39,6 +44,7 @@ const controlLastData = async (
     || (data.newOrderInLabel !== undefined && data.oldOrderInLabel !== task.orderInLabel)
     || (data.newOrderInList !== undefined && data.oldOrderInList !== task.orderInList)
   ) {
+    logger.debug({ task: { controlLastData: 'oldDataError' } });
     throw oldDataError;
   }
   logger.debug({ task: { controlLastData: 'successfull done' } });

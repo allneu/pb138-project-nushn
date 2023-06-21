@@ -60,6 +60,8 @@ Promise<Result<TaskGetMultipleResult>> => {
       await checkSubpage(data.subpageId, tx);
       const tasks = await getSubpageTasks(tx, data);
       logger.debug({ task: { getMultiple: 'successfull done' } });
+      tasks.sort((a, b) => (
+        a.orderInList ? a.orderInList : 0) - (b.orderInList ? b.orderInList : 0));
       return Result.ok({ tasks });
     });
   } catch (e) {
