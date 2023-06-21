@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import useAuth from './useAuth';
+import useAuth from './auth/useAuth';
 import { SubpagesApi, LabelsApi } from '../services/index';
 import ViewType from '../pages/Subpage/viewType';
 

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { UsersApi } from '../services';
-import { UserCreateType } from '../models';
+import { UsersApi } from '../../services';
+import { UserCreateType } from '../../models';
 
 type UseRegisterProps = {
   redirect: string;

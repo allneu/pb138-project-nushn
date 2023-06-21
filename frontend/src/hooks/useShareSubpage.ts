@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { SubpagesApi } from '../services';
-import useAuth from './useAuth';
+import useAuth from './auth/useAuth';
 import { RoleCreateType } from '../models';
 
 const useShareSubpage = () => {

@@ -6,9 +6,9 @@ import {
   SubpageType,
   SubpageUpdateType,
   SubpageUpdateResultType,
-} from '../models';
-import useAuth from './useAuth';
-import { SubpagesApi } from '../services';
+} from '../../models';
+import useAuth from '../auth/useAuth';
+import { SubpagesApi } from '../../services';
 
 const useUpdateSubpage = () => {
   const { subpageId } = useParams();

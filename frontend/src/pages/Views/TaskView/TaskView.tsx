@@ -10,7 +10,7 @@ import { taskFormSchema, TaskFormDataType } from './taskSchema';
 
 import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import '../Views.css';
-import useUpdateTaskInfo from '../../../hooks/useUpdateTaskInfo';
+import useUpdateTaskInfo from '../../../hooks/update/useUpdateTaskInfo';
 import { LabelType, TaskType } from '../../../models';
 
 const formatDate = (date: Date) => {
@@ -39,9 +39,9 @@ function TaskView({
     formState: { errors },
   } = useForm<TaskFormDataType>({
     values: {
-      ...task,
+      ...task!,
       // date picker needs it in this format
-      dueDate: task?.dueDate.split('T')[0] || '',
+      dueDate: task!.dueDate.split('T')[0]!,
     },
     resolver: zodResolver(taskFormSchema),
   });
@@ -49,6 +49,7 @@ function TaskView({
   const { updateTaskInfo } = useUpdateTaskInfo({ taskId: taskId! });
 
   const onSubmit = (data: TaskFormDataType) => {
+    console.log(data);
     updateTaskInfo({
       ...data,
       // server needs it in this format

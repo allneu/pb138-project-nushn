@@ -10,7 +10,7 @@ import Notice from '../../components/Notice/Notice.tsx';
 import TaskView from '../Views/TaskView/TaskView.tsx';
 
 import useSubpage from '../../hooks/useSubpage';
-import useUpdateSubpage from '../../hooks/useUpdateSubpage';
+import useUpdateSubpage from '../../hooks/update/useUpdateSubpage.ts';
 import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
@@ -86,7 +86,7 @@ function Subpage() {
             <div className="subpage__separator"/>
 
             <main className="subpage__tasks">
-                {viewComponent}
+              {viewComponent}
             </main>
 
             <footer className="subpage__last-edit">

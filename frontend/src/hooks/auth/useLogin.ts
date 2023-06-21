@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { UsersApi } from '../services';
-import { UserLoginType } from '../models';
+import { UsersApi } from '../../services';
+import { UserLoginType } from '../../models';
 
 type UseLoginProps = {
   redirect: string;

@@ -17,6 +17,7 @@ function SortableItem({
     setNodeRef,
     transform,
     transition,
+    isDragging,
   } = useSortable({ id });
 
   const style = {
@@ -25,7 +26,7 @@ function SortableItem({
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} className={isDragging ? 'pointer-events-none' : ''} style={style} {...attributes} {...listeners}>
       {children}
     </div>
   );

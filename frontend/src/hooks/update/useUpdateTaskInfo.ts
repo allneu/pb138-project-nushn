@@ -6,8 +6,8 @@ import {
   LabelWithTasksType,
   TaskUpdateInfoType,
   TaskUpdateResultType,
-} from '../models';
-import { TasksApi } from '../services';
+} from '../../models';
+import { TasksApi } from '../../services';
 
 type UseUpdateTaskInfoProps = {
   taskId: string,

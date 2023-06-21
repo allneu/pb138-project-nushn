@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { SubpagesApi } from '../../services';
-import useAuth from '../useAuth';
+import useAuth from '../auth/useAuth';
 import { ResponseMulti, ResponseSingle, SubpageDeleteResultType, SubpageType } from '../../models';
 
 type UseDeleteSubpageProps = {
