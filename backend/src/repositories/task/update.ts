@@ -54,10 +54,10 @@ const updateOrderInLabel = async (
     data: {
       tasks: {
         updateMany: [{
-          where: { orderInLabel: { lt: newOrderInLabel, gt: oldOrderInLabel } },
+          where: { orderInLabel: { lte: newOrderInLabel, gt: oldOrderInLabel } },
           data: { orderInLabel: { decrement: 1 } },
         }, {
-          where: { orderInLabel: { gt: newOrderInLabel, lt: oldOrderInLabel } },
+          where: { orderInLabel: { gte: newOrderInLabel, lt: oldOrderInLabel } },
           data: { orderInLabel: { increment: 1 } },
         }, {
           where: { orderInLabel: oldOrderInLabel },

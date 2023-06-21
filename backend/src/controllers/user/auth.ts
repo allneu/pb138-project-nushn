@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import handleErrors from '../common/handleErrors';
 import UserRepos from '../../repositories/user';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 export const auth = async (req: Request, res: Response) => {
   try {
@@ -15,6 +16,8 @@ export const auth = async (req: Request, res: Response) => {
       : handleErrResp(401, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

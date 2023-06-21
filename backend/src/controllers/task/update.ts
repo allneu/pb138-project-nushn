@@ -3,6 +3,7 @@ import handleErrors from '../common/handleErrors';
 import TaskRepo from '../../repositories/task';
 import { taskIdSubpageIdSchema, taskUpdateSchema } from '../../models';
 import { handleErrResp, handleOkResp } from '../common';
+import log from '../common/log';
 
 // result code should be 201
 
@@ -17,6 +18,8 @@ const update = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

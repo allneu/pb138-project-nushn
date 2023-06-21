@@ -4,7 +4,7 @@ import { LabelCreateResult } from './labelModels';
 
 export const subpageCreateSchema = z.object({
   name: z.string().min(3),
-  description: z.string().nonempty(),
+  description: z.string(),
   icon: z.string().nonempty(),
 }).strict();
 

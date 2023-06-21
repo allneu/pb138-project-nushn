@@ -3,6 +3,7 @@ import handleErrors from '../common/handleErrors';
 import { userIdSchema, userIdSubpageIdSchema } from '../../models';
 import SubpageRepos from '../../repositories/subpage';
 import { handleErrResp, handleOkResp } from '../common';
+import log from '../common/log';
 
 // TODO: add param to choise result data
 
@@ -24,6 +25,8 @@ export const getOne = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 
@@ -36,5 +39,7 @@ export const getMultiple = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };

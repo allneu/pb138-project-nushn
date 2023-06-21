@@ -18,6 +18,9 @@ Promise<Result<LabelGetResultBody>> => {
           subPageId: data.subpageId,
           deletedAt: null,
         },
+        orderBy: {
+          orderInSubpage: 'asc',
+        },
         select: {
           id: true,
           name: true,

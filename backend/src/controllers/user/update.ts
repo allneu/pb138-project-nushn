@@ -4,6 +4,7 @@ import { userIdSchema } from '../../models/urlParamsSchema';
 import { userUpdateSchema } from '../../models/userModels';
 import UserRepos from '../../repositories/user';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 // result code should be 201
 
@@ -18,6 +19,8 @@ export const update = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

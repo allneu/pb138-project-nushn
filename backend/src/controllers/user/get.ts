@@ -4,6 +4,7 @@ import { userIdSchema } from '../../models/urlParamsSchema';
 import UserRepos from '../../repositories/user';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
 import { userGetMultipleSchema } from '../../models/userModels';
+import log from '../common/log';
 
 // TODO:
 // add get by params - username?
@@ -31,5 +32,7 @@ export const getMultiple = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };

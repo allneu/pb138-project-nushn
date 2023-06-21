@@ -3,6 +3,7 @@ import handleErrors from '../common/handleErrors';
 import { userIdSchema } from '../../models/urlParamsSchema';
 import UserRepos from '../../repositories/user';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 // result code should be 204
 
@@ -19,6 +20,8 @@ const deleteUser = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 
