@@ -2,7 +2,7 @@ import { Result } from '@badrap/result';
 import { LabelCreateResult, LabelCreateType } from '../../models/labelModels';
 import { SubpageIdType } from '../../models/urlParamsSchema';
 import client from '../client';
-import { serverInternalError, subpageDoesNotExistError } from '../../models';
+import { canNotCreateUnlabeled, serverInternalError, subpageDoesNotExistError } from '../../models';
 import logger from '../../log/log';
 
 const create = async (
@@ -11,6 +11,9 @@ const create = async (
 ): Promise<Result<LabelCreateResult>> => {
   logger.debug({ label: { create: 'start' } });
   try {
+    if (data.name === 'unlabeled') {
+      throw canNotCreateUnlabeled;
+    }
     return await client.$transaction(async (tx) => {
       const subpage = await tx.subPage.findUnique({
         where: { id: subpageId },

@@ -27,3 +27,7 @@ export const labelWasDeletedError = new Error('This label was deleted!');
 export const labelDoesNotExistError = new Error('This label does not exist!');
 
 export const wrongSubpageIdError = new Error('Wrong subpage id!');
+
+export const canNotCreateUnlabeled = new Error('Sorry, "unlabeled" is private name!');
+
+export const canNotRenameUnlabeled = new Error('Sorry, can not rename "unlabeled"!');

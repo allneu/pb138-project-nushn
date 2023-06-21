@@ -3,6 +3,8 @@ import { LabelUpdateResult, LabelUpdateType } from '../../models/labelModels';
 import client from '../client';
 import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import {
+  canNotCreateUnlabeled,
+  canNotRenameUnlabeled,
   labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageIdError,
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
@@ -45,6 +47,11 @@ const update = async (
 ): Promise<Result<LabelUpdateResult>> => {
   logger.info({ label: { update: 'start' } });
   try {
+    if (data.newName === 'unlabeled') {
+      throw canNotCreateUnlabeled;
+    } if (data.oldName === 'unlabeled') {
+      throw canNotRenameUnlabeled;
+    }
     return await client.$transaction(async (tx) => {
       const { labelId, subpageId } = params;
       await controlLastData(data, params, tx);
