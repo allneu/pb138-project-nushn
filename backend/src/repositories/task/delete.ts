@@ -41,7 +41,6 @@ const deleteTask = async (
       } if (!taskData.orderInList && taskData.orderInList !== 0) {
         throw serverInternalError;
       }
-
       await tx.label.update({
         where: { id: taskData.labelId },
         data: {
