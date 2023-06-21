@@ -53,7 +53,7 @@ export type LabelGetResultBody = {
     id: string;
     createdAt: Date;
     taskName: string;
-    dueDate: Date;
+    dueDate: string;
     content: string;
     creator: {
       id: string;

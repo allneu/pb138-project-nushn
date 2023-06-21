@@ -74,7 +74,7 @@ export type TaskUpdateType = z.infer<typeof taskUpdateSchema>;
 export type TaskUpdateResult = { // return only id and updated data
   id: string,
   taskName?: string,
-  dueDate?: Date,
+  dueDate?: string,
   content?: string,
   labelId?: string,
   orderInList?: number | null,
