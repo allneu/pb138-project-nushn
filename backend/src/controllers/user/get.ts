@@ -25,10 +25,10 @@ export const getOne = async (req: Request, res: Response) => {
 
 export const getMultiple = async (req: Request, res: Response) => {
   try {
-    const params = userGetMultipleSchema.parse(req.params);
-    const response = await UserRepos.getMultiple(params);
+    const { count, username } = userGetMultipleSchema.parse(req.params);
+    const response = await UserRepos.getMultiple({ count: Number(count), username: username ?? '' });
     return response.isOk
-      ? handleOkResp(200, response.value, res, `Listed first ${params.count} user theirs username contain: ${params.username}.`)
+      ? handleOkResp(200, response.value, res, `Listed first ${count} user theirs username contain: ${username}.`)
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
