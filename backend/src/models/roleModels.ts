@@ -16,8 +16,8 @@ export interface Role {
 }
 
 export const roleUpdateSchema = z.object({
-  oldRole: z.enum(['OWNER', 'EDITOR']),
-  newRole: z.enum(['OWNER', 'EDITOR']),
+  oldRole: z.enum([RoleType.EDITOR, RoleType.OWNER]),
+  newRole: z.enum([RoleType.EDITOR, RoleType.OWNER]),
   userId: z.string().uuid().nonempty(),
 }).strict();
 

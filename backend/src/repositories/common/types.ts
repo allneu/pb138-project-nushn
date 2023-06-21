@@ -8,10 +8,6 @@ PrismaClient,
 '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'
 >;
 
-export const genericError = Result.err(
-  new Error('Sorry. Some error has occured.'),
-);
-
 export type TransactionCheckOperationResult = Promise<Result<object>>;
 
 export default DbResult;

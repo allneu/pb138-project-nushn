@@ -1,8 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import { checkUser } from '../common/common';
-import { UserDeleteType } from '../../models/userModels';
-import { Deleted } from '../../models/common';
+import { Deleted, UserDeleteType } from '../../models';
 
 const deleteUser = async (data: UserDeleteType): Promise<Result<Deleted>> => {
   try {
