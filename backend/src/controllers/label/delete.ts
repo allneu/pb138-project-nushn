@@ -15,7 +15,7 @@ import log from '../common/log';
 const deleteLabel = async (req: Request, res: Response) => {
   try {
     const params = labelIdSubpageIdSchema.parse(req.params);
-    const response = await LabelRepo.deleteLabel(params);
+    const response = await LabelRepo.delete(params);
     return response.isOk
       ? handleOkResp(200, response.value, res, `Deleted label with id ${params.labelId}`)
       : handleErrResp(500, response.error, res, response.error.message);

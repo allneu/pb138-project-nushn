@@ -1,8 +1,7 @@
 import type { Request, Response } from 'express';
-import getLogger from '../../log/log';
+import logger from '../../log/log';
 
 const log = (req: Request, res: Response) => {
-  const logger = getLogger(true);
   logger.info({
     time: Date(),
     req: {

@@ -50,7 +50,7 @@ function NewTask({ labelId }: NewTaskProps) {
   function handleAddNewTask() {
     const newTask: TaskCreateType = {
       taskName: 'Untitled',
-      dueDate: new Date(),
+      dueDate: (new Date()).toISOString(),
       content: '',
       creatorId: userId || '',
       ...(labelId && { labelId }),

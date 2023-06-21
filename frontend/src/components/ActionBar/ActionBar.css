@@ -3,12 +3,12 @@
         pb-3 lg:pb-2 pt-2 lg:pt-5 lg:gap-6;
 }
 
-.subpage-options {
-    @apply flex gap-2.5;
+.view-options {
+    @apply flex gap-3;
 }
 
 .option {
-    @apply lg:flex lg:items-center lg:gap-1;
+    @apply lg:flex lg:items-center lg:gap-1.5 hover:cursor-pointer;
 }
 
 .option__name {

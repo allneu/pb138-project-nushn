@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import AutosizeInput from 'react-textarea-autosize';
@@ -7,6 +7,7 @@ import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
 import ListView from '../../components/ListView/ListView.tsx';
 import Notice from '../../components/Notice/Notice.tsx';
+import TaskView from '../Views/TaskView/TaskView.tsx';
 
 import useSubpage from '../../hooks/useSubpage';
 import useUpdateSubpage from '../../hooks/useUpdateSubpage';
@@ -28,6 +29,13 @@ function Subpage() {
   } = useSubpage();
 
   const { updateSubpage } = useUpdateSubpage();
+
+  const allLabels = labelsWithTasks ? labelsWithTasks.data.map(
+    (labelWithTasks) => {
+      const { tasks, ...label } = labelWithTasks;
+      return label;
+    },
+  ) : [];
 
   const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
     (labelWithTasks) => labelWithTasks.tasks,
@@ -86,7 +94,9 @@ function Subpage() {
             </footer>
         </div>
 
-        <Outlet />
+        <Routes>
+          <Route path="task/:taskId" element={<TaskView tasks={allTasks} labels={allLabels} />} />
+        </Routes>
     </>
   );
 }

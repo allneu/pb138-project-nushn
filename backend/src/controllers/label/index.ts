@@ -5,7 +5,7 @@ import { update } from './update';
 
 export default {
   create,
-  deleteLabel,
+  delete: deleteLabel,
   get,
   update,
 };

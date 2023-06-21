@@ -21,6 +21,6 @@ labelRouter.patch(labelRouteSpecific, auth(), LabelController.update);
 
 // Delete Label
 // DELETE /subpage/{subpageId}/label/{labelId}
-labelRouter.delete(labelRouteSpecific, auth(), LabelController.deleteLabel);
+labelRouter.delete(labelRouteSpecific, auth(), LabelController.delete);
 
 export default labelRouter;

@@ -3,17 +3,19 @@ import { LabelUpdateResult, LabelUpdateType } from '../../models/labelModels';
 import client from '../client';
 import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import {
-  labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageId,
+  canNotCreateUnlabeled,
+  canNotRenameUnlabeled,
+  labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageIdError,
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
-import getLogger from '../../log/log';
+import logger from '../../log/log';
 
 const controlLastData = async (
   data: LabelUpdateType,
   { labelId, subpageId }: LabelIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
-  getLogger(true).info({ label: { controlLastData: 'start' } });
+  logger.info({ label: { controlLastData: 'start' } });
   const label = await tx.label.findUnique({
     where: { id: labelId },
     select: {
@@ -26,7 +28,7 @@ const controlLastData = async (
   if (!label) {
     throw labelDoesNotExistError;
   } if (label.subPageId !== subpageId) {
-    throw wrongSubpageId;
+    throw wrongSubpageIdError;
   } if (label.deletedAt !== null) {
     throw labelWasDeletedError;
   } if (
@@ -35,7 +37,7 @@ const controlLastData = async (
   ) {
     throw oldDataError;
   }
-  getLogger(true).info({ label: { controlLastData: 'succefull done' } });
+  logger.info({ label: { controlLastData: 'succefull done' } });
   return true;
 };
 
@@ -43,8 +45,13 @@ const update = async (
   data: LabelUpdateType,
   params: LabelIdSubpageIdType,
 ): Promise<Result<LabelUpdateResult>> => {
-  getLogger(true).info({ label: { update: 'start' } });
+  logger.info({ label: { update: 'start' } });
   try {
+    if (data.newName === 'unlabeled') {
+      throw canNotCreateUnlabeled;
+    } if (data.oldName === 'unlabeled') {
+      throw canNotRenameUnlabeled;
+    }
     return await client.$transaction(async (tx) => {
       const { labelId, subpageId } = params;
       await controlLastData(data, params, tx);
@@ -83,7 +90,7 @@ const update = async (
         });
       }
 
-      getLogger(true).info({ label: { update: 'succefull done' } });
+      logger.info({ label: { update: 'successfull done' } });
 
       return Result.ok({
         id: labelId,
@@ -92,7 +99,7 @@ const update = async (
       });
     });
   } catch (e) {
-    getLogger(true).info({ label: { update: 'Error' } });
+    logger.info({ label: { update: 'error' } });
     return Result.err(e as Error);
   }
 };

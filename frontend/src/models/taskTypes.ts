@@ -2,14 +2,15 @@ import EmptyObject from './emptyObject';
 
 export type TaskCreateType = {
   taskName: string,
-  dueDate: Date,
+  dueDate: string,
   content: string,
   labelId?: string,
   creatorId: string,
 };
 
-export type TaskCreateResultType = Omit<TaskCreateType, 'creatorId'> & {
+export type TaskCreateResultType = Omit<TaskCreateType, 'labelId' | 'creatorId'> & {
   id: string,
+  labelId: string,
   creator: {
     id: string,
     username: string,
@@ -23,24 +24,33 @@ export type TaskCreateResultType = Omit<TaskCreateType, 'creatorId'> & {
 export type TaskType = TaskCreateResultType;
 
 export type TaskUpdateType = {
-  oldTaskName?: string,
-  oldDueDate?: Date,
-  oldContent?: string,
-  oldLabelId?: string,
-  oldOrderInList?: number,
-  oldOrderInLabel?: number,
-  newTaskName?: string,
-  newDueDate?: Date,
-  newContent?: string,
-  newLabelId?: string,
-  newOrderInList?: number,
-  newOrderInLabel?: number,
+  taskName?: string,
+  dueDate?: string,
+  content?: string,
+  labelId?: string,
+  orderInList?: number,
+  orderInLabel?: number,
+};
+
+export type TaskUpdateSendType = {
+  oldTaskName: string | undefined,
+  oldDueDate: string | undefined,
+  oldContent: string | undefined,
+  oldLabelId: string | undefined,
+  oldOrderInList: number | undefined,
+  oldOrderInLabel: number | undefined,
+  newTaskName: string | undefined,
+  newDueDate: string | undefined,
+  newContent: string | undefined,
+  newLabelId: string | undefined,
+  newOrderInList: number | undefined,
+  newOrderInLabel: number | undefined,
 };
 
 export type TaskUpdateResultType = {
   id: string,
   taskName?: string,
-  dueDate?: Date,
+  dueDate?: string,
   content?: string,
   labelId?: string,
   orderInList?: number,

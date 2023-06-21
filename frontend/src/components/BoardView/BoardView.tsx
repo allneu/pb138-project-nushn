@@ -51,9 +51,9 @@ function BoardView({
             <LabelTasks key={labelWithTasks.id} labelWithTasks={labelWithTasks} />
           ))
         }
-        <div className='board-view__new-label' onClick={handleAddNewLabel}>
+        <div className='new-label' onClick={handleAddNewLabel}>
           <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
-          <span className="text-sm font-semibold hover:bg-gray-200">Add new label</span>
+          <span className="new-label__text">Add new label</span>
         </div>
       </div>
     </div>

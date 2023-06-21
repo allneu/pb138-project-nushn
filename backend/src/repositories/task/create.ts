@@ -3,7 +3,7 @@ import { checkLabel } from '../common/common';
 import client from '../client';
 import { SubpageIdType, Task, TaskCreateType } from '../../models';
 import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
-import getLogger from '../../log/log';
+import logger from '../../log/log';
 
 const create = async (
   { labelId, image, ...data }: TaskCreateType,
@@ -22,7 +22,7 @@ const create = async (
       const highestLabelOrder = await getHighestLabelOrder(labelIdToUse, tx);
       const highestListOrder = await getHighestListOrder(labelIdToUse, tx);
 
-      getLogger(false).info({ hLabelO: highestLabelOrder, hListO: highestListOrder });
+      logger.info({ hLabelO: highestLabelOrder, hListO: highestListOrder });
 
       const img = image ? { image } : {};
 

@@ -7,36 +7,55 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 import { taskFormSchema, TaskFormDataType } from './taskSchema';
-import defaultTaskValues from './defaultTaskValues';
 
 import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import '../Views.css';
+import useUpdateTask from '../../../hooks/useUpdateTask';
+import { LabelType, TaskType } from '../../../models';
 
-function TaskView() {
+const formatDate = (date: Date) => {
+  const dateOnly = (new Date(date)).toISOString().split('T')[0];
+  const [year, month, day] = dateOnly!.split('-');
+  return `${day}. ${month}. ${year}`;
+};
+
+type TaskViewProps = {
+  tasks: TaskType[],
+  labels: LabelType[],
+};
+
+function TaskView({
+  tasks,
+  labels,
+}: TaskViewProps) {
   const { subpageId, taskId } = useParams();
   const navigate = useNavigate();
+
+  const task = tasks.find((t) => t.id === taskId);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TaskFormDataType>({
-    values: defaultTaskValues,
+    values: {
+      ...task!,
+      // date picker needs it in this format
+      dueDate: task!.dueDate.split('T')[0]!,
+    },
     resolver: zodResolver(taskFormSchema),
   });
 
-  // to-do: onSubmit update/create task
+  const { updateTask } = useUpdateTask({ taskId: taskId! });
+
   const onSubmit = (data: TaskFormDataType) => {
-    console.log(data);
+    updateTask({
+      ...data,
+      // server needs it in this format
+      dueDate: (new Date(data.dueDate)).toISOString(),
+    });
     navigate(`/auth/subpage/${subpageId}`);
   };
-
-  // dummy labels, to-do: get them from backend
-  const labels: {
-    id: string, name: string
-  }[] = [
-    { name: 'unlabeled', id: '1' },
-  ];
 
   return (
     <form className="task-view" onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +84,7 @@ function TaskView() {
                         <FontAwesomeIcon className='icon' icon={projectIcons.clock.split(' ') as IconProp} />
                         <span>Created</span>
                     </div>
-                    <span>Now</span>
+                    <span>{formatDate(task!.createdAt)}</span>
                 </div>
 
                 <div className='detail'>

@@ -1,5 +1,5 @@
 .columns-wrapper {
-    @apply flex flex-col lg:flex-row flex-grow lg:pt-5 lg:gap-6;
+    @apply flex flex-col lg:flex-row flex-grow lg:pt-7 lg:gap-6;
 }
 
 .label-tasks {
@@ -8,11 +8,11 @@
 }
 
 .label {
-    @apply flex items-center py-2.5 lg:py-1 gap-4;
+    @apply flex items-center py-2.5 lg:pt-0 gap-4;
 }
 
 .label-name {
-    @apply text-notion text-sm font-bold;
+    @apply text-notion text-sm leading-[0.875rem] font-bold;
     @apply max-h-16 overflow-scroll focus:outline-none;
 }
 
@@ -24,7 +24,11 @@
     @apply lg:hidden;
 }
 
-.board-view__new-label {
+.new-label {
     @apply flex justify-center items-center gap-1.5;
     @apply lg:items-start lg:pt-0 px-5 lg:pl-0 lg:pr-20 py-6 lg:pb-0;
+}
+
+.new-label__text {
+    @apply text-notion text-sm leading-[0.875rem] font-semibold hover:bg-gray-200 hover:cursor-pointer;
 }
