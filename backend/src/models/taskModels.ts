@@ -6,7 +6,7 @@ export const taskCreateSchema = z.object({
   content: z.string(),
   creatorId: z.string().uuid().nonempty(),
   labelId: z.string().uuid().optional(),
-  image: z.string(),
+  image: z.string().optional(),
 }).strict();
 
 export type TaskCreateType = z.infer<typeof taskCreateSchema>;
