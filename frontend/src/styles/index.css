@@ -8,7 +8,7 @@
 }
 
 .icon {
-    @apply text-notion-icon w-4 h-4;
+    @apply text-notion-icon w-4 h-4 self-center;
 }
 
 .input-with-errors {

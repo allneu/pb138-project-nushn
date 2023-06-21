@@ -60,8 +60,10 @@ function BoardView({
           }
         </DndContext>
         <div className='new-label' onClick={handleAddNewLabel}>
-          <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
-          <span className="new-label__text">Add new label</span>
+          <div className='flex gap-2'>
+            <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
+            <span className="new-label__text">Add new label</span>
+          </div>
         </div>
       </div>
     </div>
