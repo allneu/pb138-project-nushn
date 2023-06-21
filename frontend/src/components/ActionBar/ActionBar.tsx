@@ -23,9 +23,8 @@ function ActionBar({ onViewChange }: ActionBarProps) {
   return (
     <div className="action-bar">
         <div className="subpage-options">
-          {/* <FontAwesomeIcon className='icon' icon={projectIcons.share.split(' ') as IconProp} /> */}
           <ShareDialog />
-          <FontAwesomeIcon className='icon' icon={projectIcons.delete.split(' ') as IconProp} onClick={handleDeleteSubpage} />
+          <FontAwesomeIcon className='icon hover:scale-110' icon={projectIcons.delete.split(' ') as IconProp} onClick={handleDeleteSubpage} />
         </div>
         <div className="subpage-options">
             <div className="option" onClick={() => onViewChange('board')}>
