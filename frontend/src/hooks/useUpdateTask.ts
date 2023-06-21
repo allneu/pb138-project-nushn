@@ -25,9 +25,10 @@ const useUpdateTask = ({
     const task = labelsWithTasks?.data.flatMap(
       (labelWithTasks) => labelWithTasks.tasks,
     ).find((t) => t.id === taskId);
-    const a = {
+    return {
       oldTaskName: newData.taskName ? task?.taskName : undefined,
-      oldDueDate: newData.dueDate ? task?.dueDate : undefined,
+      // server needs it in this format
+      oldDueDate: newData.dueDate ? (new Date(task!.dueDate)).toISOString() : undefined,
       oldContent: newData.content ? task?.content : undefined,
       oldLabelId: newData.labelId ? task?.labelId : undefined,
       oldOrderInList: newData.orderInList ? task?.orderInList : undefined,
@@ -39,8 +40,6 @@ const useUpdateTask = ({
       newOrderInList: newData.orderInList,
       newOrderInLabel: newData.orderInLabel,
     };
-    console.log(a);
-    return a;
   };
 
   const updateTaskFn = (
@@ -57,7 +56,7 @@ const useUpdateTask = ({
         (mappedTask) => ((mappedTask.id === taskId)
           ? {
             ...mappedTask,
-            ...updateTaskResponse,
+            ...updateTaskResponse.data,
           } : { ...mappedTask }),
       ),
     }),

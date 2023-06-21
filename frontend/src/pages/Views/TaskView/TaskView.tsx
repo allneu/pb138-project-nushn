@@ -13,6 +13,12 @@ import '../Views.css';
 import useUpdateTask from '../../../hooks/useUpdateTask';
 import { LabelType, TaskType } from '../../../models';
 
+const formatDate = (date: Date) => {
+  const dateOnly = (new Date(date)).toISOString().split('T')[0];
+  const [year, month, day] = dateOnly!.split('-');
+  return `${day}. ${month}. ${year}`;
+};
+
 type TaskViewProps = {
   tasks: TaskType[],
   labels: LabelType[],
@@ -34,6 +40,7 @@ function TaskView({
   } = useForm<TaskFormDataType>({
     values: {
       ...task!,
+      // date picker needs it in this format
       dueDate: task!.dueDate.split('T')[0]!,
     },
     resolver: zodResolver(taskFormSchema),
@@ -42,9 +49,9 @@ function TaskView({
   const { updateTask } = useUpdateTask({ taskId: taskId! });
 
   const onSubmit = (data: TaskFormDataType) => {
-    console.log(data);
     updateTask({
       ...data,
+      // server needs it in this format
       dueDate: (new Date(data.dueDate)).toISOString(),
     });
     navigate(`/auth/subpage/${subpageId}`);
@@ -77,7 +84,7 @@ function TaskView({
                         <FontAwesomeIcon className='icon' icon={projectIcons.clock.split(' ') as IconProp} />
                         <span>Created</span>
                     </div>
-                    <span>Now</span>
+                    <span>{formatDate(task!.createdAt)}</span>
                 </div>
 
                 <div className='detail'>
