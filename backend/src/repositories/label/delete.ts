@@ -58,7 +58,7 @@ const deleteLabel = async (
           },
         })
       );
-      logger.debug({ label: { delete: 'susseful done' } });
+      logger.debug({ label: { delete: 'successfull done' } });
       return Result.ok({ labelId });
     });
   } catch (e) {

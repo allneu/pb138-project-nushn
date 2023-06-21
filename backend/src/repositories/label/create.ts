@@ -43,7 +43,7 @@ const create = async (
           createdAt: true,
         },
       });
-      logger.debug({ label: { create: 'susseful done' } });
+      logger.debug({ label: { create: 'successfull done' } });
       return Result.ok(newLabel);
     });
   } catch (e) {

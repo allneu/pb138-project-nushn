@@ -83,7 +83,7 @@ const update = async (
         });
       }
 
-      logger.info({ label: { update: 'succefull done' } });
+      logger.info({ label: { update: 'successfull done' } });
 
       return Result.ok({
         id: labelId,
@@ -92,7 +92,7 @@ const update = async (
       });
     });
   } catch (e) {
-    logger.info({ label: { update: 'Error' } });
+    logger.info({ label: { update: 'error' } });
     return Result.err(e as Error);
   }
 };
