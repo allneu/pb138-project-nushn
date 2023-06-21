@@ -3,7 +3,7 @@
 }
 
 .subpage-form {
-    @apply px-6 lg:px-16;
+    @apply px-6 lg:px-16 shadow-md;
 }
 
 .name-wrapper {

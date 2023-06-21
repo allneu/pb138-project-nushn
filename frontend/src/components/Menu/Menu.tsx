@@ -104,7 +104,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
             ))}
         </div>
 
-        <div className="menu__subpage border-gray-200 shadow-md" onClick={handleAddNewSubpage}>
+        <div className="subpage-item border-gray-200 shadow-md" onClick={handleAddNewSubpage}>
             <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             <span className="name">New subpage</span>
         </div>
