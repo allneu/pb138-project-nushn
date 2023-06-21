@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import handleErrors from '../common/handleErrors';
 import TaskRepo from '../../repositories/task';
 import { handleOkResp } from '../common/handleResponse';
-import { subpageIdSchema, taskCreateSchema } from '../../models';
+import { subpageIdSchema, taskCreateSchema, userHasNotPermissionError } from '../../models';
 import log from '../common/log';
 
 const create = async (req: Request, res: Response) => {
@@ -10,7 +10,11 @@ const create = async (req: Request, res: Response) => {
     const data = taskCreateSchema.parse(req.body);
     const params = subpageIdSchema.parse(req.params);
     subpageIdSchema.parse(req.params);
-    const response = await TaskRepo.create(data, params);
+    const userId = req.session.user?.id;
+    if (!userId) {
+      throw userHasNotPermissionError;
+    }
+    const response = await TaskRepo.create(data, params, { userId });
     return response.isOk
       ? handleOkResp(201, response.value, res, `Created label with id: ${response.value.id}`)
       : handleErrors(response.error, res);

@@ -1,13 +1,15 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import {
-  TaskDeleteResult, TaskIdSubpageIdType, serverInternalError, taskDoesNotExistError,
+  TaskDeleteResult, TaskIdSubpageIdType, UserIdType, serverInternalError, taskDoesNotExistError,
   taskWasDeletedError, wrongSubpageIdError,
 } from '../../models';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const deleteTask = async (
   { taskId, subpageId }: TaskIdSubpageIdType,
+  { userId }: UserIdType,
 ): Promise<Result<TaskDeleteResult>> => {
   logger.debug({ task: { deleteTask: 'start' } });
   try {
@@ -79,6 +81,7 @@ const deleteTask = async (
           },
         });
       }));
+      subpageEditCreate({ subpageId, userId }, new Date(), tx);
       logger.debug({ task: { deleteTask: 'successfull done' } });
       return Result.ok({ taskId, labelId: taskData.labelId });
     });
