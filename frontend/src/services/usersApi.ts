@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   UserLoginType,
   UserLoginResultType,
@@ -10,6 +11,7 @@ import {
   UserDeleteResultType,
   ResponseSingle,
   ResponseMulti,
+  UsersSearchType,
 } from '../models';
 import axiosInstance from './base';
 
@@ -41,8 +43,8 @@ Promise<ResponseSingle<UserType>> => {
   return response.data;
 };
 
-export const getAll = async (): Promise<ResponseMulti<UserType>> => {
-  const response = await axiosInstance.get('/user');
+export const getAll = async (body: UsersSearchType): Promise<ResponseMulti<UserType>> => {
+  const response = await axiosInstance.get('/user', { params: body });
   return response.data;
 };
 

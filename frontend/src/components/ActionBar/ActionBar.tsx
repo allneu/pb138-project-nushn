@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useParams } from 'react-router-dom';
 
 import './ActionBar.css';
 import ViewType from '../../pages/Subpage/viewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import UseDeleteSubpage from '../../hooks/delete/useDeleteSubpage';
-import { useParams } from 'react-router-dom';
+import ShareDialog from '../Dialogs/ShareDialog/ShareDialog.tsx';
 
 type ActionBarProps = {
   onViewChange: (newView: ViewType) => void;
@@ -22,7 +23,8 @@ function ActionBar({ onViewChange }: ActionBarProps) {
   return (
     <div className="action-bar">
         <div className="subpage-options">
-          <FontAwesomeIcon className='icon' icon={projectIcons.share.split(' ') as IconProp} />
+          {/* <FontAwesomeIcon className='icon' icon={projectIcons.share.split(' ') as IconProp} /> */}
+          <ShareDialog />
           <FontAwesomeIcon className='icon' icon={projectIcons.delete.split(' ') as IconProp} onClick={handleDeleteSubpage} />
         </div>
         <div className="subpage-options">

@@ -24,7 +24,7 @@ const useDeleteTask = ({ redirect }: UseDeleteTaskProps) => {
               if (label.id === deletedTask.data.labelId) {
                 return {
                   ...label,
-                  tasks: label.tasks.filter((t) => t.id !== deletedTask.data.id),
+                  tasks: label.tasks.filter((t) => t.id !== deletedTask.data.taskId),
                 };
               }
               return label;

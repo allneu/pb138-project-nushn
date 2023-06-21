@@ -37,5 +37,5 @@ export type LabelUpdateResultType = {
 };
 
 export type LabelDeleteResultType = {
-  id: string,
+  labelId: string,
 };

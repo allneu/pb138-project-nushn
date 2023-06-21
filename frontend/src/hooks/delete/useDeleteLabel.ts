@@ -15,7 +15,7 @@ const useDeleteLabel = () => {
         (oldData) => (oldData
           ? {
             ...oldData,
-            data: oldData.data.filter((label) => label.id !== deletedLabel.data.id),
+            data: oldData.data.filter((label) => label.id !== deletedLabel.data.labelId),
           }
           : undefined),
       );

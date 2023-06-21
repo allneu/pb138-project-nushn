@@ -48,6 +48,6 @@ export type TaskUpdateResultType = {
 };
 
 export type TaskDeleteResultType = {
-  id: string,
+  taskId: string,
   labelId?: string,
 };

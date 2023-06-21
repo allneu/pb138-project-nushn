@@ -26,7 +26,7 @@ function IconSelector({ selectedIcon, setSelectedIcon, icons }: IconSelectorProp
     <>
     <div className={`bcg ${open ? '' : 'dialog--close'}`} onClick={toggleDialog}/>
     <div className='icon-selector self-center'>
-      <FontAwesomeIcon className='icon-selector__icon icon' icon={selectedIcon.split(' ') as IconProp} onClick={toggleDialog}/>
+      <FontAwesomeIcon className='dialog-icon icon' icon={selectedIcon.split(' ') as IconProp} onClick={toggleDialog}/>
       <div className='absolute z-1'>
         <dialog className={`dialog ${open ? '' : 'dialog--close'}`} open={open}>
           <div className="icons-wrapper">

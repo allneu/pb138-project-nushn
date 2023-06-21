@@ -1,10 +1,9 @@
-.icon-selector__icon, .dialog-icon {
-    @apply w-[1.3rem] h-[1.3rem] rounded-md cursor-pointer m-[0.1rem];
-    @apply flex flex-col left-0;
-}
-
 .dialog {
   @apply w-[17rem] h-[15rem] flex flex-col rounded-2xl border border-gray-300 drop-shadow-xl;
+}
+
+.delete-dialog {
+    @apply w-fit h-fit;
 }
 
 .dialog--close {
@@ -19,12 +18,14 @@
     @apply overflow-y-auto grid grid-cols-5 p-[0.5rem] gap-5;
 }
 
-.user {
-    @apply flex flex-row gap-2;
+.dialog-icon {
+    @apply w-[1.3rem] h-[1.3rem] rounded-md cursor-pointer m-[0.1rem];
+    @apply flex flex-col left-0;
+    @apply hover:scale-125;
 }
 
-.dialog-icon {
-    @apply hover:scale-125;
+.user, .delete {
+    @apply flex flex-row gap-2 items-center;
 }
 
 .close-btn {

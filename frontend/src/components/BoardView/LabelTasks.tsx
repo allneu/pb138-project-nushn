@@ -14,6 +14,8 @@ import NewTask from '../Task/NewTask.tsx';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './BoardView.css';
+import useDeleteLabel from '../../hooks/delete/useDeleteLabel';
+import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog.tsx';
 
 type LabelTasksProps = {
   labelWithTasks: LabelWithTasksType,
@@ -23,6 +25,7 @@ function LabelTasks({
   labelWithTasks,
 } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
+  const { deleteLabel } = useDeleteLabel();
 
   const {
     register,
@@ -43,11 +46,14 @@ function LabelTasks({
       <div>
         <form className="label">
             <div className="input-with-errors">
+              <div className='flex'>
                 <AutosizeInput
                     className="label-name"
                     placeholder='Label name'
                     {...register('name', { onBlur: handleSubmit(onSubmit) })}
                 />
+                <DeleteDialog deleteEntity={() => deleteLabel(labelWithTasks.id)} />
+                </div>
                 {errors.name && <span className="validation-error">{errors.name.message}</span>}
             </div>
             <div className="label__line"/>
