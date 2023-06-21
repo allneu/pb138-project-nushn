@@ -2,50 +2,61 @@ import { Result } from '@badrap/result';
 // TODO add LabelResultBody to import and return right value
 import { LabelGetResultBody } from '../../models/labelModels';
 import { SubpageIdType } from '../../models/urlParamsSchema';
-import { checkSubpage } from '../common/common';
 import client from '../client';
+import { subpageDoesNotExistError, subpageWasDeletedError } from '../../models';
+import logger from '../../log/log';
 
-const get = async (data: SubpageIdType):
+const get = async ({ subpageId }: SubpageIdType):
 Promise<Result<LabelGetResultBody>> => {
+  logger.debug({ label: { get: 'start' } });
   try {
     return await client.$transaction(async (tx) => {
-      const subPageExists = await checkSubpage(data.subpageId, tx);
-      if (subPageExists.isErr) {
-        return Result.err(subPageExists.error);
-      }
-      const labels = await tx.label.findMany({
-        where: {
-          subPageId: data.subpageId,
-          deletedAt: null,
-        },
-        orderBy: {
-          orderInSubpage: 'asc',
-        },
+      const subpage = await tx.subPage.findUnique({
+        where: { id: subpageId },
         select: {
-          id: true,
-          name: true,
-          orderInSubpage: true,
-          createdAt: true,
-          tasks: {
-            where: { deletedAt: null },
+          deletedAt: true,
+          labels: {
+            where: {
+              deletedAt: null,
+            },
+            orderBy: {
+              orderInSubpage: 'asc',
+            },
             select: {
               id: true,
-              taskName: true,
-              dueDate: true,
-              content: true,
-              creator: true,
-              labelId: true,
-              orderInLabel: true,
-              orderInList: true,
+              name: true,
+              orderInSubpage: true,
               createdAt: true,
+              tasks: {
+                where: { deletedAt: null },
+                select: {
+                  id: true,
+                  taskName: true,
+                  dueDate: true,
+                  content: true,
+                  creator: true,
+                  labelId: true,
+                  orderInLabel: true,
+                  orderInList: true,
+                  createdAt: true,
+                },
+              },
             },
           },
         },
       });
-      return Result.ok(labels);
+
+      if (!subpage) {
+        throw subpageDoesNotExistError;
+      } if (subpage.deletedAt) {
+        throw subpageWasDeletedError;
+      }
+      logger.debug({ label: { get: 'successfull done' } });
+      return Result.ok(subpage.labels);
     });
-  } catch {
-    return Result.err(new Error('There was a problem getting labels'));
+  } catch (e) {
+    logger.debug({ label: { get: 'error' } });
+    return Result.err(e as Error);
   }
 };
 
