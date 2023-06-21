@@ -9,6 +9,7 @@ import {
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const controlLastData = async (
   data: LabelUpdateType,
@@ -44,6 +45,7 @@ const controlLastData = async (
 const update = async (
   data: LabelUpdateType,
   params: LabelIdSubpageIdType,
+  userId: string,
 ): Promise<Result<LabelUpdateResult>> => {
   logger.info({ label: { update: 'start' } });
   try {
@@ -89,7 +91,7 @@ const update = async (
           },
         });
       }
-
+      subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.info({ label: { update: 'successfull done' } });
 
       return Result.ok({
