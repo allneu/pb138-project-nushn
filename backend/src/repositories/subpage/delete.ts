@@ -1,6 +1,6 @@
 import { Result } from '@badrap/result';
 import {
-  Deleted, UserIdSubpageIdType, subpageDoesNotExistError, subpageWasDeletedError,
+  SubpageIdType, UserIdSubpageIdType, subpageDoesNotExistError, subpageWasDeletedError,
   userHasNotPermissionError, userWasDeletedError,
 } from '../../models';
 import client from '../client';
@@ -44,7 +44,7 @@ const subpageLabelsRoleDelete = async (
   deletedAt: Date,
   tx: PrismaTransactionHandle,
 ) => {
-  await tx.subPage.update({
+  const updated = await tx.subPage.update({
     where: {
       id: subpageId,
     },
@@ -65,7 +65,11 @@ const subpageLabelsRoleDelete = async (
         },
       },
     },
+    select: {
+      id: true,
+    },
   });
+  return updated.id;
 };
 
 const tasksDelete = async (
@@ -84,18 +88,18 @@ const tasksDelete = async (
 
 const deleteSubpage = async (
   params: UserIdSubpageIdType,
-): Promise<Result<Deleted>> => {
+): Promise<Result<SubpageIdType>> => {
   try {
     return Result.ok(
       await client.$transaction(async (tx: PrismaTransactionHandle) => {
         await canDelete(params, tx);
         const deletedAt = new Date();
+        const id = await subpageLabelsRoleDelete(params, deletedAt, tx);
         await (
-          subpageLabelsRoleDelete(params, deletedAt, tx),
           subpageEditCreate(params, deletedAt, tx),
           tasksDelete(params, deletedAt, tx)
         );
-        return {};
+        return { subpageId: id };
       }),
     );
   } catch (e) {

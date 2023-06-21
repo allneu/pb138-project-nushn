@@ -9,6 +9,7 @@ import ListView from '../../components/ListView/ListView.tsx';
 import Notice from '../../components/Notice/Notice.tsx';
 
 import useSubpage from '../../hooks/useSubpage';
+import useUpdateSubpage from '../../hooks/useUpdateSubpage';
 import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
@@ -26,12 +27,14 @@ function Subpage() {
     errors,
   } = useSubpage();
 
+  const { updateSubpage } = useUpdateSubpage();
+
   const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
     (labelWithTasks) => labelWithTasks.tasks,
   ) : [];
 
   const onSubmit = (data: SubpageFormDataType) => {
-    console.log(data);
+    updateSubpage(data);
   };
 
   let viewComponent: JSX.Element;

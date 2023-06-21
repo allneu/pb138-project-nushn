@@ -1,10 +1,10 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import { userWasDeletedError } from '../../models';
-import { UserGetSpecificResult } from '../../models/userModels';
+import { User } from '../../models/userModels';
 import userSelect from '../common/user';
 
-export const auth = async (id: string): Promise<Result<UserGetSpecificResult>> => {
+export const auth = async (id: string): Promise<Result<User>> => {
   try {
     return await client.$transaction(async (tx) => {
       const { deletedAt, ...user } = await tx.user.findUniqueOrThrow({

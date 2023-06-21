@@ -45,3 +45,6 @@ yarn.lock
 
 **/migrations
 **/docker-data
+
+# ignore .log files
+**/.log

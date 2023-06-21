@@ -19,8 +19,11 @@ function SignUpPage() {
   const { signup } = useSignup({ redirect: '/' });
 
   const onSubmit = (data: SignUpFormDataType) => {
-    console.log(data);
-    signup(data);
+    const newUser = {
+      ...data,
+      avatar: selectedIcon,
+    };
+    signup(newUser);
   };
 
   return (

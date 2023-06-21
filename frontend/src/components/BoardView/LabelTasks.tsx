@@ -6,8 +6,8 @@ import AutosizeInput from 'react-textarea-autosize';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { labelFormSchema, LabelFormDataType } from './labelSchema';
-import defaultLabelValues from './defaultLabelValues';
 import { LabelWithTasksType, TaskType } from '../../models';
+import useUpdateLabel from '../../hooks/useUpdateLabel';
 
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';
@@ -29,12 +29,14 @@ function LabelTasks({
     handleSubmit,
     formState: { errors },
   } = useForm<LabelFormDataType>({
-    values: defaultLabelValues,
+    values: labelWithTasks,
     resolver: zodResolver(labelFormSchema),
   });
 
+  const { updateLabel } = useUpdateLabel({ labelId: labelWithTasks.id });
+
   const onSubmit = (data: LabelFormDataType) => {
-    console.log(data);
+    updateLabel(data);
   };
 
   return (
@@ -44,7 +46,6 @@ function LabelTasks({
                 <AutosizeInput
                     className="label-name"
                     placeholder='Label name'
-                    value={labelWithTasks.name}
                     {...register('name', { onBlur: handleSubmit(onSubmit) })}
                 />
                 {errors.name && <span className="validation-error">{errors.name.message}</span>}

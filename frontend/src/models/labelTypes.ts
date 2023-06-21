@@ -19,10 +19,15 @@ export type LabelWithTasksType = LabelType & {
 };
 
 export type LabelUpdateType = {
-  oldName: string,
-  oldOrderInSubpage: number,
-  newName: string,
-  newOrderInSubpage: number,
+  name?: string,
+  orderInSubpage?: number,
+};
+
+export type LabelUpdateSendType = {
+  oldName: string | undefined,
+  oldOrderInSubpage: number | undefined,
+  newName: string | undefined,
+  newOrderInSubpage: number | undefined,
 };
 
 export type LabelUpdateResultType = {
@@ -31,4 +36,6 @@ export type LabelUpdateResultType = {
   orderInSubpage?: number,
 };
 
-export type LabelDeleteResultType = EmptyObject;
+export type LabelDeleteResultType = {
+  id: string,
+};

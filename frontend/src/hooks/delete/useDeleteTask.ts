@@ -1,33 +1,30 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TasksApi } from '../../services';
-import { LabelWithTasksType, ResponseMulti, TaskType } from '../../models';
+import { LabelWithTasksType, ResponseMulti, ResponseSingle, TaskDeleteResultType } from '../../models';
 
 type UseDeleteTaskProps = {
   redirect: string;
-  task: TaskType;
 };
 
-const useDeleteTask = ({ redirect, task }: UseDeleteTaskProps) => {
+const useDeleteTask = ({ redirect }: UseDeleteTaskProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { subpageId } = useParams();
 
-  const deleteTaskFC = () => TasksApi.deleteSingle(subpageId || '', task.id);
-
   const { mutateAsync: deleteTask } = useMutation({
-    mutationFn: deleteTaskFC,
-    onSuccess: () => {
+    mutationFn: (taskId: string) => TasksApi.deleteSingle(subpageId || '', taskId),
+    onSuccess: (deletedTask: ResponseSingle<TaskDeleteResultType>) => {
       queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
         ['subpage', subpageId, 'labelsWithTasks'],
         (oldData) => (oldData
           ? {
             ...oldData,
             data: oldData.data.map((label) => {
-              if (label.id === task.labelId) {
+              if (label.id === deletedTask.data.labelId) {
                 return {
                   ...label,
-                  tasks: label.tasks.filter((t) => t.id !== task.id),
+                  tasks: label.tasks.filter((t) => t.id !== deletedTask.data.id),
                 };
               }
               return label;

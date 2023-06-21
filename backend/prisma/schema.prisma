@@ -70,7 +70,7 @@ model Task {
   id           String    @id @default(uuid())
   taskName     String
   done         Boolean   @default(false)
-  dueDate      DateTime
+  dueDate      String
   orderInList  Int?      
   orderInLabel Int?      
   content      String

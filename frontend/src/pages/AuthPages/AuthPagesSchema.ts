@@ -15,7 +15,7 @@ const passwordSchema = z.string()
   .refine((value) => /\W/.test(value), { message: 'Password must contain at least one special character' });
 
 export const signUpFormSchema = z.object({
-  username: z.string().nonempty({ message: 'Username is required' }),
+  username: z.string().min(3, 'Name must be at least 3 characters'),
   email: z.string().nonempty({ message: 'Email required' }).email({ message: 'Invalid email address' }),
   password: passwordSchema,
 });

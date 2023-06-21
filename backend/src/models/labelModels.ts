@@ -27,7 +27,15 @@ export const labelUpdateSchema = z.object({
       || (data.newOrderInSubpage !== undefined && data.oldOrderInSubpage !== undefined)
     ),
     'At least one pair of name, description or icon must be provided.',
+  )
+  .refine(
+    (data) => (
+      (data.newName === undefined || data.oldName !== undefined)
+      && (data.newOrderInSubpage === undefined || data.oldOrderInSubpage !== undefined)
+    ),
+    'For each new[] data are old[] data required!',
   );
+
 export type LabelUpdateType = z.infer<typeof labelUpdateSchema>;
 
 export type LabelUpdateResult = {
@@ -45,7 +53,7 @@ export type LabelGetResultBody = {
     id: string;
     createdAt: Date;
     taskName: string;
-    dueDate: Date;
+    dueDate: string;
     content: string;
     creator: {
       id: string;
@@ -56,3 +64,7 @@ export type LabelGetResultBody = {
     orderInList: number | null;
   }[];
 }[];
+
+export type LabelDeleteResult = {
+  labelId: string,
+};

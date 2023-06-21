@@ -3,6 +3,7 @@ import handleErrors from '../common/handleErrors';
 import LabelRepo from '../../repositories/label';
 import { labelIdSubpageIdSchema } from '../../models/urlParamsSchema';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 // result code should be 204
 
@@ -20,6 +21,8 @@ const deleteLabel = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

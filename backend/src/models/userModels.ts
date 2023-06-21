@@ -18,12 +18,6 @@ export const userCreateSchema = z.object({
 
 export type UserCreateType = z.infer<typeof userCreateSchema>;
 
-export type UserCreateResult = {
-  id: string,
-  username: string,
-  email: string,
-};
-
 export const userDeleteSchema = z.object({
   userId: z.string().uuid(),
 }).strict();
@@ -36,14 +30,14 @@ export const userGetSpecificSchema = z.object({
 
 export type UserGetSpecificType = z.infer<typeof userGetSpecificSchema>;
 
-export type UserGetSpecificResult = {
+export type User = {
   id: string,
   username: string,
   email: string,
   avatar: string,
 };
 
-export type UserGetMultipleResultBody = UserGetSpecificResult[];
+export type UserGetMultipleResultBody = User[];
 
 export const userUpdateSchema = z.object({
   username: z.string().nonempty('Username can not be empty').min(3, 'Username must be at least 3 characters long').optional(),

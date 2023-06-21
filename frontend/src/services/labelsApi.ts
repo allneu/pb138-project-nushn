@@ -2,7 +2,7 @@ import {
   LabelWithTasksType,
   LabelCreateType,
   LabelCreateResultType,
-  LabelUpdateType,
+  LabelUpdateSendType,
   LabelUpdateResultType,
   LabelDeleteResultType,
   ResponseSingle,
@@ -21,7 +21,7 @@ export const getAll = async (subpageId: string): Promise<ResponseMulti<LabelWith
   return response.data;
 };
 
-export const updateSingle = async (subpageId: string, labelId: string, body: LabelUpdateType):
+export const updateSingle = async (subpageId: string, labelId: string, body: LabelUpdateSendType):
 Promise<ResponseSingle<LabelUpdateResultType>> => {
   const response = await axiosInstance.patch(`/subpage/${subpageId}/label/${labelId}`, body);
   return response.data;

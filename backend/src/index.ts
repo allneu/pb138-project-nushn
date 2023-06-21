@@ -6,6 +6,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import cookieParser from 'cookie-parser';
+import path from 'path';
+import fs from 'fs';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import morgan from 'morgan';
 import userRouter from './routes/user';
 import subpageRouter from './routes/subpage';
 import labelRouter from './routes/label';
@@ -19,6 +23,13 @@ declare module 'express-session' {
 configEnvVariables();
 const app = express();
 const port = env['PORT'] ?? 3000;
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, '../logs/access.log'),
+  { flags: 'a' },
+);
+
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(session());
 

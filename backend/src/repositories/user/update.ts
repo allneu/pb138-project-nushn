@@ -18,7 +18,7 @@ Promise<Result<UserUpdateResult>> => {
       const username = data.username ? { username: data.username } : {};
       const email = data.email ? { email: data.email } : {};
       const avatar = data.avatar ? { avatar: data.avatar } : {};
-      if (data.password !== null) {
+      if (data.password !== undefined) {
         // eslint-disable-next-line import/no-extraneous-dependencies
         const argon2 = require('argon2');
         const hashedPassword = await argon2.hash(data.password);
