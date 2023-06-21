@@ -45,7 +45,7 @@
 
 .task-view__content {
     @apply flex-grow text-notion text-sm font-medium focus:outline-none;
-    @apply overflow-y-scroll max-h-[calc(100vh-15rem)] resize-none;
+    @apply overflow-y-auto max-h-[calc(100vh-15rem)] resize-none;
 }
 
 .user-view__btns {

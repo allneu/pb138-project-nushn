@@ -11,13 +11,13 @@
 }
 
 .subpage-name {
-    @apply text-notion text-base lg:text-2xl font-bold;
-    @apply max-h-16 overflow-scroll focus:outline-none;
+    @apply text-notion text-base lg:text-2xl font-bold w-full;
+    @apply max-h-16 overflow-auto focus:outline-none;
 }
 
 .subpage-description {
     @apply text-notion text-sm font-bold text-opacity-70 hidden lg:inline;
-    @apply max-h-16 overflow-scroll resize-none focus:outline-none;
+    @apply max-h-16 overflow-auto resize-none focus:outline-none;
 }
 
 .subpage__separator {
