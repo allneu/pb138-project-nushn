@@ -11,7 +11,7 @@ import log from '../common/log';
 const deleteTask = async (req: Request, res: Response) => {
   try {
     const params = taskIdSubpageIdSchema.parse(req.params);
-    const response = await TaskRepo.deleteTask(params);
+    const response = await TaskRepo.delete(params);
     return response.isOk
       ? handleOkResp(200, response.value, res, `Deleted task with id ${params.taskId}`)
       : handleErrResp(500, response.error, res, response.error.message);

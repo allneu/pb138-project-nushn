@@ -14,7 +14,7 @@ import log from '../common/log';
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const params = userIdSchema.parse(req.params);
-    const response = await UserRepos.deleteUser(params);
+    const response = await UserRepos.delete(params);
     return response.isOk
       ? handleOkResp(204, response.value, res, `Deleted user with id: ${params.userId}.`)
       : handleErrResp(500, response.error, res, response.error.message);

@@ -39,7 +39,7 @@ userRouter.patch(userRouteSpecific, auth(), UserController.update);
 
 // Delete User
 // DELETE /user/{userId}
-userRouter.delete(userRouteSpecific, auth(), UserController.deleteUser);
+userRouter.delete(userRouteSpecific, auth(), UserController.delete);
 
 // Log in User
 // POST /user/login

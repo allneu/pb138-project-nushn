@@ -25,6 +25,6 @@ taskRouter.patch(taskRouteSpecific, auth(), TaskController.update);
 
 // Delete specific Task
 // DELETE /subpage/{subpageId}/task/{taskId}
-taskRouter.delete(taskRouteSpecific, auth(), TaskController.deleteTask);
+taskRouter.delete(taskRouteSpecific, auth(), TaskController.delete);
 
 export default taskRouter;
