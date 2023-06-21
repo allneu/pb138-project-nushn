@@ -10,11 +10,11 @@ import { taskFormSchema, TaskFormDataType } from './taskSchema';
 
 import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import '../Views.css';
-import useUpdateTask from '../../../hooks/useUpdateTask';
+import useUpdateTaskInfo from '../../../hooks/useUpdateTaskInfo';
 import { LabelType, TaskType } from '../../../models';
 
 const formatDate = (date: Date) => {
-  const dateOnly = (new Date(date)).toISOString().split('T')[0];
+  const dateOnly = date.toISOString().split('T')[0];
   const [year, month, day] = dateOnly!.split('-');
   return `${day}. ${month}. ${year}`;
 };
@@ -46,10 +46,10 @@ function TaskView({
     resolver: zodResolver(taskFormSchema),
   });
 
-  const { updateTask } = useUpdateTask({ taskId: taskId! });
+  const { updateTaskInfo } = useUpdateTaskInfo({ taskId: taskId! });
 
   const onSubmit = (data: TaskFormDataType) => {
-    updateTask({
+    updateTaskInfo({
       ...data,
       // server needs it in this format
       dueDate: (new Date(data.dueDate)).toISOString(),
@@ -84,7 +84,7 @@ function TaskView({
                         <FontAwesomeIcon className='icon' icon={projectIcons.clock.split(' ') as IconProp} />
                         <span>Created</span>
                     </div>
-                    <span>{formatDate(task!.createdAt)}</span>
+                    <span>{formatDate(new Date(task!.createdAt))}</span>
                 </div>
 
                 <div className='detail'>

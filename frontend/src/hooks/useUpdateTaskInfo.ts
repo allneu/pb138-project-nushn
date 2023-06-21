@@ -4,24 +4,24 @@ import {
   ResponseSingle,
   ResponseMulti,
   LabelWithTasksType,
-  TaskUpdateType,
+  TaskUpdateInfoType,
   TaskUpdateResultType,
 } from '../models';
 import { TasksApi } from '../services';
 
-type UseUpdateTaskProps = {
+type UseUpdateTaskInfoProps = {
   taskId: string,
 };
 
-const useUpdateTask = ({
+const useUpdateTaskInfo = ({
   taskId,
-}: UseUpdateTaskProps) => {
+}: UseUpdateTaskInfoProps) => {
   const { subpageId } = useParams();
   const queryClient = useQueryClient();
 
   const labelsWithTasks = queryClient.getQueryData<ResponseMulti<LabelWithTasksType>>(['subpage', subpageId, 'labelsWithTasks']);
 
-  const transformUpdateData = (newData: TaskUpdateType) => {
+  const transformUpdateData = (newData: TaskUpdateInfoType) => {
     const task = labelsWithTasks?.data.flatMap(
       (labelWithTasks) => labelWithTasks.tasks,
     ).find((t) => t.id === taskId);
@@ -31,19 +31,15 @@ const useUpdateTask = ({
       oldDueDate: newData.dueDate ? (new Date(task!.dueDate)).toISOString() : undefined,
       oldContent: newData.content ? task?.content : undefined,
       oldLabelId: newData.labelId ? task?.labelId : undefined,
-      oldOrderInList: newData.orderInList ? task?.orderInList : undefined,
-      oldOrderInLabel: newData.orderInLabel ? task?.orderInLabel : undefined,
       newTaskName: newData.taskName,
       newDueDate: newData.dueDate,
       newContent: newData.content,
       newLabelId: newData.labelId,
-      newOrderInList: newData.orderInList,
-      newOrderInLabel: newData.orderInLabel,
     };
   };
 
   const updateTaskFn = (
-    data: TaskUpdateType,
+    data: TaskUpdateInfoType,
   ) => TasksApi.updateSingle(subpageId!, taskId, transformUpdateData(data));
 
   const setLabelsWithTasksFn = (
@@ -62,7 +58,7 @@ const useUpdateTask = ({
     }),
   );
 
-  const { mutateAsync: updateTask } = useMutation({
+  const { mutateAsync: updateTaskInfo } = useMutation({
     mutationFn: updateTaskFn,
     onSuccess: (updateTaskResponse: ResponseSingle<TaskUpdateResultType>) => {
       queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
@@ -75,7 +71,7 @@ const useUpdateTask = ({
     },
   });
 
-  return { updateTask };
+  return { updateTaskInfo };
 };
 
-export default useUpdateTask;
+export default useUpdateTaskInfo;
