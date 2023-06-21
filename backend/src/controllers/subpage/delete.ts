@@ -15,7 +15,7 @@ const deleteSubpage = async (req: Request, res: Response) => {
     const params = userIdSubpageIdSchema.parse(req.params);
     const response = await SubpageRepos.delete(params);
     return response.isOk
-      ? handleOkResp(204, response.value, res, `Deleted subpage with id: ${params.subpageId}.`)
+      ? handleOkResp(200, response.value, res, `Deleted subpage with id: ${params.subpageId}.`)
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);

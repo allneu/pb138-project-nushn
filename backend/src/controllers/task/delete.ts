@@ -13,7 +13,7 @@ const deleteTask = async (req: Request, res: Response) => {
     const params = taskIdSubpageIdSchema.parse(req.params);
     const response = await TaskRepo.deleteTask(params);
     return response.isOk
-      ? handleOkResp(204, response.value, res, `Deleted task with id ${params.taskId}`)
+      ? handleOkResp(200, response.value, res, `Deleted task with id ${params.taskId}`)
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
