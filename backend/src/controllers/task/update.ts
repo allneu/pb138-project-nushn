@@ -13,7 +13,7 @@ const update = async (req: Request, res: Response) => {
     if (!userId) {
       throw userHasNotPermissionError;
     }
-    const response = await TaskRepo.update(data, params, { userid });
+    const response = await TaskRepo.update(data, params, { userId });
     return response.isOk
       ? handleOkResp(200, response.value, res, `Updated task with id: ${params.taskId}.`)
       : handleErrors(response.error, res);
