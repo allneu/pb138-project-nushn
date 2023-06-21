@@ -3,6 +3,7 @@ import {
   Link,
   useParams,
   useNavigate,
+  useLocation,
 } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,10 +31,12 @@ type MenuProps = {
 };
 
 function Menu({ isOpen, toggleMenu }: MenuProps) {
-  const { subpageId } = useParams();
   const queryClient = useQueryClient();
   const { auth } = useAuth();
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const subpageId = location.pathname.split('/')[3] || null;
 
   const { data: subpages, isLoading, isError } = useQuery({
     queryKey: ['menu'],

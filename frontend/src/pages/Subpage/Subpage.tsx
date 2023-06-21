@@ -14,6 +14,7 @@ import useUpdateSubpage from '../../hooks/useUpdateSubpage';
 import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
+import UserView from '../Views/UserView/UserView.tsx';
 
 function Subpage() {
   const {
@@ -96,6 +97,7 @@ function Subpage() {
 
         <Routes>
           <Route path="task/:taskId" element={<TaskView tasks={allTasks} labels={allLabels} />} />
+          <Route path="editUser" element={<UserView />} />
         </Routes>
     </>
   );
