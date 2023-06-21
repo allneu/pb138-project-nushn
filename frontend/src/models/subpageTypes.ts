@@ -11,6 +11,8 @@ export type SubpageType = SubpageCreateType & {
     username: string,
   },
   createdAt: Date,
+  shared: boolean,
+  roleType: string,
 };
 
 export type SubpageCreateResultType = SubpageType & {

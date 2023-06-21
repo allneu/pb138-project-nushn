@@ -98,8 +98,8 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
                 >
                     <FontAwesomeIcon className='icon' icon={subpage.icon.split(' ') as IconProp} />
                     <span className="name">{subpage.name}</span>
-                    {/* TODO - show only when subpage is shared */}
-                    <FontAwesomeIcon className='icon' icon={projectIcons.shared.split(' ') as IconProp} />
+                    { (subpage.shared || subpage.roleType === 'EDITOR')
+                      && <FontAwesomeIcon className='icon' icon={projectIcons.shared.split(' ') as IconProp} /> }
                 </NavLink>
             ))}
         </div>
