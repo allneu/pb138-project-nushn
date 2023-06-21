@@ -42,25 +42,31 @@ const controlLastData = async (
 };
 
 const updateOrderInLabel = async (
-  { newOrderInLabel, oldOrderInLabel }: TaskUpdateType,
-  labelId: string,
+  newOrderInLabel: number,
+  { taskId }: TaskIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
-  if (!newOrderInLabel || !oldOrderInLabel) {
+  const { labelId, orderInLabel } = await tx.task.findUniqueOrThrow({
+    where: { id: taskId },
+    select: { labelId: true, orderInLabel: true },
+  });
+
+  if (!orderInLabel && orderInLabel !== 0) {
     throw serverInternalError;
   }
-  tx.label.update({
+
+  await tx.label.update({
     where: { id: labelId },
     data: {
       tasks: {
         updateMany: [{
-          where: { orderInLabel: { lte: newOrderInLabel, gt: oldOrderInLabel } },
+          where: { orderInLabel: { lte: newOrderInLabel, gt: orderInLabel } },
           data: { orderInLabel: { decrement: 1 } },
         }, {
-          where: { orderInLabel: { gte: newOrderInLabel, lt: oldOrderInLabel } },
+          where: { orderInLabel: { gte: newOrderInLabel, lt: orderInLabel } },
           data: { orderInLabel: { increment: 1 } },
         }, {
-          where: { orderInLabel: oldOrderInLabel },
+          where: { id: labelId },
           data: { orderInLabel: newOrderInLabel },
         }],
       },
@@ -77,7 +83,6 @@ const updateOrderInList = async (
   if (!newOrderInList || !oldOrderInList) {
     throw serverInternalError;
   }
-  await tx.task.update({ where: { id: taskId }, data: { orderInList: null } });
   if (newOrderInList > oldOrderInList) {
     (await tx.subPage.findUniqueOrThrow({
       where: { id: subpageId },
@@ -85,7 +90,7 @@ const updateOrderInList = async (
         labels: {
           select: {
             tasks: {
-              where: { orderInList: { lt: newOrderInList, gt: oldOrderInList } },
+              where: { orderInList: { lte: newOrderInList, gt: oldOrderInList } },
               select: { id: true },
               orderBy: { orderInList: 'asc' },
             },
@@ -102,7 +107,7 @@ const updateOrderInList = async (
         labels: {
           select: {
             tasks: {
-              where: { orderInList: { gt: newOrderInList, lt: oldOrderInList } },
+              where: { orderInList: { gte: newOrderInList, lt: oldOrderInList } },
               select: { id: true },
               orderBy: { orderInList: 'desc' },
             },
@@ -164,7 +169,7 @@ const updateLabel = async (
         }, {
           where: { id: taskId },
           data: {
-            orderInLabel: highestLabelOrder ? highestLabelOrder + 1 : 0,
+            orderInLabel: highestLabelOrder || highestLabelOrder === 0 ? highestLabelOrder + 1 : 0,
             labelId: newLabelId,
           },
         }],
@@ -192,7 +197,7 @@ const update = async (
         const taskLabel = data.newLabelId
           ? await updateLabel(data, params, oldTask.orderInLabel, tx) : {};
         const orderInLabel = data.newOrderInLabel
-          ? { orderInLabel: await updateOrderInLabel(data, oldTask.labelId, tx) } : {};
+          ? { orderInLabel: await updateOrderInLabel(data.newOrderInLabel, params, tx) } : {};
         const orderInList = data.newOrderInList
           ? { orderInList: await updateOrderInList(data, params, tx) } : {};
         return {
