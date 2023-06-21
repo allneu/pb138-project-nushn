@@ -1,5 +1,6 @@
 .task {
     @apply flex px-5 lg:px-2 py-1 lg:py-2 gap-4 lg:border-[1px] rounded min-w-[10rem] justify-between items-center;
+    @apply hover:translate-x-1;
 }
 
 .task__name {
@@ -11,5 +12,5 @@
 }
  
 .task__name--new {
-    @apply flex-grow text-gray-500 hover:bg-gray-200 hover:cursor-pointer;
+    @apply flex-grow text-gray-500 cursor-pointer;
 }

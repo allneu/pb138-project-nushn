@@ -34,6 +34,7 @@
 
 .user, .delete {
     @apply flex flex-row gap-3 items-center;
+    @apply hover:bg-gray-100 rounded-xl p-1 cursor-pointer;
 }
 
 .close-btn {

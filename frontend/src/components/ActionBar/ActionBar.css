@@ -9,6 +9,7 @@
 
 .option {
     @apply lg:flex lg:items-center lg:gap-1.5 hover:cursor-pointer;
+    @apply hover:shadow-md;
 }
 
 .option__name {
