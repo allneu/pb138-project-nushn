@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { changePasswordFormSchema, ChangePasswordFormDataType } from './ChangePasswordSchema';
+import useUpdateUser from '../../hooks/update/useUpdateUser';
 
 type ChangePasswordProps = {
   onClose: () => void;
@@ -14,11 +15,10 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
   } = useForm<ChangePasswordFormDataType>({
     resolver: zodResolver(changePasswordFormSchema),
   });
+  const { updateUser } = useUpdateUser();
 
   const onSubmit = (data: ChangePasswordFormDataType) => {
-    console.log(data);
-    // TODO - make sure the old password matches the new one and
-    // send an update of the password
+    updateUser(data);
     onClose();
   };
 

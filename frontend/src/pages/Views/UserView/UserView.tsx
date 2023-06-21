@@ -15,24 +15,19 @@ import ChangePassword from '../../../components/ChangePassword/ChangePassword.ts
 import useAuth from '../../../hooks/useAuth';
 import UseDeleteUser from '../../../hooks/delete/useDeleteUser';
 import useLogout from '../../../hooks/useLogout';
-
-const user = {
-  avatar: projectIcons.user,
-  userName: 'user1',
-  email: 'user1@email.com',
-  password: 'something',
-};
+import useUpdateUser from '../../../hooks/update/useUpdateUser.ts';
 
 function UserView() {
   const { subpageId } = useParams();
   const { auth } = useAuth();
-  const userId = auth?.data.id;
+  const user = auth!.data;
   const [formData, setFormData] = useState(user);
-  const [selectedIcon, setSelectedIcon] = useState(user.avatar);
+  const [selectedIcon, setSelectedIcon] = useState(user.avatar || projectIcons.user);
   const [changePasswordMode, setChangePasswordMode] = useState(false);
   const navigate = useNavigate();
   const { deleteUser } = UseDeleteUser();
   const { logout } = useLogout();
+  const { updateUser } = useUpdateUser();
 
   const {
     register,
@@ -51,8 +46,12 @@ function UserView() {
   };
 
   const onSubmit = (data: UserFormDataType) => {
-    console.log(data);
-    navigate(`/user/${userId}/subpage/${subpageId}`);
+    const updatedUser = {
+      ...data,
+      avatar: selectedIcon,
+    };
+    updateUser(updatedUser);
+    navigate(`/auth/subpage/${subpageId}`);
   };
 
   const handleChangePassword = () => {
@@ -86,12 +85,12 @@ function UserView() {
                                 icons={dialogIcons.user} />
                     <div className="input-with-errors">
                         <input
+                            type="text"
                             className="form__input font-bold"
                             placeholder='@username'
-                            value={formData.userName}
-                            {...register('userName', { onChange })}
+                            {...register('username', { onChange })}
                         />
-                        {errors.userName && <span className="validation-error">{errors.userName.message}</span>}
+                        {errors.username && <span className="validation-error">{errors.username.message}</span>}
                     </div>
                 </div>
 

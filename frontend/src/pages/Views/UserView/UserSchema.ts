@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const userFormSchema = z.object({
   avatar: z.string(),
-  userName: z.string().min(3, 'Name must be at least 3 characters'),
+  username: z.string().min(3, 'Name must be at least 3 characters'),
   email: z.string().nonempty('User must have an email').email('Invalid email address'),
 });
 
