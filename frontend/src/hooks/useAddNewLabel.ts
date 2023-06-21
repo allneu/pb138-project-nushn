@@ -6,8 +6,8 @@ import {
   LabelCreateType,
   LabelCreateResultType,
   LabelWithTasksType,
-} from '../../models';
-import { LabelsApi } from '../../services';
+} from '../models';
+import { LabelsApi } from '../services';
 
 const useAddNewLabel = () => {
   const { subpageId } = useParams();

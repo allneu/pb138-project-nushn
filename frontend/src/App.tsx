@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import useAuth from './hooks/auth/useAuth.ts';
+import useAuth from './hooks/useAuth.ts';
 import Notice from './components/Notice/Notice.tsx';
 import MainPage from './pages/MainPage/MainPage.tsx';
 import LogInPage from './pages/AuthPages/LogInPage.tsx';

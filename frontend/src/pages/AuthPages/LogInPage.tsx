@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
 
-import useLogin from '../../hooks/auth/useLogin';
+import useLogin from '../../hooks/useLogin';
 import { logInFormSchema, LogInFormDataType } from './AuthPagesSchema';
 
 import './AuthPages.css';

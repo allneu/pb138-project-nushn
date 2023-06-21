@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { UsersApi } from '../services';
 import { ResponseMulti, UserType } from '../models';
-import useAuth from './auth/useAuth';
+import useAuth from './useAuth';
 
 type UseFetchUsersProps = {
   initialSearch: string;

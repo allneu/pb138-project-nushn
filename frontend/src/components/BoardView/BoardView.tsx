@@ -12,7 +12,7 @@ import {
 import LabelTasks from './LabelTasks.tsx';
 import './BoardView.css';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
-import useAddNewLabel from '../../hooks/create/useAddNewLabel';
+import useAddNewLabel from '../../hooks/useAddNewLabel.ts';
 import { LabelCreateType, LabelWithTasksType } from '../../models/labelTypes';
 
 type BoardViewProps = {

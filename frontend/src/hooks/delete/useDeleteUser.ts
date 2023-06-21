@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { UsersApi } from '../../services';
-import useAuth from '../auth/useAuth';
-import useLogout from '../auth/useLogout';
+import useAuth from '../useAuth';
+import useLogout from '../useLogout';
 
 const useDeleteUser = () => {
   const { auth } = useAuth();

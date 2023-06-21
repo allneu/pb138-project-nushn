@@ -7,7 +7,7 @@ import {
   SubpageUpdateType,
   SubpageUpdateResultType,
 } from '../../models';
-import useAuth from '../auth/useAuth';
+import useAuth from '../useAuth';
 import { SubpagesApi } from '../../services';
 
 const useUpdateSubpage = () => {

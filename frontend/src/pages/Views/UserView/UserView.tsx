@@ -12,9 +12,9 @@ import dialogIcons from '../../../../public/assets/icons/dialogIcons.json';
 import '../Views.css';
 import IconSelector from '../../../components/Dialogs/IconSelector/IconSelector.tsx';
 import ChangePassword from '../../../components/ChangePassword/ChangePassword.tsx';
-import useAuth from '../../../hooks/auth/useAuth.ts';
+import useAuth from '../../../hooks/useAuth.ts';
 import UseDeleteUser from '../../../hooks/delete/useDeleteUser';
-import useLogout from '../../../hooks/auth/useLogout.ts';
+import useLogout from '../../../hooks/useLogout.ts';
 
 const user = {
   avatar: projectIcons.user,

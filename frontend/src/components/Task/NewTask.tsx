@@ -9,7 +9,7 @@ import './Task.css';
 import {
   LabelWithTasksType, ResponseMulti, ResponseSingle, TaskCreateResultType, TaskCreateType,
 } from '../../models';
-import useAuth from '../../hooks/auth/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 type NewTaskProps = {
   labelId?: string,
