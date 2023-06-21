@@ -160,7 +160,11 @@ const updateLabel = async (
   tx: PrismaTransactionHandle,
 ) => {
   logger.debug({ task: { updateLabel: 'start' } });
-  if (!oldLabelId || !orderInLabel || !newLabelId) {
+  if (oldLabelId === newLabelId) {
+    logger.debug({ task: { updateLabel: 'exit - same labels' } });
+    return {};
+  }
+  if (!oldLabelId || orderInLabel === null || !newLabelId) {
     throw serverInternalError;
   }
   const highestLabelOrder = await getHighestLabelOrder(newLabelId, tx);
