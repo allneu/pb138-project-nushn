@@ -1,5 +1,3 @@
-import EmptyObject from './emptyObject';
-
 export type TaskCreateType = {
   taskName: string,
   dueDate: string,
