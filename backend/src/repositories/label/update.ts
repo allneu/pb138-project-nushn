@@ -6,14 +6,14 @@ import {
   labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageId,
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
-import getLogger from '../../log/log';
+import { logger } from '../../log/log';
 
 const controlLastData = async (
   data: LabelUpdateType,
   { labelId, subpageId }: LabelIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
-  getLogger(true).info({ label: { controlLastData: 'start' } });
+  logger.info({ label: { controlLastData: 'start' } });
   const label = await tx.label.findUnique({
     where: { id: labelId },
     select: {
@@ -35,7 +35,7 @@ const controlLastData = async (
   ) {
     throw oldDataError;
   }
-  getLogger(true).info({ label: { controlLastData: 'succefull done' } });
+  logger.info({ label: { controlLastData: 'succefull done' } });
   return true;
 };
 
@@ -43,7 +43,7 @@ const update = async (
   data: LabelUpdateType,
   params: LabelIdSubpageIdType,
 ): Promise<Result<LabelUpdateResult>> => {
-  getLogger(true).info({ label: { update: 'start' } });
+  logger.info({ label: { update: 'start' } });
   try {
     return await client.$transaction(async (tx) => {
       const { labelId, subpageId } = params;
@@ -83,7 +83,7 @@ const update = async (
         });
       }
 
-      getLogger(true).info({ label: { update: 'succefull done' } });
+      logger.info({ label: { update: 'succefull done' } });
 
       return Result.ok({
         id: labelId,
@@ -92,7 +92,7 @@ const update = async (
       });
     });
   } catch (e) {
-    getLogger(true).info({ label: { update: 'Error' } });
+    logger.info({ label: { update: 'Error' } });
     return Result.err(e as Error);
   }
 };

@@ -1,42 +1,54 @@
 import { Result } from '@badrap/result';
 import { LabelCreateResult, LabelCreateType } from '../../models/labelModels';
 import { SubpageIdType } from '../../models/urlParamsSchema';
-import { checkSubpage } from '../common/common';
 import client from '../client';
+import { serverInternalError, subpageDoesNotExistError } from '../../models';
+import { logger } from '../../log/log';
 
 const create = async (
-  data: LabelCreateType & SubpageIdType,
+  data: LabelCreateType,
+  { subpageId }: SubpageIdType,
 ): Promise<Result<LabelCreateResult>> => {
+  logger.info({ label: { create: 'start ' } });
   try {
     return await client.$transaction(async (tx) => {
-      const subPageExists = await checkSubpage(data.subpageId, tx);
-      if (subPageExists.isErr) {
-        return Result.err(subPageExists.error);
-      }
-      const highestOrder = await tx.label.findFirst({
-        where: { orderInSubpage: { not: null }, subPageId: data.subpageId },
-        orderBy: {
-          orderInSubpage: 'desc',
+      const subpage = await tx.subPage.findUnique({
+        where: { id: subpageId },
+        select: {
+          labels: {
+            where: { orderInSubpage: { not: null } },
+            orderBy: { orderInSubpage: 'desc' },
+            take: 1,
+            select: { orderInSubpage: true },
+          },
         },
-        take: 1,
       });
+      if (!subpage) {
+        throw subpageDoesNotExistError;
+      }
+      const highestOrder = subpage.labels.length ? subpage.labels[0]?.orderInSubpage : 0;
+      if (!highestOrder) {
+        throw serverInternalError;
+      }
       const newLabel = await tx.label.create({
         data: {
           name: data.name,
-          subPageId: data.subpageId,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          orderInSubpage: highestOrder ? highestOrder.orderInSubpage! + 1 : 0,
+          subPageId: subpageId,
+          orderInSubpage: highestOrder,
+        },
+        select: {
+          id: true,
+          name: true,
+          orderInSubpage: true,
+          createdAt: true,
         },
       });
-      return Result.ok({
-        id: newLabel.id,
-        name: newLabel.name,
-        orderInSubpage: newLabel.orderInSubpage,
-        createdAt: newLabel.createdAt,
-      });
+      logger.info({ label: { create: 'susseful done' } });
+      return Result.ok(newLabel);
     });
   } catch (e) {
-    return Result.err(new Error('There was a problem in label creation'));
+    logger.info({ label: { create: 'error' } });
+    return Result.err(e as Error);
   }
 };
 export default create;

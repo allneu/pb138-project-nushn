@@ -2,13 +2,10 @@ import express from 'express';
 import { config as configEnvVariables } from 'dotenv';
 import { env } from 'process';
 import cors from 'cors';
-// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
 import bodyParser from 'body-parser';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import fs from 'fs';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import morgan from 'morgan';
 import userRouter from './routes/user';
 import subpageRouter from './routes/subpage';
