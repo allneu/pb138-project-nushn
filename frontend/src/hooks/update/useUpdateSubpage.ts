@@ -20,7 +20,7 @@ const useUpdateSubpage = () => {
   const transformUpdateData = (newData: SubpageUpdateType) => ({
     // oldName is equal to subpage name if name property exists on newData object
     oldName: newData.name ? subpage?.data.name : undefined,
-    oldDescription: newData.description ? subpage?.data.description : undefined,
+    oldDescription: subpage?.data.description,
     oldIcon: newData.icon ? subpage?.data.icon : undefined,
     newName: newData.name,
     newDescription: newData.description,
