@@ -7,6 +7,7 @@ import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
 import roleCreate from '../common/role';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const create = async (
   data: SubpageCreateType,
@@ -35,6 +36,7 @@ const create = async (
         select: labelSelect,
       });
       subpage.labels = [...subpage.labels, label];
+      await subpageEditCreate({ userId: params.userId, subpageId: subpage.id }, new Date(), tx);
       logger.debug({ subpage: { create: 'successfull done' } });
       return Result.ok(subpage);
     });
