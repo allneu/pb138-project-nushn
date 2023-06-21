@@ -30,7 +30,7 @@ const create = async (
         throw subpageDoesNotExistError;
       }
       const highestOrder = subpage.labels.length ? subpage.labels[0]?.orderInSubpage : 0;
-      if (!highestOrder) {
+      if (!highestOrder && highestOrder !== 0) {
         throw serverInternalError;
       }
       const newLabel = await tx.label.create({

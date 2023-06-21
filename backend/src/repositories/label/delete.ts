@@ -29,35 +29,33 @@ const deleteLabel = async (
         throw serverInternalError;
       }
 
-      await (
-        tx.subPage.update({
-          where: { id: subpageId },
-          data: {
-            labels: {
-              updateMany: {
-                where: { orderInSubpage: { gt: labelData.orderInSubpage } },
-                data: { orderInSubpage: { decrement: 1 } },
-              },
+      await tx.subPage.update({
+        where: { id: subpageId },
+        data: {
+          labels: {
+            updateMany: {
+              where: { orderInSubpage: { gt: labelData.orderInSubpage } },
+              data: { orderInSubpage: { decrement: 1 } },
             },
           },
-        }),
-        tx.label.update({
-          where: { id: labelId },
-          data: {
-            deletedAt,
-            orderInSubpage: null,
-            tasks: {
-              updateMany: {
-                where: { deletedAt: null },
-                data: { deletedAt },
-              },
+        },
+      });
+      await tx.label.update({
+        where: { id: labelId },
+        data: {
+          deletedAt,
+          orderInSubpage: null,
+          tasks: {
+            updateMany: {
+              where: { deletedAt: null },
+              data: { deletedAt },
             },
           },
-          select: {
-            id: true,
-          },
-        })
-      );
+        },
+        select: {
+          id: true,
+        },
+      });
       logger.debug({ label: { delete: 'successfull done' } });
       return Result.ok({ labelId });
     });
