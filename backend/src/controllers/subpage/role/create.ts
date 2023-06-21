@@ -15,9 +15,12 @@ import log from '../../common/log';
 // function
 const create = async (req: Request, res: Response) => {
   try {
-    const data = roleCreateSchema.parse(req.body);
+    const data = roleCreateSchema.safeParse(req.body);
     const params = userIdSubpageIdSchema.parse(req.params);
-    const response = await SubpageRepos.RoleRepo.create(data, params);
+    if (!data.success) {
+      throw new Error('validation error');
+    }
+    const response = await SubpageRepos.RoleRepo.create(data.data, params);
     return response.isOk
       ? handleOkResp(201, response.value, res, `Created new role for user with id: ${params.userId}`)
       : handleErrResp(500, response.error, res, response.error.message);
