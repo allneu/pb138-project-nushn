@@ -4,11 +4,11 @@
 }
 
 .view-options {
-    @apply flex gap-2.5;
+    @apply flex gap-3;
 }
 
 .option {
-    @apply lg:flex lg:items-center lg:gap-1;
+    @apply lg:flex lg:items-center lg:gap-1.5 hover:cursor-pointer;
 }
 
 .option__name {

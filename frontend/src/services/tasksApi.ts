@@ -2,7 +2,7 @@ import {
   TaskType,
   TaskCreateType,
   TaskCreateResultType,
-  TaskUpdateType,
+  TaskUpdateSendType,
   TaskUpdateResultType,
   TaskDeleteResultType,
   ResponseSingle,
@@ -27,7 +27,7 @@ export const getAll = async (subpageId: string): Promise<ResponseMulti<TaskType>
   return response.data;
 };
 
-export const updateSingle = async (subpageId: string, taskId: string, body: TaskUpdateType):
+export const updateSingle = async (subpageId: string, taskId: string, body: TaskUpdateSendType):
 Promise<ResponseSingle<TaskUpdateResultType>> => {
   const response = await axiosInstance.patch(`/subpage/${subpageId}/task/${taskId}`, body);
   return response.data;

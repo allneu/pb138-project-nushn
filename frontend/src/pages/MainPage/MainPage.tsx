@@ -25,8 +25,7 @@ function MainPage() {
         <Routes>
           <Route index element={<Navigate to="homepage" />} />
           <Route path="homepage" element={<Homepage />} />
-          <Route path="subpage/:subpageId" element={<Subpage />}>
-            <Route path="task/:taskId" element={<TaskView />} />
+          <Route path="subpage/:subpageId/*" element={<Subpage />}>
             <Route path="editUser" element={<UserView />} />
           </Route>
           <Route path="*" element={<Notice message={'The page was not found.'} />} />
