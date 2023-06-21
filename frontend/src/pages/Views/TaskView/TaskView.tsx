@@ -10,7 +10,7 @@ import { taskFormSchema, TaskFormDataType } from './taskSchema';
 
 import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import '../Views.css';
-import useUpdateTaskInfo from '../../../hooks/update/useUpdateTaskInfo';
+import useUpdateTaskInfo from '../../../hooks/useUpdateTaskInfo';
 import { LabelType, TaskType } from '../../../models';
 
 const formatDate = (date: Date) => {

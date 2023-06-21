@@ -14,7 +14,7 @@ import { TaskType } from '../../models/taskTypes';
 import ListViewType from './listViewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import SortableItem from '../SortableItem/SortableItem.tsx';
-import useUpdateTaskOrder from '../../hooks/update/useUpdateTaskOrder';
+import useUpdateTaskOrder from '../../hooks/useUpdateTaskOrder.ts';
 
 type ListViewProps = {
   type: ListViewType,

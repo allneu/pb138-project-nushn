@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TasksApi } from '../../services';
-import { TaskUpdateOrderType } from '../../models';
+import { TasksApi } from '../services';
+import { TaskUpdateOrderType } from '../models';
 
 const useUpdateTaskOrder = () => {
   const { subpageId } = useParams();
