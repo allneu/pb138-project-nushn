@@ -1,7 +1,8 @@
 import { Result } from '@badrap/result';
-import { checkLabel } from '../common/common';
 import client from '../client';
-import { SubpageIdType, Task, TaskCreateType } from '../../models';
+import {
+  SubpageIdType, Task, TaskCreateType, wrongSubpageIdError,
+} from '../../models';
 import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
 import logger from '../../log/log';
 
@@ -9,24 +10,18 @@ const create = async (
   { labelId, image, ...data }: TaskCreateType,
   { subpageId } : SubpageIdType,
 ): Promise<Result<Task>> => {
+  logger.debug({ task: { create: 'start' } });
   try {
     return await client.$transaction(async (tx) => {
       const labelIdToUse = labelId
       || (await tx.label.findFirstOrThrow({ where: { subPageId: subpageId, name: 'unlabeled' } })).id;
-      if (labelId) {
-        const labelExists = await checkLabel(labelId, tx);
-        if (labelExists.isErr) {
-          throw labelExists.error;
-        }
-      }
+
       const highestLabelOrder = await getHighestLabelOrder(labelIdToUse, tx);
       const highestListOrder = await getHighestListOrder(labelIdToUse, tx);
 
-      logger.info({ hLabelO: highestLabelOrder, hListO: highestListOrder });
-
       const img = image ? { image } : {};
 
-      const newTask = await tx.task.create({
+      const { label, ...newTask } = await tx.task.create({
         data: {
           ...data,
           ...img,
@@ -35,12 +30,22 @@ const create = async (
           orderInList: highestListOrder || highestListOrder === 0 ? highestListOrder + 1 : 0,
         },
         include: {
+          label: {
+            select: {
+              subPageId: true,
+            },
+          },
           creator: true,
         },
       });
+      if (label.subPageId !== subpageId) {
+        throw wrongSubpageIdError;
+      }
+      logger.debug({ task: { create: 'successfull done' } });
       return Result.ok(newTask);
     });
   } catch (e) {
+    logger.debug({ task: { create: 'error' } });
     return Result.err(e as Error);
   }
 };

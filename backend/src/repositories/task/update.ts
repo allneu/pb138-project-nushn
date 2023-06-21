@@ -66,7 +66,7 @@ const updateOrderInLabel = async (
           where: { orderInLabel: { gte: newOrderInLabel, lt: orderInLabel } },
           data: { orderInLabel: { increment: 1 } },
         }, {
-          where: { id: labelId },
+          where: { id: taskId },
           data: { orderInLabel: newOrderInLabel },
         }],
       },
@@ -83,47 +83,33 @@ const updateOrderInList = async (
   if (!newOrderInList || !oldOrderInList) {
     throw serverInternalError;
   }
-  if (newOrderInList > oldOrderInList) {
-    (await tx.subPage.findUniqueOrThrow({
-      where: { id: subpageId },
-      select: {
-        labels: {
-          select: {
-            tasks: {
-              where: { orderInList: { lte: newOrderInList, gt: oldOrderInList } },
-              select: { id: true },
-              orderBy: { orderInList: 'asc' },
-            },
-          },
+  (await tx.subPage.findUniqueOrThrow({
+    where: { id: subpageId },
+    select: {
+      labels: {
+        select: { id: true },
+      },
+    },
+  })).labels.forEach(async (l) => {
+    await tx.label.update({
+      where: { id: l.id },
+      data: {
+        tasks: {
+          updateMany: [{
+            where: { orderInList: { lte: newOrderInList, gt: oldOrderInList } },
+            data: { orderInList: { decrement: 1 } },
+          }, {
+            where: { orderInList: { gte: newOrderInList, lt: oldOrderInList } },
+            data: { orderInList: { increment: 1 } },
+          }, {
+            where: { id: taskId },
+            data: { orderInLabel: newOrderInList },
+          }],
         },
       },
-    })).labels.flatMap((l) => l.tasks).forEach(async (l) => {
-      await tx.task.update({ where: { id: l.id }, data: { orderInList: { decrement: 1 } } });
     });
-  } else {
-    (await tx.subPage.findUniqueOrThrow({
-      where: { id: subpageId },
-      select: {
-        labels: {
-          select: {
-            tasks: {
-              where: { orderInList: { gte: newOrderInList, lt: oldOrderInList } },
-              select: { id: true },
-              orderBy: { orderInList: 'desc' },
-            },
-          },
-        },
-      },
-    })).labels.flatMap((l) => l.tasks).forEach(async (l) => {
-      await tx.task.update({ where: { id: l.id }, data: { orderInList: { increment: 1 } } });
-    });
-  }
-  const resTask = await tx.task.update({
-    where: { id: taskId },
-    data: { orderInList: newOrderInList },
-    select: { orderInList: true },
   });
-  return resTask.orderInList;
+  return newOrderInList;
 };
 
 const updateTask = async (
