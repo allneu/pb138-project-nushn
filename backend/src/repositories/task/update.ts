@@ -1,6 +1,7 @@
 import { Result } from '@badrap/result';
 import {
   TaskIdSubpageIdType, TaskUpdateResult, TaskUpdateType,
+  UserIdType,
   oldDataError,
   serverInternalError,
   subpageDoesNotExistError,
@@ -11,6 +12,7 @@ import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
 import { getHighestLabelOrder } from '../common/task';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const controlLastData = async (
   data: TaskUpdateType,
@@ -206,6 +208,7 @@ const updateLabel = async (
 const update = async (
   data: TaskUpdateType,
   params: TaskIdSubpageIdType,
+  { userId }: UserIdType,
 ): Promise<Result<TaskUpdateResult>> => {
   logger.debug({ task: { update: 'start' } });
   try {
@@ -220,6 +223,7 @@ const update = async (
       const orderInList = data.newOrderInList !== undefined
         ? { orderInList: await updateOrderInList(data, params, tx) } : {};
       logger.debug({ task: { update: 'successfull done' } });
+      subpageEditCreate({ subpageId: params.subpageId, userId }, new Date(), tx);
       return Result.ok({
         ...task, ...orderInLabel, ...taskLabel, ...orderInList,
       });

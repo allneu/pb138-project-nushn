@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import client from '../client';
 import {
-  SubpageIdType, Task, TaskCreateType, wrongSubpageIdError,
+  SubpageIdType, Task, TaskCreateType, UserIdType, wrongSubpageIdError,
 } from '../../models';
 import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
 import logger from '../../log/log';
@@ -10,6 +10,7 @@ import subpageEditCreate from '../common/subpageUpdate';
 const create = async (
   { labelId, image, ...data }: TaskCreateType,
   { subpageId } : SubpageIdType,
+  { userId }: UserIdType,
 ): Promise<Result<Task>> => {
   logger.debug({ task: { create: 'start' } });
   try {
@@ -42,7 +43,7 @@ const create = async (
       if (label.subPageId !== subpageId) {
         throw wrongSubpageIdError;
       }
-      subpageEditCreate({ subpageId, userId: data.creatorId }, new Date(), tx);
+      subpageEditCreate({ subpageId, userId }, new Date(), tx);
       logger.debug({ task: { create: 'successfull done' } });
       return Result.ok(newTask);
     });

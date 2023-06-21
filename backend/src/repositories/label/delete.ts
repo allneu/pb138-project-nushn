@@ -6,9 +6,11 @@ import {
   labelDoesNotExistError, labelWasDeletedError, serverInternalError, wrongSubpageIdError,
 } from '../../models';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const deleteLabel = async (
   { labelId, subpageId }: LabelIdSubpageIdType,
+  userId: string,
 ): Promise<Result<LabelDeleteResult>> => {
   logger.debug({ label: { delete: 'start' } });
   try {
@@ -56,6 +58,7 @@ const deleteLabel = async (
           id: true,
         },
       });
+      subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.debug({ label: { delete: 'successfull done' } });
       return Result.ok({ labelId });
     });
