@@ -104,7 +104,7 @@ function Subpage() {
             <div className="subpage__separator"/>
 
             <main className="subpage__tasks">
-                {viewComponent}
+              {viewComponent}
             </main>
 
             <footer className="subpage__last-edit">

@@ -1,4 +1,3 @@
-import EmptyObject from './emptyObject';
 import { TaskType } from './taskTypes';
 
 export type LabelCreateType = {

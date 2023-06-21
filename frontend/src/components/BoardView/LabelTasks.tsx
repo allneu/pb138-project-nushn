@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AutosizeInput from 'react-textarea-autosize';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +10,7 @@ import { labelFormSchema, LabelFormDataType } from './labelSchema';
 import { LabelWithTasksType, TaskType } from '../../models';
 import useUpdateLabel from '../../hooks/update/useUpdateLabel.ts';
 
+import SortableItem from '../SortableItem/SortableItem.tsx';
 import Task from '../Task/Task.tsx';
 import NewTask from '../Task/NewTask.tsx';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
@@ -67,9 +69,18 @@ function LabelTasks({
 
         <div className="label-tasks">
           { showTasks
-            ? labelWithTasks.tasks.map((task: TaskType) => (
-                  <Task key={task.id} task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
-            ))
+            ? <SortableContext
+              items={labelWithTasks.tasks.map((task) => task.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {
+                labelWithTasks.tasks.map((task: TaskType) => (
+                  <SortableItem key={task.id} id={task.id}>
+                    <Task task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
+                  </SortableItem>
+                ))
+              }
+            </SortableContext>
             : <></>
           }
           { showTasks ? <NewTask labelId={labelWithTasks.id}/> : <></>}

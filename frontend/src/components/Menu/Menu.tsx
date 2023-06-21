@@ -9,7 +9,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth.ts';
 import { SubpagesApi } from '../../services/index';
 import Notice from '../Notice/Notice.tsx';
 

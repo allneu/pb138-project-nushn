@@ -45,6 +45,10 @@ export type TaskUpdateSendType = {
   newOrderInLabel?: number | undefined,
 };
 
+export type TaskUpdateOrderType = TaskUpdateSendType & {
+  taskId: string,
+};
+
 export type TaskUpdateResultType = {
   id: string,
   taskName?: string,

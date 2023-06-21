@@ -3,19 +3,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TasksApi } from '../../services';
 import { TaskUpdateSendType } from '../../models';
 
-type UseUpdateTaskOrderProps = {
-  taskId: string,
-};
-
-const useUpdateTaskOrder = ({
-  taskId,
-}: UseUpdateTaskOrderProps) => {
+const useUpdateTaskOrder = () => {
   const { subpageId } = useParams();
   const queryClient = useQueryClient();
 
   const updateTaskFn = (
-    data: TaskUpdateSendType,
-  ) => TasksApi.updateSingle(subpageId!, taskId, data);
+    data: TaskUpdateOrderType,
+  ) => TasksApi.updateSingle(subpageId!, data.taskId, data);
 
   const { mutateAsync: updateTaskOrder } = useMutation({
     mutationFn: updateTaskFn,
