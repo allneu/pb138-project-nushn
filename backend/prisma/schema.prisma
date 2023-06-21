@@ -18,7 +18,7 @@ model User {
   createdAt      DateTime      @default(now())
   editedAt       DateTime?
   deletedAt      DateTime?
-  avatar         String
+  avatar         String?
   roles          Role[]
   subPageEdits   SubPageEdit[]
   tasks          Task[]

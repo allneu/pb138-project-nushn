@@ -13,7 +13,7 @@ Promise<Result<User>> => {
           username: data.username,
           email: data.email,
           hashedPassword,
-          avatar: data.avatar ? data.avatar : '',
+          avatar: data.avatar ? data.avatar : null,
         },
       });
       return Result.ok(newUser);
