@@ -27,6 +27,7 @@ Promise<Result<LabelGetResultBody>> => {
           orderInSubpage: true,
           createdAt: true,
           tasks: {
+            where: { deletedAt: null },
             select: {
               id: true,
               taskName: true,
