@@ -18,10 +18,7 @@ function ChangePassword({ onClose }: ChangePasswordProps) {
   const { updateUser } = useUpdateUser();
 
   const onSubmit = (data: ChangePasswordFormDataType) => {
-    const updated = {
-      password: data.newPassword,
-    };
-    updateUser(updated);
+    updateUser(data);
     onClose();
   };
 
