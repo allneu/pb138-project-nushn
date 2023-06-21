@@ -4,10 +4,12 @@ import { SubpageIdType } from '../../models/urlParamsSchema';
 import client from '../client';
 import { canNotCreateUnlabeled, serverInternalError, subpageDoesNotExistError } from '../../models';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const create = async (
   data: LabelCreateType,
   { subpageId }: SubpageIdType,
+  userId: string,
 ): Promise<Result<LabelCreateResult>> => {
   logger.debug({ label: { create: 'start' } });
   try {
@@ -46,6 +48,7 @@ const create = async (
           createdAt: true,
         },
       });
+      subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.debug({ label: { create: 'successfull done' } });
       return Result.ok(newLabel);
     });
