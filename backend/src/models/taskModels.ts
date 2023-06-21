@@ -19,7 +19,7 @@ export type Creator = {
 export type Task = {
   id: string,
   taskName: string,
-  dueDate: Date,
+  dueDate: string,
   content: string,
   creator: Creator,
   labelId: string,
@@ -34,13 +34,13 @@ export type TaskGetMultipleResult = {
 
 export const taskUpdateSchema = z.object({
   oldTaskName: z.string().min(3).optional(),
-  oldDueDate: z.date().optional(),
+  oldDueDate: z.string().optional(),
   oldContent: z.string().optional(),
   oldLabelId: z.string().uuid().optional(),
   oldOrderInList: z.number().nonnegative().optional(),
   oldOrderInLabel: z.number().nonnegative().optional(),
   newTaskName: z.string().min(3).optional(),
-  newDueDate: z.date().optional(),
+  newDueDate: z.string().optional(),
   newContent: z.string().optional(),
   newLabelId: z.string().uuid().optional(),
   newOrderInList: z.number().nonnegative().optional(),
