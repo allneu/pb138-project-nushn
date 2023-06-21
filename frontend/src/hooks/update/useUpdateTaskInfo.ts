@@ -29,7 +29,7 @@ const useUpdateTaskInfo = ({
       oldTaskName: newData.taskName ? task?.taskName : undefined,
       // server needs it in this format
       oldDueDate: newData.dueDate ? (new Date(task!.dueDate)).toISOString() : undefined,
-      oldContent: newData.content ? task?.content : undefined,
+      oldContent: task?.content,
       oldLabelId: newData.labelId ? task?.labelId : undefined,
       newTaskName: newData.taskName,
       newDueDate: newData.dueDate,
