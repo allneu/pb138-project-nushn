@@ -17,8 +17,15 @@ Promise<Result<UserUpdateResult>> => {
       const username = data.username ? { username: data.username } : {};
       const email = data.email ? { email: data.email } : {};
       const avatar = data.avatar ? { avatar: data.avatar } : {};
-      if (data.password !== undefined) {
-        const hashedPassword = await argon2.hash(data.password);
+      if (data.newPassword !== undefined) {
+        const oldPasswordData = await tx.user.findFirstOrThrow({
+          where: { id: data.userId },
+        });
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (!await argon2.verify(oldPasswordData?.hashedPassword, data.oldPassword!)) {
+          throw new Error();
+        }
+        const hashedPassword = await argon2.hash(data.newPassword);
         const updated: User = await tx.user.update({
           where: { id: data.userId },
           data: {
