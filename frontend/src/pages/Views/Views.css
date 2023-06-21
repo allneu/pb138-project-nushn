@@ -32,7 +32,7 @@
 }
 
 .detail {
-    @apply flex justify-between text-gray-500 text-sm font-medium items-center;
+    @apply flex justify-between items-center text-gray-500 text-sm leading-[0.875rem] font-medium;
 }
 
 .detail__label {

@@ -1,4 +1,9 @@
-import { NavLink, Link, useParams, useNavigate } from 'react-router-dom';
+import {
+  NavLink,
+  Link,
+  useParams,
+  useNavigate,
+} from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -10,8 +15,14 @@ import Notice from '../Notice/Notice.tsx';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 import './Menu.css';
-import { ResponseMulti, ResponseSingle, SubpageCreateResultType, SubpageCreateType, SubpageType } from '../../models';
-import { addSingle } from '../../services/subpagesApi.ts';
+import {
+  ResponseMulti,
+  ResponseSingle,
+  SubpageCreateResultType,
+  SubpageCreateType,
+  SubpageType,
+} from '../../models';
+import { addSingle } from '../../services/subpagesApi';
 
 type MenuProps = {
   isOpen: boolean,
