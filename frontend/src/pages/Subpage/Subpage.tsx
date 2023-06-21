@@ -39,7 +39,7 @@ function Subpage() {
 
   const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
     (labelWithTasks) => labelWithTasks.tasks,
-  ) : [];
+  ).sort((fst, snd) => fst.orderInList - snd.orderInList) : [];
 
   const onSubmit = (data: SubpageFormDataType) => {
     updateSubpage(data);

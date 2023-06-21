@@ -23,28 +23,26 @@ export type TaskCreateResultType = Omit<TaskCreateType, 'labelId' | 'creatorId'>
 
 export type TaskType = TaskCreateResultType;
 
-export type TaskUpdateType = {
+export type TaskUpdateInfoType = {
   taskName?: string,
   dueDate?: string,
   content?: string,
   labelId?: string,
-  orderInList?: number,
-  orderInLabel?: number,
 };
 
 export type TaskUpdateSendType = {
-  oldTaskName: string | undefined,
-  oldDueDate: string | undefined,
-  oldContent: string | undefined,
-  oldLabelId: string | undefined,
-  oldOrderInList: number | undefined,
-  oldOrderInLabel: number | undefined,
-  newTaskName: string | undefined,
-  newDueDate: string | undefined,
-  newContent: string | undefined,
-  newLabelId: string | undefined,
-  newOrderInList: number | undefined,
-  newOrderInLabel: number | undefined,
+  oldTaskName?: string | undefined,
+  oldDueDate?: string | undefined,
+  oldContent?: string | undefined,
+  oldLabelId?: string | undefined,
+  oldOrderInList?: number | undefined,
+  oldOrderInLabel?: number | undefined,
+  newTaskName?: string | undefined,
+  newDueDate?: string | undefined,
+  newContent?: string | undefined,
+  newLabelId?: string | undefined,
+  newOrderInList?: number | undefined,
+  newOrderInLabel?: number | undefined,
 };
 
 export type TaskUpdateResultType = {
