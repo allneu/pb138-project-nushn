@@ -56,15 +56,17 @@ const deleteTask = async (
         },
       });
 
-      await (await tx.subPage.findUniqueOrThrow({
+      const subpage = await tx.subPage.findUniqueOrThrow({
         where: { id: subpageId },
         select: {
           labels: {
             select: { id: true },
           },
         },
-      })).labels.forEach(async (l) => {
-        await tx.label.update({
+      });
+
+      await Promise.all(subpage.labels.map(async (l) => {
+        tx.label.update({
           where: { id: l.id },
           data: {
             tasks: {
@@ -75,7 +77,7 @@ const deleteTask = async (
             },
           },
         });
-      });
+      }));
       logger.debug({ task: { deleteTask: 'successfull done' } });
       return Result.ok({ taskId, labelId: taskData.labelId });
     });
