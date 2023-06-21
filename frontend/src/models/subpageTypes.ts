@@ -1,5 +1,3 @@
-import EmptyObject from './emptyObject';
-
 export type SubpageCreateType = {
   name: string,
   description: string,

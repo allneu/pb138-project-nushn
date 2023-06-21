@@ -8,24 +8,32 @@
 
 .dialog--close {
     @apply h-0 hidden;
-  }
+}
+
+.search-bar {
+    @apply p-1 mb-2 border border-gray-200 rounded-md;
+}
 
 .icons-wrapper, .users-wrapper {
     @apply overflow-y-auto flex-grow;
 }
 
-.icons, .users {
+.icons {
     @apply overflow-y-auto grid grid-cols-5 p-[0.5rem] gap-5;
 }
 
+.users {
+    @apply overflow-y-auto flex flex-col gap-2;
+}
+
 .dialog-icon {
-    @apply w-[1.3rem] h-[1.3rem] rounded-md cursor-pointer m-[0.1rem];
+    @apply rounded-md cursor-pointer m-[0.1rem];
     @apply flex flex-col left-0;
     @apply hover:scale-125;
 }
 
 .user, .delete {
-    @apply flex flex-row gap-2 items-center;
+    @apply flex flex-row gap-3 items-center;
 }
 
 .close-btn {

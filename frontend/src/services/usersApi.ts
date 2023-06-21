@@ -44,7 +44,7 @@ Promise<ResponseSingle<UserType>> => {
 };
 
 export const getAll = async (body: UsersSearchType): Promise<ResponseMulti<UserType>> => {
-  const response = await axiosInstance.get('/user', { params: body });
+  const response = await axiosInstance.get(`/user/count/${body.count}/username/${body.username}`);
   return response.data;
 };
 

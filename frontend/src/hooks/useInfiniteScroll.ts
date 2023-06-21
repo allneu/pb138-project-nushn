@@ -1,38 +1,41 @@
-// hooks/useInfiniteScroll.js
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-const useInfiniteScroll = (initialCount: number) => {
-  const [count, setCount] = useState(initialCount);
-  const loader = useRef(null); // Reference to the 'Load more' button.
+type UseInfiniteScrollProps = {
+  setCount: React.Dispatch<React.SetStateAction<number>>,
+  hasMore: boolean,
+};
 
-  // Handle the intersection.
-  const handleObserver = (entities) => {
-    const target = entities[0];
-    if (target.isIntersecting) {
-      setCount((prevCount: number) => prevCount + 5);
-    }
-  };
+const useInfiniteScroll = ({ setCount, hasMore }: UseInfiniteScrollProps) => {
+  const loader = useRef(null);
 
   useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '20px',
-      threshold: 1.0,
-    };
+    const currentLoader = loader.current;
 
-    // Create an observer instance.
-    const observer = new IntersectionObserver(handleObserver, options);
-    if (loader.current) {
-      observer.observe(loader.current);
+    if (!hasMore) {
+      return () => {};
     }
 
-    // Cleanup on unmount.
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0] !== undefined && entries[0].isIntersecting) {
+          setCount((prevCount) => prevCount + 5);
+        }
+      },
+      { threshold: 1 },
+    );
 
-  return [count, loader];
+    if (currentLoader) {
+      observer.observe(currentLoader);
+    }
+
+    return () => {
+      if (currentLoader) {
+        observer.unobserve(currentLoader);
+      }
+    };
+  }, [setCount, hasMore]);
+
+  return loader;
 };
 
 export default useInfiniteScroll;
