@@ -5,7 +5,7 @@ import update from './update';
 
 export default {
   create,
-  deleteTask,
+  delete: deleteTask,
   getOne,
   getMultiple,
   update,

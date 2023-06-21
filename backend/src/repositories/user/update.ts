@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
 import { Result } from '@badrap/result';
 import type { User } from '@prisma/client';
+import argon2 from 'argon2';
 import client from '../client';
 import { UserUpdateResult, UserUpdateType } from '../../models/userModels';
 import { checkUser } from '../common/common';
@@ -19,8 +18,6 @@ Promise<Result<UserUpdateResult>> => {
       const email = data.email ? { email: data.email } : {};
       const avatar = data.avatar ? { avatar: data.avatar } : {};
       if (data.password !== undefined) {
-        // eslint-disable-next-line import/no-extraneous-dependencies
-        const argon2 = require('argon2');
         const hashedPassword = await argon2.hash(data.password);
         const updated: User = await tx.user.update({
           where: { id: data.userId },

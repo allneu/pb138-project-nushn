@@ -7,7 +7,7 @@ import { auth } from './auth';
 
 export default {
   create,
-  deleteUser,
+  delete: deleteUser,
   getOne,
   getMultiple,
   update,

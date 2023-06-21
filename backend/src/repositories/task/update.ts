@@ -8,12 +8,14 @@ import {
 import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
 import { getHighestLabelOrder } from '../common/task';
+import logger from '../../log/log';
 
 const controlLastData = async (
   data: TaskUpdateType,
   { taskId }: TaskIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ task: { controlLastData: 'start' } });
   const task = await tx.task.findUniqueOrThrow({
     where: { id: taskId },
     select: {
@@ -38,6 +40,7 @@ const controlLastData = async (
   ) {
     throw oldDataError;
   }
+  logger.debug({ task: { controlLastData: 'successfull done' } });
   return task;
 };
 
@@ -46,6 +49,7 @@ const updateOrderInLabel = async (
   { taskId }: TaskIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ task: { updateOrderInLabel: 'start' } });
   const { labelId, orderInLabel } = await tx.task.findUniqueOrThrow({
     where: { id: taskId },
     select: { labelId: true, orderInLabel: true },
@@ -72,6 +76,7 @@ const updateOrderInLabel = async (
       },
     },
   });
+  logger.debug({ task: { updateOrderInLabel: 'successfull done' } });
   return newOrderInLabel;
 };
 
@@ -80,6 +85,7 @@ const updateOrderInList = async (
   { subpageId, taskId }: TaskIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ task: { updateOrderInList: 'start' } });
   if (!newOrderInList || !oldOrderInList) {
     throw serverInternalError;
   }
@@ -109,6 +115,7 @@ const updateOrderInList = async (
       },
     });
   });
+  logger.debug({ task: { updateOrderInList: 'successfull done' } });
   return newOrderInList;
 };
 
@@ -117,6 +124,7 @@ const updateTask = async (
   { taskId }: TaskIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ task: { updateTask: 'start' } });
   const taskName = data.newTaskName ? { taskName: data.newTaskName } : {};
   const dueDate = data.newDueDate ? { dueDate: data.newDueDate } : {};
   const content = data.newContent ? { content: data.newContent } : {};
@@ -132,6 +140,7 @@ const updateTask = async (
       content: !!data.newContent,
     },
   });
+  logger.debug({ task: { updateTask: 'successfull done' } });
   return task;
 };
 
@@ -141,6 +150,7 @@ const updateLabel = async (
   orderInLabel: number | null,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ task: { updateLabel: 'start' } });
   if (!oldLabelId || !orderInLabel || !newLabelId) {
     throw serverInternalError;
   }
@@ -168,6 +178,7 @@ const updateLabel = async (
       },
     },
   }));
+  logger.debug({ task: { updateLabel: 'successfull done' } });
   return tasks[0];
 };
 
@@ -175,23 +186,24 @@ const update = async (
   data: TaskUpdateType,
   params: TaskIdSubpageIdType,
 ): Promise<Result<TaskUpdateResult>> => {
+  logger.debug({ task: { update: 'start' } });
   try {
-    return Result.ok(
-      await client.$transaction(async (tx: PrismaTransactionHandle) => {
-        const oldTask = await controlLastData(data, params, tx);
-        const task = await updateTask(data, params, tx);
-        const taskLabel = data.newLabelId
-          ? await updateLabel(data, params, oldTask.orderInLabel, tx) : {};
-        const orderInLabel = data.newOrderInLabel
-          ? { orderInLabel: await updateOrderInLabel(data.newOrderInLabel, params, tx) } : {};
-        const orderInList = data.newOrderInList
-          ? { orderInList: await updateOrderInList(data, params, tx) } : {};
-        return {
-          ...task, ...orderInLabel, ...taskLabel, ...orderInList,
-        };
-      }),
-    );
+    return await client.$transaction(async (tx: PrismaTransactionHandle) => {
+      const oldTask = await controlLastData(data, params, tx);
+      const task = await updateTask(data, params, tx);
+      const taskLabel = data.newLabelId
+        ? await updateLabel(data, params, oldTask.orderInLabel, tx) : {};
+      const orderInLabel = data.newOrderInLabel
+        ? { orderInLabel: await updateOrderInLabel(data.newOrderInLabel, params, tx) } : {};
+      const orderInList = data.newOrderInList
+        ? { orderInList: await updateOrderInList(data, params, tx) } : {};
+      logger.debug({ task: { update: 'successfull done' } });
+      return Result.ok({
+        ...task, ...orderInLabel, ...taskLabel, ...orderInList,
+      });
+    });
   } catch (e) {
+    logger.debug({ task: { update: 'error' } });
     return Result.err(e as Error);
   }
 };
