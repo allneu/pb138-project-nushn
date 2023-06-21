@@ -56,7 +56,7 @@ const deleteTask = async (
         },
       });
 
-      (await tx.subPage.findUniqueOrThrow({
+      await (await tx.subPage.findUniqueOrThrow({
         where: { id: subpageId },
         select: {
           labels: {
