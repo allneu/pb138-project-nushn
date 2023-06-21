@@ -15,8 +15,8 @@ const useSignup = ({ redirect }: UseRegisterProps) => {
     mutationFn: (body: UserCreateType) => UsersApi.addSingle(body),
     retry: false,
     onSuccess: () => {
-      navigate(redirect);
       queryClient.invalidateQueries(['auth']);
+      navigate(redirect);
     },
   });
 

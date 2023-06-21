@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AutosizeInput from 'react-textarea-autosize';
+import { format, parseISO } from 'date-fns';
 
 import ActionBar from '../../components/ActionBar/ActionBar.tsx';
 import BoardView from '../../components/BoardView/BoardView.tsx';
@@ -34,7 +35,7 @@ function Subpage() {
 
   const { updateSubpage } = useUpdateSubpage();
   const [selectedIcon, setSelectedIcon] = useState<string>(subpage?.data.icon || projectIcons['subpage-default']);
-
+  
   // Update the selected icon when different subpage is loaded
   useEffect(() => {
     setSelectedIcon(subpage?.data.icon || projectIcons['subpage-default']);
@@ -45,8 +46,8 @@ function Subpage() {
       const { tasks, ...label } = labelWithTasks;
       return label;
     },
-  ) : [];
-
+    ) : [];
+    
   const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
     (labelWithTasks) => labelWithTasks.tasks,
   ).sort((fst, snd) => fst.orderInList - snd.orderInList) : [];
@@ -71,6 +72,7 @@ function Subpage() {
   if (isError) return <Notice message={'An error occured while loading subpage.'} />;
   if (isLoading) return <Notice message={'The subpage is loading ...'} />;
 
+  const parsedDate = parseISO(subpage!.data.subPageEdits[0].editedAt || '');
   return (
     <>
         <div className="subpage">
@@ -108,7 +110,7 @@ function Subpage() {
             </main>
 
             <footer className="subpage__last-edit">
-              <span>Last edited x hours ago by @user</span>
+              <span>{format(parsedDate, "'Last edited' MMMM do yyyy 'at' HH:mm")}</span>
             </footer>
         </div>
 

@@ -13,6 +13,14 @@ export type SubpageType = SubpageCreateType & {
   createdAt: Date,
   shared: boolean,
   roleType: string,
+  subPageEdits: [
+    {
+      id: string,
+      editorId: string,
+      editedAt: string,
+      subpageId: string,
+    },
+  ]
 };
 
 export type SubpageCreateResultType = SubpageType & {
