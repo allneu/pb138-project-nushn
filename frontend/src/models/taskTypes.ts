@@ -55,4 +55,7 @@ export type TaskUpdateResultType = {
   orderInLabel?: number,
 };
 
-export type TaskDeleteResultType = EmptyObject;
+export type TaskDeleteResultType = {
+  taskId: string,
+  labelId?: string,
+};

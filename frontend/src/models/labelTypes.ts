@@ -36,4 +36,6 @@ export type LabelUpdateResultType = {
   orderInSubpage?: number,
 };
 
-export type LabelDeleteResultType = EmptyObject;
+export type LabelDeleteResultType = {
+  labelId: string,
+};

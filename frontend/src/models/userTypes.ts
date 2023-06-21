@@ -36,3 +36,8 @@ export type UserUpdateResultType = UserUpdateType & {
 };
 
 export type UserDeleteResultType = EmptyObject;
+
+export type UsersSearchType = {
+  username: string,
+  count: number,
+};

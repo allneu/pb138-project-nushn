@@ -1,19 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useParams } from 'react-router-dom';
 
 import './ActionBar.css';
 import ViewType from '../../pages/Subpage/viewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
+import UseDeleteSubpage from '../../hooks/delete/useDeleteSubpage';
+import ShareDialog from '../Dialogs/ShareDialog/ShareDialog.tsx';
 
 type ActionBarProps = {
   onViewChange: (newView: ViewType) => void;
 };
 
 function ActionBar({ onViewChange }: ActionBarProps) {
+  const { subpageId } = useParams();
+  const { deleteSubpage } = UseDeleteSubpage({ redirect: '/' });
+
+  function handleDeleteSubpage() {
+    deleteSubpage(subpageId || '');
+  }
+
   return (
     <div className="action-bar">
-        <FontAwesomeIcon className='icon' icon={projectIcons.share.split(' ') as IconProp} />
-        <div className="view-options">
+        <div className="subpage-options">
+          {/* <FontAwesomeIcon className='icon' icon={projectIcons.share.split(' ') as IconProp} /> */}
+          <ShareDialog />
+          <FontAwesomeIcon className='icon' icon={projectIcons.delete.split(' ') as IconProp} onClick={handleDeleteSubpage} />
+        </div>
+        <div className="subpage-options">
             <div className="option" onClick={() => onViewChange('board')}>
                 <FontAwesomeIcon className='icon' icon={projectIcons.boardview.split(' ') as IconProp} />
                 <span className="option__name">Board</span>

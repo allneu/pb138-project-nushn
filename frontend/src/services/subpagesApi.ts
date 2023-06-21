@@ -7,6 +7,8 @@ import {
   SubpageDeleteResultType,
   ResponseSingle,
   ResponseMulti,
+  RoleCreateType,
+  RoleCreateResultType,
 } from '../models';
 import axiosInstance from './base';
 
@@ -36,5 +38,11 @@ Promise<ResponseSingle<SubpageUpdateResultType>> => {
 export const deleteSingle = async (userId: string, subpageId: string):
 Promise<ResponseSingle<SubpageDeleteResultType>> => {
   const response = await axiosInstance.delete(`/user/${userId}/subpage/${subpageId}`);
+  return response.data;
+};
+
+export const addRole = async (userId: string, subpageId: string, body: RoleCreateType):
+Promise<ResponseSingle<RoleCreateResultType>> => {
+  const response = await axiosInstance.post(`/user/${userId}/subpage/${subpageId}/role`, body);
   return response.data;
 };
