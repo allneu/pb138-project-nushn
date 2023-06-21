@@ -6,7 +6,7 @@ import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
 import getLogger from '../../log/log';
 
 const create = async (
-  { labelId, ...data }: TaskCreateType,
+  { labelId, image, ...data }: TaskCreateType,
   { subpageId } : SubpageIdType,
 ): Promise<Result<Task>> => {
   try {
@@ -24,9 +24,12 @@ const create = async (
 
       getLogger(false).info({ hLabelO: highestLabelOrder, hListO: highestListOrder });
 
+      const img = image ? { image } : {};
+
       const newTask = await tx.task.create({
         data: {
           ...data,
+          ...img,
           labelId: labelIdToUse,
           orderInLabel: highestLabelOrder || highestLabelOrder === 0 ? highestLabelOrder + 1 : 0,
           orderInList: highestListOrder || highestListOrder === 0 ? highestListOrder + 1 : 0,
