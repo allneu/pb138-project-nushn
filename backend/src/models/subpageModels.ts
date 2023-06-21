@@ -51,6 +51,7 @@ export type SubpageWithoutLabels = {
 
 export type SubpageWithoutLabelsWithRoleType = SubpageWithoutLabels & {
   roleType: RoleType,
+  shared: boolean,
 };
 
 export const labelSelect = {

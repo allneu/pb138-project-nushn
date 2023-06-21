@@ -54,6 +54,7 @@ export const getMultiple = async (
           subpage: {
             select: {
               ...subpageSelect,
+              roles: { where: { deletedAt: null, userId: { not: userId } } },
               deletedAt: true,
             },
           },
@@ -61,8 +62,8 @@ export const getMultiple = async (
       }))
         .filter(({ subpage }) => (subpage.deletedAt === null))
         .map(({ subpage, roleType }) => {
-          const { deletedAt, ...resultSubpage } = subpage;
-          return { ...resultSubpage, roleType };
+          const { deletedAt, roles, ...resultSubpage } = subpage;
+          return { ...resultSubpage, roleType, shared: !!roles.length };
         })
         .sort((a, b) => a.createdAt.getDate() - b.createdAt.getDate());
       logger.debug({ subpage: { getMultiplegetOne: 'successfull done' } });
