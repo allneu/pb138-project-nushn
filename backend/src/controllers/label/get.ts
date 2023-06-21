@@ -3,6 +3,7 @@ import handleErrors from '../common/handleErrors';
 import LabelRepo from '../../repositories/label';
 import { subpageIdSchema } from '../../models/urlParamsSchema';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 // validation schema
 // res.body type
@@ -17,6 +18,8 @@ export const get = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

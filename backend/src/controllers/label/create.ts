@@ -4,6 +4,7 @@ import { labelCreateSchema } from '../../models/labelModels';
 import LabelRepo from '../../repositories/label';
 import { subpageIdSchema } from '../../models/urlParamsSchema';
 import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import log from '../common/log';
 
 // result code should be 201
 
@@ -18,6 +19,8 @@ const create = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 

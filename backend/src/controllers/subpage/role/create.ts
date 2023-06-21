@@ -4,6 +4,7 @@ import { roleCreateSchema } from '../../../models/roleModels';
 import { userIdSubpageIdSchema } from '../../../models';
 import SubpageRepos from '../../../repositories/subpage';
 import { handleErrResp, handleOkResp } from '../../common';
+import log from '../../common/log';
 
 // result code should be 201
 
@@ -22,6 +23,8 @@ const create = async (req: Request, res: Response) => {
       : handleErrResp(500, response.error, res, response.error.message);
   } catch (e) {
     return handleErrors(e, res);
+  } finally {
+    log(req, res);
   }
 };
 
