@@ -38,8 +38,6 @@ const deleteTask = async (
         throw wrongSubpageIdError;
       } if (!taskData.orderInLabel && taskData.orderInLabel !== 0) {
         throw serverInternalError;
-      } if (!taskData.orderInList && taskData.orderInList !== 0) {
-        throw serverInternalError;
       }
       await tx.label.update({
         where: { id: taskData.labelId },
@@ -66,12 +64,15 @@ const deleteTask = async (
       });
 
       await Promise.all(subpage.labels.map(async (l) => {
-        tx.label.update({
+        if (!taskData.orderInList && taskData.orderInList !== 0) {
+          throw serverInternalError;
+        }
+        await tx.label.update({
           where: { id: l.id },
           data: {
             tasks: {
               updateMany: {
-                where: { orderInList: { not: null, gt: taskData.orderInList ?? 0 } },
+                where: { orderInList: { gt: taskData.orderInList, not: null } },
                 data: { orderInList: { decrement: 1 } },
               },
             },

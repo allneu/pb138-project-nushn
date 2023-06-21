@@ -30,6 +30,8 @@ const controlLastData = async (
       deletedAt: true,
     },
   });
+
+  logger.debug({ task: { controlLastData: { task, data } } });
   if (!task) {
     logger.debug({ task: { controlLastData: 'task does not exist error' } });
     throw taskDoesNotExistError;
@@ -209,6 +211,7 @@ const update = async (
   try {
     return await client.$transaction(async (tx: PrismaTransactionHandle) => {
       const oldTask = await controlLastData(data, params, tx);
+      logger.debug({ task: { update: 'oldDataWasControllerd' } });
       const task = await updateTask(data, params, tx);
       const taskLabel = data.newLabelId
         ? await updateLabel(data, params, oldTask.orderInLabel, tx) : {};
@@ -222,7 +225,7 @@ const update = async (
       });
     });
   } catch (e) {
-    logger.debug({ task: { update: 'error' } });
+    logger.debug({ task: { update: 'error', error: e } });
     return Result.err(e as Error);
   }
 };
