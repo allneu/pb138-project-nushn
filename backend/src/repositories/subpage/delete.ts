@@ -6,11 +6,13 @@ import {
 import client from '../client';
 import { PrismaTransactionHandle } from '../common/types';
 import subpageEditCreate from '../common/subpageUpdate';
+import logger from '../../log/log';
 
 const canDelete = async (
   { subpageId, userId }: UserIdSubpageIdType,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ subpage: { canDelete: 'start' } });
   const subpage = await tx.subPage.findUnique({
     where: {
       id: subpageId,
@@ -36,6 +38,7 @@ const canDelete = async (
   } if (subpage.roles[0]?.user.deletedAt !== null) {
     throw userWasDeletedError;
   }
+  logger.debug({ subpage: { canDelete: 'successfull done' } });
   return true;
 };
 
@@ -44,6 +47,7 @@ const subpageLabelsRoleDelete = async (
   deletedAt: Date,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ subpage: { subpageLabelsRoleDelete: 'start' } });
   const updated = await tx.subPage.update({
     where: {
       id: subpageId,
@@ -69,6 +73,7 @@ const subpageLabelsRoleDelete = async (
       id: true,
     },
   });
+  logger.debug({ subpage: { subpageLabelsRoleDelete: 'successfull done' } });
   return updated.id;
 };
 
@@ -77,6 +82,7 @@ const tasksDelete = async (
   deletedAt: Date,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ subpage: { tasksDelete: 'start' } });
   await tx.task.updateMany({
     where: {
       deletedAt: null,
@@ -84,25 +90,28 @@ const tasksDelete = async (
     },
     data: { deletedAt },
   });
+  logger.debug({ subpage: { tasksDelete: 'successfull done' } });
+  return true;
 };
 
 const deleteSubpage = async (
   params: UserIdSubpageIdType,
 ): Promise<Result<SubpageIdType>> => {
+  logger.debug({ subpage: { creadeleteSubpagete: 'start' } });
   try {
-    return Result.ok(
-      await client.$transaction(async (tx: PrismaTransactionHandle) => {
-        await canDelete(params, tx);
-        const deletedAt = new Date();
-        const id = await subpageLabelsRoleDelete(params, deletedAt, tx);
-        await (
-          subpageEditCreate(params, deletedAt, tx),
-          tasksDelete(params, deletedAt, tx)
-        );
-        return { subpageId: id };
-      }),
-    );
+    return await client.$transaction(async (tx: PrismaTransactionHandle) => {
+      await canDelete(params, tx);
+      const deletedAt = new Date();
+      const id = await subpageLabelsRoleDelete(params, deletedAt, tx);
+      await (
+        subpageEditCreate(params, deletedAt, tx),
+        tasksDelete(params, deletedAt, tx)
+      );
+      logger.debug({ subpage: { deleteSubpage: 'successfull done' } });
+      return Result.ok({ subpageId: id });
+    });
   } catch (e) {
+    logger.debug({ subpage: { deleteSubpage: 'error' } });
     return Result.err(e as Error);
   }
 };

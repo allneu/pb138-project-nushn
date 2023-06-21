@@ -2,6 +2,7 @@ import { Result } from '@badrap/result';
 import { Deleted, UserIdSubpageIdType } from '../../../models';
 import { PrismaTransactionHandle } from '../../common/types';
 import client from '../../client';
+import logger from '../../../log/log';
 
 const roleDelete = async (
   { userId, subpageId }: UserIdSubpageIdType,
@@ -15,13 +16,14 @@ const roleDelete = async (
 
 const deleteRole = async (params : UserIdSubpageIdType): Promise<Result<Deleted>> => {
   try {
-    return Result.ok(
-      await client.$transaction(async (tx: PrismaTransactionHandle) => {
-        await roleDelete(params, tx);
-        return {};
-      }),
-    );
+    logger.debug({ subpage: { role: { delete: 'start' } } });
+    return await client.$transaction(async (tx: PrismaTransactionHandle) => {
+      await roleDelete(params, tx);
+      logger.debug({ subpage: { role: { delete: 'successfull done' } } });
+      return Result.ok({});
+    });
   } catch (e) {
+    logger.debug({ subpage: { role: { delete: 'error' } } });
     return Result.err(e as Error);
   }
 };

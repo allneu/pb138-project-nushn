@@ -5,6 +5,7 @@ import {
 } from '../../../models';
 import client from '../../client';
 import { PrismaTransactionHandle } from '../../common/types';
+import logger from '../../../log/log';
 
 const findRole = (
   data: RoleUpdateType,
@@ -28,26 +29,27 @@ const update = async (
   params: UserIdSubpageIdType,
 ): Promise<Result<Role>> => {
   try {
-    return Result.ok(
-      await client.$transaction(async (tx: PrismaTransactionHandle) => {
-        if (await tx.role.findFirst({ where: { ...params } }) === null) {
-          throw userHasNotPermissionError;
-        }
+    logger.debug({ subpage: { role: { update: 'start' } } });
+    return await client.$transaction(async (tx: PrismaTransactionHandle) => {
+      if (await tx.role.findFirst({ where: { ...params } }) === null) {
+        throw userHasNotPermissionError;
+      }
 
-        const oldRole = await findRole(data, params, tx);
-        if (oldRole === null) {
-          throw roleDoesNotExistError;
-        } if (oldRole.roleType !== data.oldRole) {
-          throw oldDataError;
-        } if (oldRole.deletedAt !== null) {
-          throw roleWasDeletedError;
-        }
+      const oldRole = await findRole(data, params, tx);
+      if (oldRole === null) {
+        throw roleDoesNotExistError;
+      } if (oldRole.roleType !== data.oldRole) {
+        throw oldDataError;
+      } if (oldRole.deletedAt !== null) {
+        throw roleWasDeletedError;
+      }
 
-        const { deletedAt, ...role } = await roleUpdate(data, oldRole.id, tx);
-        return role;
-      }),
-    );
+      const { deletedAt, ...role } = await roleUpdate(data, oldRole.id, tx);
+      logger.debug({ subpage: { role: { update: 'successfull done' } } });
+      return Result.ok(role);
+    });
   } catch (e) {
+    logger.debug({ subpage: { role: { update: 'error' } } });
     return Result.err(e as Error);
   }
 };
