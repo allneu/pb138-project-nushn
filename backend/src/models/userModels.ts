@@ -42,12 +42,14 @@ export type UserGetMultipleResultBody = User[];
 export const userUpdateSchema = z.object({
   username: z.string().nonempty('Username can not be empty').min(3, 'Username must be at least 3 characters long').optional(),
   email: z.string().email('Invalid email address').nonempty('Email can not be empty').optional(),
-  password: passwordSchema.optional(),
+  oldPassword: passwordSchema.optional(),
+  newPassword: passwordSchema.optional(),
   avatar: z.string().optional(),
 }).strict()
   .refine(
     (data) => (
-      data.username !== undefined || data.email !== undefined || data.password !== undefined
+      data.username !== undefined || data.email !== undefined
+      || (data.oldPassword !== undefined && data.newPassword !== undefined)
     ),
     'At least one of username, email, or password must be provided.',
   );
