@@ -25,7 +25,7 @@ function LabelTasks({
   labelWithTasks,
 } : LabelTasksProps) {
   const [showTasks, setShowTasks] = useState(true);
-  const { deleteLabel } = useDeleteLabel();
+  const { deleteLabel } = useDeleteLabel({ redirect: '' });
 
   const {
     register,

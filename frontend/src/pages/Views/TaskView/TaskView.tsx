@@ -39,14 +39,14 @@ function TaskView({
     formState: { errors },
   } = useForm<TaskFormDataType>({
     values: {
-      ...task!,
+      ...task,
       // date picker needs it in this format
-      dueDate: task!.dueDate.split('T')[0]!,
+      dueDate: task?.dueDate.split('T')[0] || '',
     },
     resolver: zodResolver(taskFormSchema),
   });
 
-  const { updateTask } = useUpdateTask({ taskId: taskId! });
+  const { updateTask } = useUpdateTask({ taskId: taskId || '' });
 
   const onSubmit = (data: TaskFormDataType) => {
     updateTask({

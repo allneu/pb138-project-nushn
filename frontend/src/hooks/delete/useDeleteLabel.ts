@@ -1,11 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LabelsApi } from '../../services';
 import { LabelWithTasksType, ResponseMulti, ResponseSingle, LabelDeleteResultType } from '../../models';
 
-const useDeleteLabel = () => {
+type UseDeleteLabelProps = {
+  redirect: string;
+};
+
+const useDeleteLabel = ({ redirect }: UseDeleteLabelProps) => {
   const queryClient = useQueryClient();
   const { subpageId } = useParams();
+  const navigate = useNavigate();
 
   const { mutateAsync: deleteLabel } = useMutation({
     mutationFn: (labelId: string) => LabelsApi.deleteSingle(subpageId || '', labelId),
@@ -19,6 +24,7 @@ const useDeleteLabel = () => {
           }
           : undefined),
       );
+      navigate(redirect);
     },
   });
 
