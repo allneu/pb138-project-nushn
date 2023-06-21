@@ -10,7 +10,7 @@ import Notice from '../../components/Notice/Notice.tsx';
 import TaskView from '../Views/TaskView/TaskView.tsx';
 
 import useSubpage from '../../hooks/useSubpage';
-import useUpdateSubpage from '../../hooks/useUpdateSubpage.ts';
+import useUpdateSubpage from '../../hooks/useUpdateSubpage';
 import { SubpageFormDataType } from './subpageSchema';
 
 import './Subpage.css';
