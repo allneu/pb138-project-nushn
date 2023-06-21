@@ -3,10 +3,10 @@ import { LabelUpdateResult, LabelUpdateType } from '../../models/labelModels';
 import client from '../client';
 import { LabelIdSubpageIdType } from '../../models/urlParamsSchema';
 import {
-  labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageId,
+  labelDoesNotExistError, labelWasDeletedError, oldDataError, wrongSubpageIdError,
 } from '../../models';
 import { PrismaTransactionHandle } from '../common/types';
-import { logger } from '../../log/log';
+import logger from '../../log/log';
 
 const controlLastData = async (
   data: LabelUpdateType,
@@ -26,7 +26,7 @@ const controlLastData = async (
   if (!label) {
     throw labelDoesNotExistError;
   } if (label.subPageId !== subpageId) {
-    throw wrongSubpageId;
+    throw wrongSubpageIdError;
   } if (label.deletedAt !== null) {
     throw labelWasDeletedError;
   } if (

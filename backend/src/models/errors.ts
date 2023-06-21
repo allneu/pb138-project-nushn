@@ -26,4 +26,4 @@ export const labelWasDeletedError = new Error('This label was deleted!');
 
 export const labelDoesNotExistError = new Error('This label does not exist!');
 
-export const wrongSubpageId = new Error('Wrong subpage id!');
+export const wrongSubpageIdError = new Error('Wrong subpage id!');

@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { logger } from '../../log/log';
+import logger from '../../log/log';
 
 const log = (req: Request, res: Response) => {
   logger.info({

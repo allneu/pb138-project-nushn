@@ -3,13 +3,13 @@ import { LabelCreateResult, LabelCreateType } from '../../models/labelModels';
 import { SubpageIdType } from '../../models/urlParamsSchema';
 import client from '../client';
 import { serverInternalError, subpageDoesNotExistError } from '../../models';
-import { logger } from '../../log/log';
+import logger from '../../log/log';
 
 const create = async (
   data: LabelCreateType,
   { subpageId }: SubpageIdType,
 ): Promise<Result<LabelCreateResult>> => {
-  logger.info({ label: { create: 'start ' } });
+  logger.debug({ label: { create: 'start' } });
   try {
     return await client.$transaction(async (tx) => {
       const subpage = await tx.subPage.findUnique({
@@ -43,11 +43,11 @@ const create = async (
           createdAt: true,
         },
       });
-      logger.info({ label: { create: 'susseful done' } });
+      logger.debug({ label: { create: 'susseful done' } });
       return Result.ok(newLabel);
     });
   } catch (e) {
-    logger.info({ label: { create: 'error' } });
+    logger.debug({ label: { create: 'error' } });
     return Result.err(e as Error);
   }
 };

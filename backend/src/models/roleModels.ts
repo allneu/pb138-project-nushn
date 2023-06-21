@@ -2,9 +2,9 @@ import { RoleType } from '@prisma/client';
 import { z } from 'zod';
 
 export const roleCreateSchema = z.object({
-  role: z.enum(['OWNER', 'EDITOR']),
+  role: z.enum([RoleType.EDITOR, RoleType.OWNER]),
   userId: z.string().uuid().nonempty(),
-}).strict();
+});
 
 export type RoleCreateType = z.infer<typeof roleCreateSchema>;
 
