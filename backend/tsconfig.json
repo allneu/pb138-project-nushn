@@ -1,8 +1,4 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
-  "include": ["src/**/*.ts", "src/models"],
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-  }
+  "include": ["src/**/*.ts"]
 }
