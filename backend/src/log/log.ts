@@ -1,8 +1,7 @@
-import { env } from 'process';
 import winston from 'winston';
 
 const logger = winston.createLogger({
-  level: env['LOG_LEVEL'] ?? 'error',
+  level: 'debug',
   format: winston.format.combine(
     winston.format.json(),
     winston.format.prettyPrint(),

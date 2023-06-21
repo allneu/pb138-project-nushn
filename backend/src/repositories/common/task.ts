@@ -50,14 +50,18 @@ export const getSubpageTasksByLabelId = async (
   tx: PrismaTransactionHandle,
   { labelId }: { labelId: string },
 ) => {
-  const tasks = (await tx.label.findFirstOrThrow({
+  logger.debug({ common: { getSubpageTasksByLabelId: 'start' } });
+  const label = await tx.label.findFirstOrThrow({
     where: { id: labelId, deletedAt: null },
     select: {
       subPage: {
         select: labelsWithTaskSelect,
       },
     },
-  })).subPage.labels.flatMap((label) => label.tasks);
+  });
+  const tasks = await Promise.all(await label.subPage.labels.flatMap((l) => l.tasks));
+
+  logger.debug({ common: { getSubpageTasksByLabelId: 'successfull done' } });
   return tasks;
 };
 
@@ -67,14 +71,14 @@ export const getHighestLabelOrder = async (
 ) => {
   logger.debug({ common: { getHighestLabelOrder: 'start' } });
   const res = await tx.task.findFirst({
-    where: { orderInLabel: { not: null }, labelId },
+    where: { orderInLabel: { not: null }, labelId, deletedAt: null },
     orderBy: {
       orderInLabel: 'desc',
     },
     select: { orderInLabel: true },
   });
   logger.debug({ common: { getHighestLabelOrder: 'successfull done' } });
-  return res ? res.orderInLabel : 0;
+  return res ? res.orderInLabel : null;
 };
 
 export const getHighestListOrder = async (
@@ -84,7 +88,8 @@ export const getHighestListOrder = async (
   logger.debug({ common: { getHighestListOrder: 'start' } });
   const result = await getSubpageTasksByLabelId(tx, { labelId });
   if (result.length === 0) {
-    return 0;
+    logger.debug({ common: { getHighestListOrder: 'successfull done - null result' } });
+    return null;
   }
   const res = (result)
     .reduce((resTask, task) => {

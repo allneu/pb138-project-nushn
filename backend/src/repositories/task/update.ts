@@ -3,6 +3,7 @@ import {
   TaskIdSubpageIdType, TaskUpdateResult, TaskUpdateType,
   oldDataError,
   serverInternalError,
+  subpageDoesNotExistError,
   taskWasDeletedError,
 } from '../../models';
 import client from '../client';
@@ -31,12 +32,12 @@ const controlLastData = async (
   if (task.deletedAt !== null) {
     throw taskWasDeletedError;
   } if (
-    (data.newTaskName && data.oldTaskName !== task.taskName)
-    || (data.newDueDate && data.oldDueDate !== task.dueDate)
-    || (data.newContent && data.oldContent !== task.content)
-    || (data.newLabelId && data.oldLabelId !== task.labelId)
-    || (data.newOrderInLabel && data.oldOrderInLabel !== task.orderInLabel)
-    || (data.newOrderInList && data.oldOrderInList !== task.orderInList)
+    (data.newTaskName !== undefined && data.oldTaskName !== task.taskName)
+    || (data.newDueDate !== undefined && data.oldDueDate !== task.dueDate)
+    || (data.newContent !== undefined && data.oldContent !== task.content)
+    || (data.newLabelId !== undefined && data.oldLabelId !== task.labelId)
+    || (data.newOrderInLabel !== undefined && data.oldOrderInLabel !== task.orderInLabel)
+    || (data.newOrderInList !== undefined && data.oldOrderInList !== task.orderInList)
   ) {
     throw oldDataError;
   }
@@ -86,17 +87,24 @@ const updateOrderInList = async (
   tx: PrismaTransactionHandle,
 ) => {
   logger.debug({ task: { updateOrderInList: 'start' } });
-  if (!newOrderInList || !oldOrderInList) {
+  if ((!newOrderInList && newOrderInList !== 0) || (!oldOrderInList && oldOrderInList !== 0)) {
+    logger.debug({ task: { updateOrderInList: 'error 1' } });
     throw serverInternalError;
   }
-  (await tx.subPage.findUniqueOrThrow({
+  const subpage = await tx.subPage.findUnique({
     where: { id: subpageId },
     select: {
       labels: {
         select: { id: true },
       },
     },
-  })).labels.forEach(async (l) => {
+  });
+
+  if (!subpage) {
+    logger.debug({ task: { updateOrderInList: 'error 2' } });
+    throw subpageDoesNotExistError;
+  }
+  await Promise.all(subpage.labels.map(async (l) => {
     await tx.label.update({
       where: { id: l.id },
       data: {
@@ -107,13 +115,14 @@ const updateOrderInList = async (
           }, {
             where: { orderInList: { gte: newOrderInList, lt: oldOrderInList } },
             data: { orderInList: { increment: 1 } },
-          }, {
-            where: { id: taskId },
-            data: { orderInLabel: newOrderInList },
           }],
         },
       },
     });
+  }));
+  await tx.task.update({
+    where: { id: taskId },
+    data: { orderInList: newOrderInList },
   });
   logger.debug({ task: { updateOrderInList: 'successfull done' } });
   return newOrderInList;
@@ -193,9 +202,9 @@ const update = async (
       const task = await updateTask(data, params, tx);
       const taskLabel = data.newLabelId
         ? await updateLabel(data, params, oldTask.orderInLabel, tx) : {};
-      const orderInLabel = data.newOrderInLabel
+      const orderInLabel = data.newOrderInLabel !== undefined
         ? { orderInLabel: await updateOrderInLabel(data.newOrderInLabel, params, tx) } : {};
-      const orderInList = data.newOrderInList
+      const orderInList = data.newOrderInList !== undefined
         ? { orderInList: await updateOrderInList(data, params, tx) } : {};
       logger.debug({ task: { update: 'successfull done' } });
       return Result.ok({
