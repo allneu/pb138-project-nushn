@@ -1,59 +1,88 @@
 import { Result } from '@badrap/result';
-import { checkSubpage, checkTask } from '../common/common';
 import client from '../client';
-import { TaskDeleteResult, TaskIdSubpageIdType } from '../../models';
-// can surely be written better, check if there is time
+import {
+  TaskDeleteResult, TaskIdSubpageIdType, serverInternalError, taskDoesNotExistError,
+  taskWasDeletedError, wrongSubpageIdError,
+} from '../../models';
+import logger from '../../log/log';
 
 const deleteTask = async (
-  data: TaskIdSubpageIdType,
+  { taskId, subpageId }: TaskIdSubpageIdType,
 ): Promise<Result<TaskDeleteResult>> => {
+  logger.debug({ task: { deleteTask: 'start' } });
   try {
     return await client.$transaction(async (tx) => {
-      const subPageExists = await checkSubpage(data.subpageId, tx);
-      if (subPageExists.isErr) {
-        return Result.err(subPageExists.error);
-      }
-      const taskExists = await checkTask(data.taskId, tx);
-      if (taskExists.isErr) {
-        return Result.err(taskExists.error);
-      }
       const deletedAt = new Date();
-      // get curr order
-      const currOrders = await tx.task.findFirstOrThrow({
-        where: { id: data.taskId },
-        select: { orderInList: true, orderInLabel: true },
-      });
-      const currListOrder = currOrders.orderInList ? currOrders.orderInList : 0;
-      const currLabelOrder = currOrders.orderInLabel ? currOrders.orderInLabel : 0;
-      // delete the label and set order to null
-      const task = await tx.task.update({
-        where: { id: data.taskId },
-        data: { deletedAt, orderInList: null, orderInLabel: null },
-        select: { labelId: true, id: true },
-      });
-      await tx.task.updateMany({
-        where: {
-          orderInList: {
-            not: null,
-            gt: currListOrder,
+
+      const taskData = await tx.task.findUnique({
+        where: { id: taskId },
+        select: {
+          orderInLabel: true,
+          orderInList: true,
+          deletedAt: true,
+          labelId: true,
+          label: {
+            select: {
+              subPage: {
+                select: { id: true },
+              },
+            },
           },
         },
-        data: { orderInList: { increment: -1 } },
       });
-      await tx.task.updateMany({
-        where: {
-          labelId: task.labelId,
-          orderInLabel: {
-            not: null,
-            gt: currLabelOrder,
+      if (!taskData) {
+        throw taskDoesNotExistError;
+      } if (taskData.deletedAt) {
+        throw taskWasDeletedError;
+      } if (taskData.label.subPage.id !== subpageId) {
+        throw wrongSubpageIdError;
+      } if (!taskData.orderInLabel && taskData.orderInLabel !== 0) {
+        throw serverInternalError;
+      } if (!taskData.orderInList && taskData.orderInList !== 0) {
+        throw serverInternalError;
+      }
+
+      await tx.label.update({
+        where: { id: taskData.labelId },
+        data: {
+          tasks: {
+            updateMany: [{
+              where: { id: taskId },
+              data: { deletedAt, orderInList: null, orderInLabel: null },
+            }, {
+              where: { orderInLabel: { gt: taskData.orderInLabel, not: null }, deletedAt: null },
+              data: { orderInLabel: { decrement: 1 } },
+            }],
           },
         },
-        data: { orderInLabel: { increment: -1 } },
       });
-      return Result.ok({ taskId: task.id, labelId: task.labelId });
+
+      (await tx.subPage.findUniqueOrThrow({
+        where: { id: subpageId },
+        select: {
+          labels: {
+            select: { id: true },
+          },
+        },
+      })).labels.forEach(async (l) => {
+        await tx.label.update({
+          where: { id: l.id },
+          data: {
+            tasks: {
+              updateMany: {
+                where: { orderInList: { not: null, gt: taskData.orderInList ?? 0 } },
+                data: { orderInList: { decrement: 1 } },
+              },
+            },
+          },
+        });
+      });
+      logger.debug({ task: { deleteTask: 'successfull done' } });
+      return Result.ok({ taskId, labelId: taskData.labelId });
     });
-  } catch {
-    return Result.err(new Error('There was a problem deleting task'));
+  } catch (e) {
+    logger.debug({ task: { deleteTask: 'error' } });
+    return Result.err(e as Error);
   }
 };
 export default deleteTask;

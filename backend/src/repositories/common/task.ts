@@ -1,3 +1,4 @@
+import logger from '../../log/log';
 import { SubpageIdType } from '../../models';
 import { PrismaTransactionHandle } from './types';
 
@@ -62,6 +63,7 @@ export const getHighestLabelOrder = async (
   labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ common: { getHighestLabelOrder: 'start' } });
   const res = await tx.task.findFirst({
     where: { orderInLabel: { not: null }, labelId },
     orderBy: {
@@ -69,6 +71,7 @@ export const getHighestLabelOrder = async (
     },
     select: { orderInLabel: true },
   });
+  logger.debug({ common: { getHighestLabelOrder: 'successfull done' } });
   return res ? res.orderInLabel : 0;
 };
 
@@ -76,6 +79,7 @@ export const getHighestListOrder = async (
   labelId: string,
   tx: PrismaTransactionHandle,
 ) => {
+  logger.debug({ common: { getHighestListOrder: 'start' } });
   const result = await getSubpageTasksByLabelId(tx, { labelId });
   if (result.length === 0) {
     return 0;
@@ -90,5 +94,6 @@ export const getHighestListOrder = async (
       }
       return resTask.orderInList > task.orderInList ? resTask : task;
     });
+  logger.debug({ common: { getHighestListOrder: 'successfull done' } });
   return res.orderInList;
 };

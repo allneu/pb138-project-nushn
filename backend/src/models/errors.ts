@@ -20,6 +20,8 @@ export const roleWasDeletedError = new Error('This role was deleted!');
 
 export const taskWasDeletedError = new Error('This task was deleted!');
 
+export const taskDoesNotExistError = new Error('This task does not exist!');
+
 export const serverInternalError = new Error('Sorru, we detected an error!');
 
 export const labelWasDeletedError = new Error('This label was deleted!');

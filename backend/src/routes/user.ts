@@ -9,13 +9,19 @@ const userRouteAuth = `${userRouteGeneric}/auth`;
 const userRouteLogIn = `${userRouteGeneric}/login`;
 const userRouteLogOut = `${userRouteGeneric}/logout`;
 const userRouteSpecific = `${userRouteGeneric}/:userId`;
-const userRouteSeachr = `${userRouteGeneric}/count/:count/username/:username`;
+const userRouteGetMultiple = `${userRouteGeneric}/count/:count`;
+const userRouteGetMultipleWithUsername = `${userRouteGetMultiple}/username`;
+const userRouteSeachr = `${userRouteGetMultipleWithUsername}/:username`;
 
 // Auth User
 // GET /user/auth
 userRouter.get(userRouteAuth, UserController.auth);
 
 // Get all Users
+// GET /user/count/{count}/
+userRouter.get(userRouteGetMultiple, UserController.getMultiple);
+// GET /user/count/{count}/username
+userRouter.get(userRouteGetMultipleWithUsername, UserController.getMultiple);
 // GET /user/count/{count}/username/{username}
 userRouter.get(userRouteSeachr, UserController.getMultiple);
 

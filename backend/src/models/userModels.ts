@@ -62,11 +62,14 @@ export type UserUpdateResult = {
 };
 
 export const userGetMultipleSchema = z.object({
-  username: z.string(),
-  count: z.number().positive(),
+  username: z.string().optional(),
+  count: z.string().refine((str) => !Number.isNaN(Number(str)), { message: 'Id must be a number' }),
 }).strict();
 
-export type UserGetMultipleType = z.infer<typeof userGetMultipleSchema>;
+export type UserGetMultipleType = {
+  username: string,
+  count: number,
+};
 
 export const userLoginSchema = z.object({
   email: z.any(),
