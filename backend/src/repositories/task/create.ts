@@ -5,6 +5,7 @@ import {
 } from '../../models';
 import { getHighestLabelOrder, getHighestListOrder } from '../common/task';
 import logger from '../../log/log';
+import subpageEditCreate from '../common/subpageUpdate';
 
 const create = async (
   { labelId, image, ...data }: TaskCreateType,
@@ -41,6 +42,7 @@ const create = async (
       if (label.subPageId !== subpageId) {
         throw wrongSubpageIdError;
       }
+      subpageEditCreate({ subpageId, userId: data.creatorId }, new Date(), tx);
       logger.debug({ task: { create: 'successfull done' } });
       return Result.ok(newTask);
     });

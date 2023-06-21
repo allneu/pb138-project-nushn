@@ -13,9 +13,9 @@ export const auth = async (req: Request, res: Response) => {
     const response = await UserRepos.auth(id);
     return response.isOk
       ? handleOkResp(200, response.value, res, `User with email ${response.value.email} is authorized.`)
-      : handleErrResp(401, response.error, res, response.error.message);
+      : handleErrors(response.error, res);
   } catch (e) {
-    return handleErrors(e, res);
+    return handleErrors(e as Error, res);
   } finally {
     log(req, res);
   }

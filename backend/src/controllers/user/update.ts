@@ -3,7 +3,7 @@ import handleErrors from '../common/handleErrors';
 import { userIdSchema } from '../../models/urlParamsSchema';
 import { userUpdateSchema } from '../../models/userModels';
 import UserRepos from '../../repositories/user';
-import { handleErrResp, handleOkResp } from '../common/handleResponse';
+import { handleOkResp } from '../common/handleResponse';
 import log from '../common/log';
 
 // result code should be 201
@@ -16,9 +16,9 @@ export const update = async (req: Request, res: Response) => {
     const response = await UserRepos.update({ ...data, ...params });
     return response.isOk
       ? handleOkResp(200, response.value, res, `Updated user with id: ${params.userId}.`)
-      : handleErrResp(500, response.error, res, response.error.message);
+      : handleErrors(response.error, res);
   } catch (e) {
-    return handleErrors(e, res);
+    return handleErrors(e as Error, res);
   } finally {
     log(req, res);
   }
