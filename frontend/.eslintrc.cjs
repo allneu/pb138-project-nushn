@@ -18,5 +18,4 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
-  ignorePatterns: ['postcss.config.js', 'tailwind.config.js', 'vite.config.ts'],
 }
