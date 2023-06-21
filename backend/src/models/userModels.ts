@@ -74,8 +74,8 @@ export type UserGetMultipleType = {
 };
 
 export const userLoginSchema = z.object({
-  email: z.any(),
-  password: z.any(),
+  email: z.string(),
+  password: z.string(),
 });
 
 export type UserLoginType = z.infer<typeof userLoginSchema>;

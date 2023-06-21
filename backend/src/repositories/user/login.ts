@@ -11,7 +11,7 @@ export const login = async (data: UserLoginType) => {
         where: { email: data.email },
       });
       await checkUser(findUser.id, tx);
-      const checkPassword = argon2.verify(findUser.hashedPassword, data.password);
+      const checkPassword = await argon2.verify(findUser.hashedPassword, data.password);
       if (!checkPassword) {
         return Result.err(new Error('Wrong password'));
       }

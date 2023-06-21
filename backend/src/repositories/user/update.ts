@@ -21,8 +21,10 @@ Promise<Result<UserUpdateResult>> => {
         const oldPasswordData = await tx.user.findFirstOrThrow({
           where: { id: data.userId },
         });
+        const verifiedPass = await
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        if (!await argon2.verify(oldPasswordData?.hashedPassword, data.oldPassword!)) {
+        argon2.verify(oldPasswordData?.hashedPassword, data.oldPassword!);
+        if (!verifiedPass) {
           throw new Error();
         }
         const hashedPassword = await argon2.hash(data.newPassword);
