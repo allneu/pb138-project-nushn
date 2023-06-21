@@ -3,24 +3,25 @@ import {
   PrismaTransactionHandle,
   genericError,
 } from './types';
+import { subpageDoesNotExistError, subpageWasDeletedError } from '../../models';
+import logger from '../../log/log';
 
 export const checkSubpage = async (
   id: string,
   tx: PrismaTransactionHandle,
 ) => {
-  try {
-    const subPage = await tx.subPage.findFirstOrThrow({
-      where: { id },
-    });
-    if (subPage === null) {
-      return Result.err(new Error('The specified subpage does not exist!'));
-    } if (subPage.deletedAt !== null) {
-      return Result.err(new Error('The specified subpage has already been deleted!'));
-    }
-    return Result.ok({});
-  } catch {
-    return genericError;
+  logger.debug({ common: { checkSubpage: 'start' } });
+  const subPage = await tx.subPage.findUnique({
+    where: { id },
+    select: { deletedAt: true },
+  });
+  if (subPage === null) {
+    throw subpageDoesNotExistError;
+  } if (subPage.deletedAt) {
+    throw subpageWasDeletedError;
   }
+  logger.debug({ common: { checkSubpage: 'successfull done' } });
+  return true;
 };
 
 export const checkLabel = async (

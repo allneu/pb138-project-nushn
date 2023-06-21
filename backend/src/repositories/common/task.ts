@@ -37,10 +37,12 @@ export const getSubpageTasks = async (
   tx: PrismaTransactionHandle,
   { subpageId }: SubpageIdType,
 ) => {
+  logger.debug({ common: { getSubpageTasks: 'start' } });
   const tasks = (await tx.label.findMany({
     where: { subPageId: subpageId, deletedAt: null },
     select: labelTaskSelect,
   })).flatMap((label) => label.tasks);
+  logger.debug({ common: { getSubpageTasks: 'successfull done' } });
   return tasks;
 };
 
