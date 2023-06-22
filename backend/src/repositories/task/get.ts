@@ -26,6 +26,7 @@ export const getOne = async ({ subpageId, taskId }: TaskIdSubpageIdType): Promis
           orderInList: true,
           createdAt: true,
           deletedAt: true,
+          done: true,
           label: { select: { subPage: { select: { id: true, deletedAt: true } } } },
         },
       });

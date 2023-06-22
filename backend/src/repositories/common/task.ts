@@ -11,6 +11,7 @@ const taskSelect = {
   orderInList: true,
   orderInLabel: true,
   createdAt: true,
+  done: true,
   creator: {
     select: {
       id: true,

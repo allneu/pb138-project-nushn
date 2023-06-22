@@ -160,6 +160,7 @@ const updateTask = async (
       taskName: !!data.newTaskName,
       dueDate: !!data.newDueDate,
       content: !!data.newContent,
+      done: data.newDone !== undefined,
     },
   });
   logger.debug({ task: { updateTask: 'successfull done' } });
