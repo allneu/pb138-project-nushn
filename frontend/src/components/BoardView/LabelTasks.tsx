@@ -73,7 +73,7 @@ function LabelTasks({
           { showTasks
             ? <>
               <DroppadleTasksContainer
-                containerId='labelWithTasks.id'
+                containerId={`label:${labelWithTasks.id}`}
                 tasks={notDoneTasks}
               />
               {doneTasks.map((task) => (
