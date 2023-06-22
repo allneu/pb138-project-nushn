@@ -22,6 +22,12 @@ export const getOne = async (
           subPageEdits: {
             orderBy: { editedAt: 'desc' },
             take: 1,
+            select: {
+              editedAt: true,
+              editor: {
+                select: { username: true, id: true },
+              },
+            },
           },
           roles: {
             where: { deletedAt: null, userId },
