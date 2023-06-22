@@ -15,7 +15,7 @@ import ChangePassword from '../../../components/ChangePassword/ChangePassword.ts
 import useAuth from '../../../hooks/useAuth';
 import UseDeleteUser from '../../../hooks/delete/useDeleteUser';
 import useLogout from '../../../hooks/useLogout';
-import useUpdateUser from '../../../hooks/update/useUpdateUser.ts';
+import useUpdateUser from '../../../hooks/update/useUpdateUser';
 
 function UserView() {
   const { subpageId } = useParams();
@@ -67,7 +67,7 @@ function UserView() {
   };
 
   return (
-    <div className='user-view'>
+    <div className='fixed right-0 top-0 h-screen user-view'>
         <form className='flex-grow' onSubmit={handleSubmit(onSubmit)}>
             <nav className="user-view__nav">
                 <Link to={subpageId ? `/auth/subpage/${subpageId}` : '/auth'}>

@@ -8,7 +8,7 @@ import IconSelector from '../../components/Dialogs/IconSelector/IconSelector.tsx
 import icons from '../../../public/assets/icons/dialogIcons.json';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import { SignUpFormDataType, signUpFormSchema } from './AuthPagesSchema';
-import useSignup from '../../hooks/useSignup.ts';
+import useSignup from '../../hooks/useSignup';
 
 function SignUpPage() {
   const [selectedIcon, setSelectedIcon] = useState(projectIcons.user);

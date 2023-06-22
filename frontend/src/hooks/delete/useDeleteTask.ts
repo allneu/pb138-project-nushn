@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TasksApi } from '../../services';
-import { LabelWithTasksType, ResponseMulti, ResponseSingle, TaskDeleteResultType } from '../../models';
+import {
+  LabelWithTasksType, ResponseMulti, ResponseSingle, TaskDeleteResultType,
+} from '../../models';
 
 type UseDeleteTaskProps = {
   redirect: string;
