@@ -27,6 +27,7 @@ const controlLastData = async (
       dueDate: true,
       content: true,
       labelId: true,
+      done: true,
       orderInList: true,
       orderInLabel: true,
       deletedAt: true,
@@ -44,6 +45,7 @@ const controlLastData = async (
     (data.newTaskName !== undefined && data.oldTaskName !== task.taskName)
     || (data.newDueDate !== undefined && data.oldDueDate !== task.dueDate)
     || (data.newContent !== undefined && data.oldContent !== task.content)
+    || (data.newDone !== undefined && data.oldDone !== task.done)
     || (data.newLabelId !== undefined && data.oldLabelId !== task.labelId)
     || (data.newOrderInLabel !== undefined && data.oldOrderInLabel !== task.orderInLabel)
     || (data.newOrderInList !== undefined && data.oldOrderInList !== task.orderInList)
@@ -147,10 +149,11 @@ const updateTask = async (
   const taskName = data.newTaskName ? { taskName: data.newTaskName } : {};
   const dueDate = data.newDueDate ? { dueDate: data.newDueDate } : {};
   const content = data.newContent ? { content: data.newContent } : {};
+  const done = data.newDone !== undefined ? { done: data.newDone } : {};
   const task = await tx.task.update({
     where: { id: taskId },
     data: {
-      ...taskName, ...dueDate, ...content,
+      ...taskName, ...dueDate, ...content, ...done,
     },
     select: {
       id: true,

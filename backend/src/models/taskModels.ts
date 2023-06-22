@@ -36,12 +36,14 @@ export const taskUpdateSchema = z.object({
   oldTaskName: z.string().min(3).optional(),
   oldDueDate: z.string().optional(),
   oldContent: z.string().optional(),
+  oldDone: z.boolean().optional(),
   oldLabelId: z.string().uuid().optional(),
   oldOrderInList: z.number().nonnegative().optional(),
   oldOrderInLabel: z.number().nonnegative().optional(),
   newTaskName: z.string().min(3).optional(),
   newDueDate: z.string().optional(),
   newContent: z.string().optional(),
+  newDone: z.boolean().optional(),
   newLabelId: z.string().uuid().optional(),
   newOrderInList: z.number().nonnegative().optional(),
   newOrderInLabel: z.number().nonnegative().optional(),
@@ -51,6 +53,7 @@ export const taskUpdateSchema = z.object({
       (data.newTaskName !== undefined && data.oldTaskName !== undefined)
       || (data.newDueDate !== undefined && data.oldDueDate !== undefined)
       || (data.newContent !== undefined && data.oldContent !== undefined)
+      || (data.newDone !== undefined && data.oldDone !== undefined)
       || (data.newLabelId !== undefined && data.oldLabelId !== undefined)
       || (data.newOrderInLabel !== undefined && data.oldOrderInLabel !== undefined)
       || (data.newOrderInList !== undefined && data.oldOrderInList !== undefined)
@@ -62,6 +65,7 @@ export const taskUpdateSchema = z.object({
       (data.newDueDate === undefined || data.oldDueDate !== undefined)
       && (data.newContent === undefined || data.oldContent !== undefined)
       && (data.newTaskName === undefined || data.oldTaskName !== undefined)
+      && (data.newDone === undefined || data.oldDone !== undefined)
       && (data.newLabelId === undefined || data.oldLabelId !== undefined)
       && (data.newOrderInLabel === undefined || data.oldOrderInLabel !== undefined)
       && (data.newOrderInList === undefined || data.oldOrderInList !== undefined)
@@ -76,6 +80,7 @@ export type TaskUpdateResult = { // return only id and updated data
   taskName?: string,
   dueDate?: string,
   content?: string,
+  done?: boolean,
   labelId?: string,
   orderInList?: number | null,
   orderInLabel?: number | null,
