@@ -43,7 +43,7 @@ const create = async (
       if (label.subPageId !== subpageId) {
         throw wrongSubpageIdError;
       }
-      subpageEditCreate({ subpageId, userId }, new Date(), tx);
+      await subpageEditCreate({ subpageId, userId }, new Date(), tx);
       logger.debug({ task: { create: 'successfull done' } });
       return Result.ok(newTask);
     });

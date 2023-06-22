@@ -81,7 +81,7 @@ const deleteTask = async (
           },
         });
       }));
-      subpageEditCreate({ subpageId, userId }, new Date(), tx);
+      await subpageEditCreate({ subpageId, userId }, new Date(), tx);
       logger.debug({ task: { deleteTask: 'successfull done' } });
       return Result.ok({ taskId, labelId: taskData.labelId });
     });

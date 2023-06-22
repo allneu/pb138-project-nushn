@@ -91,7 +91,7 @@ const update = async (
           },
         });
       }
-      subpageEditCreate({ userId, subpageId }, new Date(), tx);
+      await subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.info({ label: { update: 'successfull done' } });
 
       return Result.ok({

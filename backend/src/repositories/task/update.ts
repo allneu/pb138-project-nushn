@@ -223,7 +223,7 @@ const update = async (
       const orderInList = data.newOrderInList !== undefined
         ? { orderInList: await updateOrderInList(data, params, tx) } : {};
       logger.debug({ task: { update: 'successfull done' } });
-      subpageEditCreate({ subpageId: params.subpageId, userId }, new Date(), tx);
+      await subpageEditCreate({ subpageId: params.subpageId, userId }, new Date(), tx);
       return Result.ok({
         ...task, ...orderInLabel, ...taskLabel, ...orderInList,
       });

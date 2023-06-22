@@ -58,7 +58,7 @@ const deleteLabel = async (
           id: true,
         },
       });
-      subpageEditCreate({ userId, subpageId }, new Date(), tx);
+      await subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.debug({ label: { delete: 'successfull done' } });
       return Result.ok({ labelId });
     });
