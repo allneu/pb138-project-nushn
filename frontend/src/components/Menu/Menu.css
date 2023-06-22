@@ -1,6 +1,6 @@
 .menu {
     @apply fixed lg:static flex flex-col w-3/4 lg:w-[var(--lg-menu-width)] lg:min-w-[var(--lg-menu-width)]
-        h-[calc(100%-var(--footer-height))] lg:h-full bg-white border-r border-gray-200 lg:border-gray-400
+        h-[calc(100%-var(--footer-height))] lg:h-full bg-white border-r border-gray-200 lg:border-gray-500
         lg:overflow-y-auto duration-500;
 }
 

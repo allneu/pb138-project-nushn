@@ -21,7 +21,7 @@
 }
 
 .subpage__separator {
-    @apply bg-gray-400 h-px w-full hidden lg:block;
+    @apply bg-gray-500 h-px w-full hidden lg:block;
 }
 
 .subpage__tasks {
