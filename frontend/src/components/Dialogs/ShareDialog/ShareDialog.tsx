@@ -8,7 +8,7 @@ import projectIcons from '../../../../public/assets/icons/projectIcons.json';
 import Notice from '../../Notice/Notice.tsx';
 import useFetchUsers from '../../../hooks/useFetchUsers';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
-import useShareSubpage from '../../../hooks/useShareSubpage.ts';
+import useShareSubpage from '../../../hooks/useShareSubpage';
 
 function ShareDialog() {
   const [open, setOpen] = useState(false);

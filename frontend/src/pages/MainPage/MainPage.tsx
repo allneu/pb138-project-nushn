@@ -5,10 +5,8 @@ import Menu from '../../components/Menu/Menu.tsx';
 import Footer from '../../components/Footer/Footer.tsx';
 import Subpage from '../Subpage/Subpage.tsx';
 import Homepage from '../../components/Homepage/Homepage.tsx';
-import Notice from '../../components/Notice/Notice.tsx';
 
 import './MainPage.css';
-import UserView from '../Views/UserView/UserView.tsx';
 
 function MainPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,10 +21,8 @@ function MainPage() {
 
         <Routes>
           <Route index element={<Navigate to="homepage" />} />
-          <Route path="homepage" element={<Homepage />} />
-          <Route path="subpage/:subpageId/*" element={<Subpage />}>
-          </Route>
-          <Route path="*" element={<Notice message={'The page was not found.'} />} />
+          <Route path="homepage/*" element={<Homepage />} />
+          <Route path="subpage/:subpageId/*" element={<Subpage />} />
         </Routes>
 
         <Footer toggleMenu={toggleMenu}/>

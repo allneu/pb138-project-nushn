@@ -1,7 +1,6 @@
 import {
   NavLink,
   Link,
-  useParams,
   useNavigate,
   useLocation,
 } from 'react-router-dom';
@@ -9,7 +8,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-import useAuth from '../../hooks/useAuth.ts';
+import useAuth from '../../hooks/useAuth';
 import { SubpagesApi } from '../../services/index';
 import Notice from '../Notice/Notice.tsx';
 
@@ -36,7 +35,6 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const subpageId = location.pathname.split('/')[3] || null;
 
   const { data: subpages, isLoading, isError } = useQuery({
     queryKey: ['menu'],
@@ -83,7 +81,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
             </div>
         </div>
 
-        <Link to={`subpage/${subpageId}/editUser`} className="menu__user" onClick={toggleMenu}>
+        <Link to={`${location.pathname}/editUser`} className="menu__user" onClick={toggleMenu}>
             <FontAwesomeIcon className='icon' icon={(auth.data.avatar ? auth.data.avatar.split(' ') : projectIcons.user.split(' ')) as IconProp} />
             <span className="name">{auth?.data.username}</span>
         </Link>
@@ -104,7 +102,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
             ))}
         </div>
 
-        <div className="subpage-item border-gray-200 shadow-md hover:cursor-pointer" onClick={handleAddNewSubpage}>
+        <div className="subpage-item border-gray-200 shadow-md" onClick={handleAddNewSubpage}>
             <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             <span className="name">New subpage</span>
         </div>

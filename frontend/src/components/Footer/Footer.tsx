@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './Footer.css';
 
@@ -23,7 +23,7 @@ function Footer({
             <Link to={`subpage/${subpageId}/task/newTask`}>
               <FontAwesomeIcon className='icon' icon={projectIcons['add-new'].split(' ') as IconProp} />
             </Link>
-            <Link to={ `subpage/${subpageId}/editUser`}>
+            <Link to={`${location.pathname}/editUser`}>
               <FontAwesomeIcon className='icon' icon={projectIcons.user.split(' ') as IconProp} />
             </Link>
         </div>
