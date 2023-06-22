@@ -31,10 +31,12 @@ const useUpdateTaskInfo = ({
       oldDueDate: newData.dueDate ? (new Date(task!.dueDate)).toISOString() : undefined,
       oldContent: task?.content,
       oldLabelId: newData.labelId ? task?.labelId : undefined,
+      oldDone: newData.done ? task?.done : undefined,
       newTaskName: newData.taskName,
       newDueDate: newData.dueDate,
       newContent: newData.content,
       newLabelId: newData.labelId,
+      newDone: newData.done,
     };
   };
 

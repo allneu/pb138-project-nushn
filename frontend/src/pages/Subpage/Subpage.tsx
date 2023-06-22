@@ -35,7 +35,7 @@ function Subpage() {
 
   const { updateSubpage } = useUpdateSubpage();
   const [selectedIcon, setSelectedIcon] = useState<string>(subpage?.data.icon || projectIcons['subpage-default']);
-  
+
   // Update the selected icon when different subpage is loaded
   useEffect(() => {
     setSelectedIcon(subpage?.data.icon || projectIcons['subpage-default']);
@@ -46,8 +46,8 @@ function Subpage() {
       const { tasks, ...label } = labelWithTasks;
       return label;
     },
-    ) : [];
-    
+  ) : [];
+
   const allTasks = labelsWithTasks ? labelsWithTasks.data.flatMap(
     (labelWithTasks) => labelWithTasks.tasks,
   ).sort((fst, snd) => fst.orderInList - snd.orderInList) : [];
@@ -72,7 +72,7 @@ function Subpage() {
   if (isError) return <Notice message={'An error occured while loading subpage.'} />;
   if (isLoading) return <Notice message={'The subpage is loading ...'} />;
 
-  const parsedDate = parseISO(subpage!.data.subPageEdits[0].editedAt || '');
+  const parsedDate = parseISO(subpage!.data.subPageEdits[0].editedAt ?? '');
   return (
     <>
         <div className="subpage">

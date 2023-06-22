@@ -14,7 +14,7 @@ import { TaskType } from '../../models/taskTypes';
 import ListViewType from './listViewType';
 import projectIcons from '../../../public/assets/icons/projectIcons.json';
 import SortableItem from '../SortableItem/SortableItem.tsx';
-import useUpdateTaskOrder from '../../hooks/update/useUpdateTaskOrder.ts';
+import useUpdateTaskOrder from '../../hooks/update/useUpdateTaskOrder';
 
 type ListViewProps = {
   type: ListViewType,
@@ -27,6 +27,9 @@ function ListView({
 }: ListViewProps) {
   const todoIcon = projectIcons[`${type}-todo`];
   const doneIcon = projectIcons[`${type}-done`];
+
+  const notDoneTasks = tasks.filter((task) => !task.done);
+  const doneTasks = tasks.filter((task) => task.done);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -63,16 +66,21 @@ function ListView({
         autoScroll={false}
       >
           <SortableContext
-            items={tasks.map((task) => task.id)}
+            items={notDoneTasks.map((task) => task.id)}
             strategy={verticalListSortingStrategy}
           >
-            {tasks.map((task) => (
+            {notDoneTasks.map((task) => (
               <SortableItem key={task.id} id={task.id}>
                   <Task task={task} todoIcon={todoIcon} doneIcon={doneIcon} />
               </SortableItem>
             ))}
           </SortableContext>
       </DndContext>
+
+      {doneTasks.map((task) => (
+        <Task key={task.id} task={task} todoIcon={todoIcon} doneIcon={doneIcon} />
+      ))}
+
       <NewTask />
     </div>
   );

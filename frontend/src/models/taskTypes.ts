@@ -26,6 +26,7 @@ export type TaskUpdateInfoType = {
   dueDate?: string,
   content?: string,
   labelId?: string,
+  done?: boolean,
 };
 
 export type TaskUpdateSendType = {
