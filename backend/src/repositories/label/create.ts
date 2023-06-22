@@ -48,7 +48,7 @@ const create = async (
           createdAt: true,
         },
       });
-      subpageEditCreate({ userId, subpageId }, new Date(), tx);
+      await subpageEditCreate({ userId, subpageId }, new Date(), tx);
       logger.debug({ label: { create: 'successfull done' } });
       return Result.ok(newLabel);
     });

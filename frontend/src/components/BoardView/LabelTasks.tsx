@@ -29,6 +29,9 @@ function LabelTasks({
   const [showTasks, setShowTasks] = useState(true);
   const { deleteLabel } = useDeleteLabel({ redirect: '' });
 
+  const notDoneTasks = labelWithTasks.tasks.filter((task) => !task.done);
+  const doneTasks = labelWithTasks.tasks.filter((task) => task.done);
+
   const {
     register,
     handleSubmit,
@@ -69,18 +72,23 @@ function LabelTasks({
 
         <div className="label-tasks">
           { showTasks
-            ? <SortableContext
-              items={labelWithTasks.tasks.map((task) => task.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {
-                labelWithTasks.tasks.map((task: TaskType) => (
-                  <SortableItem key={task.id} id={task.id}>
-                    <Task task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
-                  </SortableItem>
-                ))
-              }
-            </SortableContext>
+            ? <>
+              <SortableContext
+                items={notDoneTasks.map((task) => task.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {
+                  notDoneTasks.map((task: TaskType) => (
+                    <SortableItem key={task.id} id={task.id}>
+                      <Task task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']}/>
+                    </SortableItem>
+                  ))
+                }
+              </SortableContext>
+              {doneTasks.map((task) => (
+                <Task key={task.id} task={task} todoIcon={projectIcons['check-todo']} doneIcon={projectIcons['check-done']} />
+              ))}
+            </>
             : <></>
           }
           { showTasks ? <NewTask labelId={labelWithTasks.id}/> : <></>}

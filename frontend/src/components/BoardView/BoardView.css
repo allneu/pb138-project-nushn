@@ -1,5 +1,5 @@
 .columns-wrapper {
-    @apply flex flex-col lg:flex-row flex-grow lg:pt-7 lg:gap-6;
+    @apply flex flex-col lg:flex-row flex-grow pt-3 lg:pt-7 lg:gap-6;
 }
 
 .label-tasks {
