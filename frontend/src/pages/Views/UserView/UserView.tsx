@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -22,6 +22,7 @@ function UserView() {
   const { auth } = useAuth();
   const user = auth!.data;
   const [formData, setFormData] = useState(user);
+  const location = useLocation();
   const [selectedIcon, setSelectedIcon] = useState(user.avatar || projectIcons.user);
   const [changePasswordMode, setChangePasswordMode] = useState(false);
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function UserView() {
       avatar: selectedIcon,
     };
     updateUser(updatedUser);
-    navigate(`/auth/subpage/${subpageId}`);
+    navigate(location.pathname.replace('/editUser', ''));
   };
 
   const handleChangePassword = () => {
