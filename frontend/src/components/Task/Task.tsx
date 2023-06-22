@@ -8,6 +8,7 @@ import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog.tsx';
 import './Task.css';
 import useDeleteTask from '../../hooks/delete/useDeleteTask';
 import useUpdateTaskInfo from '../../hooks/update/useUpdateTaskInfo';
+import projectIcons from '../../../public/assets/icons/projectIcons.json';
 
 type TaskProps = {
   task: TaskType;
@@ -36,7 +37,13 @@ function Task({ task, todoIcon, doneIcon } : TaskProps) {
         <Link to={`task/${task.id}`} className='flex-grow'>
           <span className={task.done ? 'task__name task__name--done' : 'task__name'}>{task.taskName}</span>
         </Link>
-        <DeleteDialog deleteEntity={() => deleteTask(task.id)}/>
+        <div className='hover:border hover:border-gray-200 rounded-lg p-1'>
+        <FontAwesomeIcon
+          className="icon rounded"
+          icon={projectIcons.delete.split(' ') as IconProp}
+          onClick={() => deleteTask(task.id)}
+        />
+        </div>
     </div>
   );
 }
