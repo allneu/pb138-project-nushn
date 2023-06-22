@@ -29,6 +29,7 @@ export const getAll = async (subpageId: string): Promise<ResponseMulti<TaskType>
 
 export const updateSingle = async (subpageId: string, taskId: string, body: TaskUpdateSendType):
 Promise<ResponseSingle<TaskUpdateResultType>> => {
+  console.log(body);
   const response = await axiosInstance.patch(`/subpage/${subpageId}/task/${taskId}`, body);
   return response.data;
 };
