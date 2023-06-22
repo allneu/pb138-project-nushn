@@ -64,25 +64,43 @@ function BoardView({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (over !== null && active.id !== over.id) {
+    const taskId = active.id.toString();
+
+    if (over !== null) {
+      console.log(over.id);
       const oldLabelWithTasks = findLabel(active.id.toString());
-      const newLabelWithTasks = findLabel(over.id.toString());
       const oldOrderInLabel = oldLabelWithTasks?.tasks.findIndex((task) => task.id === active.id);
-      const newOrderInLabel = newLabelWithTasks?.tasks.findIndex((task) => task.id === over.id);
 
-      const differentLabel = oldLabelWithTasks?.id !== newLabelWithTasks?.id;
+      // item is over a droppable container
+      if (over?.id.toString().includes('label:')) {
+        updateTaskOrder({
+          taskId,
+          oldLabelId: oldLabelWithTasks?.id,
+          oldOrderInLabel,
+          newLabelId: over.id.toString().replace('label:', ''),
+          // dropabble container is empty
+          newOrderInLabel: 0,
+        });
 
-      const data = {
-        taskId: active.id.toString(),
-        oldOrderInLabel,
-        newOrderInLabel,
-        oldLabelId: differentLabel ? oldLabelWithTasks?.id : undefined,
-        newLabelId: differentLabel ? newLabelWithTasks?.id : undefined,
-      };
-      updateTaskOrder(data);
+        // item is over a droppable container,
+        // it is over some other item
+      } else if (active.id !== over.id) {
+        const newLabelWithTasks = findLabel(over.id.toString());
+        const newOrderInLabel = newLabelWithTasks?.tasks.findIndex((task) => task.id === over.id);
+        const differentLabel = oldLabelWithTasks?.id !== newLabelWithTasks?.id;
+
+        updateTaskOrder({
+          taskId,
+          oldOrderInLabel,
+          newOrderInLabel,
+          oldLabelId: differentLabel ? oldLabelWithTasks?.id : undefined,
+          newLabelId: differentLabel ? newLabelWithTasks?.id : undefined,
+        });
+      }
     }
     setActiveId(null);
   };
+
   return (
     <div className="">
       <div className="columns-wrapper">

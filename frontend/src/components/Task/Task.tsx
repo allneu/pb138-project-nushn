@@ -21,7 +21,6 @@ function Task({ task, todoIcon, doneIcon } : TaskProps) {
   const { updateTaskInfo } = useUpdateTaskInfo({ taskId: task.id });
 
   const onDoneChange = () => {
-    console.log('changing');
     updateTaskInfo({
       done: !task.done,
     });
