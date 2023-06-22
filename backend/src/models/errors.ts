@@ -37,3 +37,5 @@ export const canNotRenameUnlabeledError = new Error('Sorry, can not rename "unla
 export const oldPasswordRequiredError = new Error('For this operation is oldPassword required');
 
 export const invalidPasswordError = new Error('Invalid password!');
+
+export const thisRoleExistError = new Error('This role was created!');
