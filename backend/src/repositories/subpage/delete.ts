@@ -22,6 +22,7 @@ const canDelete = async (
       roles: {
         where: {
           userId,
+          roleType: 'OWNER',
         },
         select: {
           user: { select: { deletedAt: true } },

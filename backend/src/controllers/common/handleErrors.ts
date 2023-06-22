@@ -23,6 +23,7 @@ const errCodes = new Map([
   [er.userWasDeletedError, { code: 400, msg: 'This user was deleted!' }],
   [er.invalidPasswordError, { code: 401, msg: 'Invalid password!' }],
   [er.oldPasswordRequiredError, { code: 400, msg: 'For this operation is oldPassword required' }],
+  [er.thisRoleExistError, { code: 400, msg: 'This role exist!' }],
 ]);
 
 const handleErrors = (e: Error, res: Response) => {
