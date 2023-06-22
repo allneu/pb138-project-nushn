@@ -44,18 +44,7 @@ const useUpdateSubpage = () => {
   const { mutateAsync: updateSubpage } = useMutation({
     mutationFn: updateSubpageFn,
     onSuccess: (updatedSubpageResponse: ResponseSingle<SubpageUpdateResultType>) => {
-      // update data in the updated subpage
-      queryClient.setQueryData<ResponseSingle<SubpageType>>(
-        ['subpage', subpageId],
-        (oldSubpageResponse) => (oldSubpageResponse ? {
-          ...oldSubpageResponse,
-          data: {
-            ...oldSubpageResponse.data,
-            ...updatedSubpageResponse.data,
-          },
-        } : undefined),
-      );
-
+      queryClient.invalidateQueries(['subpage', subpageId]);
       // update data in menu
       queryClient.setQueryData<ResponseMulti<SubpageType>>(
         ['menu'],

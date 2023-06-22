@@ -19,6 +19,7 @@ const useUpdateTaskOrder = () => {
   const { mutateAsync: updateTaskOrder } = useMutation({
     mutationFn: updateTaskFn,
     onSuccess: () => {
+      queryClient.invalidateQueries(['subpage', subpageId]);
       queryClient.invalidateQueries(['subpage', subpageId, 'labelsWithTasks']);
     },
   });

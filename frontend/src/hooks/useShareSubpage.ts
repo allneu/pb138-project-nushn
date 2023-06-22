@@ -12,6 +12,7 @@ const useShareSubpage = () => {
   const { mutateAsync: share, isLoading, isError } = useMutation({
     mutationFn: (data: RoleCreateType) => SubpagesApi.addRole(auth?.data.id || '', subpageId || '', data),
     onSuccess: () => {
+      queryClient.invalidateQueries(['subpage', subpageId]);
       queryClient.setQueryData<ResponseMulti<SubpageType>>(
         ['menu'],
         (oldData) => (oldData

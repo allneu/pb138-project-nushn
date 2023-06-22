@@ -17,6 +17,7 @@ const useDeleteLabel = ({ redirect }: UseDeleteLabelProps) => {
   const { mutateAsync: deleteLabel } = useMutation({
     mutationFn: (labelId: string) => LabelsApi.deleteSingle(subpageId || '', labelId),
     onSuccess: (deletedLabel: ResponseSingle<LabelDeleteResultType>) => {
+      queryClient.invalidateQueries(['subpage', subpageId]);
       queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
         ['subpage', subpageId, 'labelsWithTasks'],
         (oldData) => (oldData

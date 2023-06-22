@@ -18,6 +18,7 @@ const useAddNewLabel = () => {
   const { mutateAsync: addNewLabel } = useMutation({
     mutationFn: newLabelFC,
     onSuccess: (newTaskResponse: ResponseSingle<LabelCreateResultType>) => {
+      queryClient.invalidateQueries(['subpage', subpageId]);
       queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
         ['subpage', subpageId, 'labelsWithTasks'],
         (oldData) => (oldData ? {

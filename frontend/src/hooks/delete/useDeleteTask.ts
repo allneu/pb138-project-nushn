@@ -17,6 +17,7 @@ const useDeleteTask = ({ redirect }: UseDeleteTaskProps) => {
   const { mutateAsync: deleteTask } = useMutation({
     mutationFn: (taskId: string) => TasksApi.deleteSingle(subpageId || '', taskId),
     onSuccess: (deletedTask: ResponseSingle<TaskDeleteResultType>) => {
+      queryClient.invalidateQueries(['subpage', subpageId]);
       queryClient.setQueryData<ResponseMulti<LabelWithTasksType>>(
         ['subpage', subpageId, 'labelsWithTasks'],
         (oldData) => (oldData
