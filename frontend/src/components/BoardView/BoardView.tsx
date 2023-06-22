@@ -81,13 +81,12 @@ function BoardView({
           // dropabble container is empty
           newOrderInLabel: 0,
         });
-      } else if (active.id !== over.id) {
+
         // item is over a droppable container,
         // it is over some other item
-
+      } else if (active.id !== over.id) {
         const newLabelWithTasks = findLabel(over.id.toString());
         const newOrderInLabel = newLabelWithTasks?.tasks.findIndex((task) => task.id === over.id);
-
         const differentLabel = oldLabelWithTasks?.id !== newLabelWithTasks?.id;
 
         updateTaskOrder({
