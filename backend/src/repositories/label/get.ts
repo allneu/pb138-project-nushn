@@ -42,6 +42,7 @@ Promise<Result<LabelGetResultBody>> => {
                   orderInLabel: true,
                   orderInList: true,
                   createdAt: true,
+                  done: true,
                 },
               },
             },
