@@ -7,10 +7,10 @@ import {
   useSensor,
   useSensors,
   MouseSensor,
-  closestCorners,
   UniqueIdentifier,
   DragStartEvent,
   DragOverlay,
+  closestCenter,
 } from '@dnd-kit/core';
 
 import Task from '../Task/Task.tsx';
@@ -76,8 +76,8 @@ function BoardView({
         taskId: active.id.toString(),
         oldOrderInLabel,
         newOrderInLabel,
-        oldLabel: differentLabel ? oldLabelWithTasks?.name : undefined,
-        newLabel: differentLabel ? newLabelWithTasks?.name : undefined,
+        oldLabelId: differentLabel ? oldLabelWithTasks?.id : undefined,
+        newLabelId: differentLabel ? newLabelWithTasks?.id : undefined,
       };
       updateTaskOrder(data);
     }
@@ -87,7 +87,7 @@ function BoardView({
     <div className="">
       <div className="columns-wrapper">
         <DndContext
-          collisionDetection={closestCorners}
+          collisionDetection={closestCenter}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           sensors={sensors}
