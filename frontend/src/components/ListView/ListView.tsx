@@ -52,7 +52,6 @@ function ListView({
         oldOrderInList,
         newOrderInList,
       };
-      console.log(data);
       updateTaskOrder(data);
     }
   };
