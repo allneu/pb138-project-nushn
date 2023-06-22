@@ -35,6 +35,10 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
   const navigate = useNavigate();
 
   const location = useLocation();
+  const subpageId = location.pathname.split('/')[3] || null;
+  const linkTo = subpageId
+    ? `subpage/${subpageId}/editUser`
+    : '/auth/homepage/editUser';
 
   const { data: subpages, isLoading, isError } = useQuery({
     queryKey: ['menu'],
@@ -81,7 +85,7 @@ function Menu({ isOpen, toggleMenu }: MenuProps) {
             </div>
         </div>
 
-        <Link to={`${location.pathname}/editUser`} className="menu__user" onClick={toggleMenu}>
+        <Link to={linkTo} className="menu__user" onClick={toggleMenu}>
             <FontAwesomeIcon className='icon' icon={(auth.data.avatar ? auth.data.avatar.split(' ') : projectIcons.user.split(' ')) as IconProp} />
             <span className="name">{auth?.data.username}</span>
         </Link>
