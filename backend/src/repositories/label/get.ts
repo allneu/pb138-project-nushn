@@ -29,6 +29,9 @@ Promise<Result<LabelGetResultBody>> => {
               createdAt: true,
               tasks: {
                 where: { deletedAt: null },
+                orderBy: {
+                  orderInLabel: 'asc',
+                },
                 select: {
                   id: true,
                   taskName: true,
